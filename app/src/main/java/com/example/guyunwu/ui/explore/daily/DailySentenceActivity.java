@@ -18,9 +18,16 @@ import java.util.List;
 public class DailySentenceActivity extends AppCompatActivity {
 
     private static final String TAG = "DailySentenceActivity";
-    
+
+    private RecyclerView recyclerView;
+
+    private DailySentenceAdapter adapter;
+
     private List<DailySentence> dailySentenceList;
 
+    public DailySentenceActivity() {
+        dailySentenceList = new ArrayList<>();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +55,21 @@ public class DailySentenceActivity extends AppCompatActivity {
         }
     }
 
-    private void initRecyclerView() {
-        initDailyData();
+    private void fetchDailySentence(int count){
+        int size = dailySentenceList.size();
+        List<DailySentence> sentences = DailySentenceProvider.getSentences(size, count);
+        dailySentenceList.addAll(sentences);
 
-        RecyclerView recyclerView = findViewById(R.id.daily_recycler_view);
+        recyclerView.post(() -> adapter.notifyItemRangeChanged(size, count));
+    }
+
+    private void initRecyclerView() {
+
+        recyclerView = findViewById(R.id.daily_recycler_view);
         StaggeredGridLayoutManager layoutManager = new
                 StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        DailySentenceAdapter adapter = new DailySentenceAdapter(dailySentenceList);
+        adapter = new DailySentenceAdapter(dailySentenceList);
         recyclerView.setAdapter(adapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -68,18 +82,12 @@ public class DailySentenceActivity extends AppCompatActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (isScrollToBottom(recyclerView)) {
-                    int i = dailySentenceList.size();
-                    DailySentence ds = new DailySentence();
-                    ds.setId(dailySentenceList.size());
-                    ds.setSentence("sentence" + i);
-                    ds.setFrom("from" + i);
-                    ds.setDate(LocalDateTime.now().minusDays(i));
-                    ds.setImageUrl("https://bing.com/th?id=OHR.BambooTreesIndia_ZH-CN3943852151_1920x1080.jpg");
-                    dailySentenceList.add(ds);
-                    recyclerView.post(() -> adapter.notifyItemInserted(i));
+                    fetchDailySentence(5);
                 }
             }
         });
+
+        fetchDailySentence(10);
     }
 
     public static boolean isScrollToBottom(RecyclerView recyclerView) {
@@ -88,16 +96,4 @@ public class DailySentenceActivity extends AppCompatActivity {
                 >= recyclerView.computeVerticalScrollRange();
     }
 
-    private void initDailyData() {
-        dailySentenceList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            DailySentence ds = new DailySentence();
-            ds.setId(dailySentenceList.size());
-            ds.setSentence("sentence" + i);
-            ds.setFrom("from" + i);
-            ds.setDate(LocalDateTime.now().minusDays(i));
-            ds.setImageUrl("https://bing.com/th?id=OHR.BambooTreesIndia_ZH-CN3943852151_1920x1080.jpg");
-            dailySentenceList.add(ds);
-        }
-    }
 }

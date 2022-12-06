@@ -14,6 +14,17 @@ public class DailySentence {
 
     private String imageUrl;
 
+    public DailySentence() {
+    }
+
+    public DailySentence(Integer id, String sentence, String from, LocalDateTime date, String imageUrl) {
+        this.id = id;
+        this.sentence = sentence;
+        this.from = from;
+        this.date = date;
+        this.imageUrl = imageUrl;
+    }
+
     public Integer getId() {
         return id;
     }
