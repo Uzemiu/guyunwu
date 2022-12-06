@@ -13,13 +13,13 @@
 
     <fragment
             android:id="@+id/navigation_dashboard"
-            android:name="com.example.guyunwu.ui.dashboard.DashboardFragment"
-            android:label="@string/title_dashboard"
-            tools:layout="@layout/fragment_dashboard"/>
+            android:name="com.example.guyunwu.ui.explore.ExploreFragment"
+            android:label="@string/title_explore"
+            tools:layout="@layout/fragment_explore"/>
 
     <fragment
             android:id="@+id/navigation_notifications"
-            android:name="com.example.guyunwu.ui.notifications.NotificationsFragment"
-            android:label="@string/title_notifications"
-            tools:layout="@layout/fragment_notifications"/>
+            android:name="com.example.guyunwu.ui.user.UserFragment"
+            android:label="@string/title_explore"
+            tools:layout="@layout/fragment_user"/>
 </navigation>

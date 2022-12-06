@@ -1,19 +1,20 @@
-package com.example.guyunwu.ui.notifications;
+package com.example.guyunwu.ui.user;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class UserViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public UserViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("这是用户页");
     }
 
     public LiveData<String> getText() {
         return mText;
     }
+
 }
