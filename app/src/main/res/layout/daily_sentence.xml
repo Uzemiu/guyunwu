@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:layout_marginVertical="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="20dp">
+
+        <ImageView
+            android:id="@+id/daily_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bamboo" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#70000000"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/daily_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="06"
+                android:textColor="#fff"
+                android:lineSpacingMultiplier="1.6"
+                android:textSize="60sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/daily_year_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dec. 2022"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/daily_day" />
+
+            <TextView
+                android:id="@+id/daily_sentence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="'白雪皑皑飘风中呼啸枝头鸟儿唱红叶飞舞蓝天碧海间梦想无限心中火焰燃激情澎湃无限可能我们奋勇向前攀登最高峰不屈不挠不懈勇往直前砥砺奋进永远不停歇精彩纷呈岁月长流激情燃烧心怀梦想奋勇向前无限可能我们一路前行'"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/daily_from"/>
+
+            <TextView
+                android:id="@+id/daily_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="- 开·查特"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:height="60dp"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+</LinearLayout>

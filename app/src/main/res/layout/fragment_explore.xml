@@ -1,23 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:focusable="true"
+    tools:context=".ui.explore.ExploreFragment">
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.explore.ExploreFragment">
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-            android:id="@+id/text_dashboard"
+        <LinearLayout
+            android:id="@+id/explore_scroll_view_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/explore_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                android:baselineAligned="false">
+
+                <TextView
+                    android:id="@+id/explore_to_daily_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="每日一句"
+                    android:textSize="14sp"
+                    app:drawableTopCompat="@drawable/explore_bulb">
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="小课堂"
+                    android:textSize="14sp"
+                    app:drawableTopCompat="@drawable/explore_book">
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="古韵活动"
+                    android:textSize="14sp"
+                    app:drawableTopCompat="@drawable/explore_flag">
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="发现"
+                    android:textSize="14sp"
+                    app:drawableTopCompat="@drawable/explore_star">
+                </TextView>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/explore_header"
+                app:layout_editor_absoluteX="0dp"
+                app:layout_editor_absoluteY="0dp">
+
+                <TextView
+                    android:id="@+id/text_dashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
