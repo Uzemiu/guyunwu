@@ -27,6 +27,16 @@
         <entry key="..\:/Users/Jack/Desktop/Android/guyunwu/app/src/main/res/menu/menu_layout.xml" value="0.12604166666666666" />
         <entry key="..\:/Users/Jack/Desktop/Android/guyunwu/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.121" />
         <entry key="..\:/Users/Jack/Desktop/Android/guyunwu/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.121" />
+        <entry key="..\:/projects/as/guyunwu/app/src/main/res/drawable/ic_home_clock_24dp.xml" value="0.1" />
+        <entry key="..\:/projects/as/guyunwu/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.161" />
+        <entry key="..\:/projects/as/guyunwu/app/src/main/res/drawable/ic_user_arrowright_24dp.xml" value="0.114" />
+        <entry key="..\:/projects/as/guyunwu/app/src/main/res/drawable/ic_user_black_24dp.xml" value="0.161" />
+        <entry key="..\:/projects/as/guyunwu/app/src/main/res/drawable/ic_user_book_24dp.xml" value="0.1" />
+        <entry key="..\:/projects/as/guyunwu/app/src/main/res/drawable/ic_user_help_24dp.xml" value="0.114" />
+        <entry key="..\:/projects/as/guyunwu/app/src/main/res/drawable/ic_user_party_24dp.xml" value="0.161" />
+        <entry key="..\:/projects/as/guyunwu/app/src/main/res/drawable/ic_user_star_24dp.xml" value="0.114" />
+        <entry key="..\:/projects/as/guyunwu/app/src/main/res/drawable/ic_user_user_24dp.xml" value="0.161" />
+        <entry key="..\:/projects/as/guyunwu/app/src/main/res/layout/fragment_user.xml" value="0.2151268115942029" />
       </map>
     </option>
   </component>

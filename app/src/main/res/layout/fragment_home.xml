@@ -18,8 +18,8 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                app:cardCornerRadius="2pt">
+                android:layout_height="320dp"
+                app:cardCornerRadius="@dimen/rounded_corner_card">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,7 +76,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="10"
+                                android:id="@+id/needToLearn"
+                                android:text="10 "
                                 android:textSize="50dp"
                                 android:textStyle="italic"
                                 android:paddingLeft="15dp"
@@ -93,24 +94,21 @@
                                 android:paddingTop="40dp"
                                 android:textColor="@color/black"/>
                         </LinearLayout>
-
-
 
                         <LinearLayout
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="10"
+                                android:id="@+id/needToReview"
+                                android:text="10 "
                                 android:textSize="50dp"
                                 android:textStyle="italic"
                                 android:paddingLeft="15dp"
                                 android:paddingTop="10dp"
-                                android:textColor="@color/black"/>
-
+                                android:textColor="@color/black" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -121,6 +119,32 @@
                                 android:paddingTop="40dp"
                                 android:textColor="@color/black"/>
                         </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_home_clock_24dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:text="预计用时"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:id="@+id/minutes"
+                            android:text="4 "/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:text="分钟"/>
                     </LinearLayout>
 
                     <Button
@@ -143,8 +167,55 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="90dp"
                     android:layout_height="100dp"
+                    android:id="@+id/train"
                     android:layout_margin="4dp"
-                    app:cardCornerRadius="2pt">
+                    app:cardCornerRadius="@dimen/rounded_corner_card">
+                    <LinearLayout
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_home_black_24dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:paddingLeft="10dp"
+                            android:text="单词训练" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="90dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/booklet"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="@dimen/rounded_corner_card">
+                    <LinearLayout
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_home_black_24dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:paddingLeft="10dp"
+                            android:text="单词训练" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="90dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/search"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="@dimen/rounded_corner_card">
                     <LinearLayout
                         android:layout_width="80dp"
                         android:layout_height="80dp"
@@ -166,60 +237,17 @@
                     android:layout_width="90dp"
                     android:layout_height="100dp"
                     android:layout_margin="5dp"
-                    app:cardCornerRadius="2pt">
+                    app:cardCornerRadius="@dimen/rounded_corner_card">
                     <LinearLayout
                         android:layout_width="80dp"
                         android:layout_height="80dp"
+                        android:id="@+id/loveReading"
                         android:layout_gravity="center"
                         android:orientation="vertical">
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:src="@drawable/ic_home_black_24dp"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:paddingLeft="10dp"
-                            android:text="单词训练" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="90dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="5dp"
-                    app:cardCornerRadius="2pt">
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:src="@drawable/ic_home_black_24dp"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:paddingLeft="10dp"
-                            android:text="单词训练" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="90dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="5dp"
-                    app:cardCornerRadius="2pt">
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:src="@drawable/ic_home_black_24dp"/>
+                            android:src="@drawable/ic_user_party_24dp"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
@@ -239,7 +267,7 @@
                     android:layout_height="100dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    app:cardCornerRadius="2pt">
+                    app:cardCornerRadius="@dimen/rounded_corner_card">
                     <GridLayout
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
@@ -276,7 +304,7 @@
                             android:layout_row="0"
                             android:layout_column="3"
                             android:layout_rowSpan="2"
-                            android:src="@drawable/ic_home_black_24dp"/>
+                            android:src="@drawable/ic_user_party_24dp"/>
                     </GridLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -286,7 +314,7 @@
                     android:layout_height="100dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    app:cardCornerRadius="2pt">
+                    app:cardCornerRadius="@dimen/rounded_corner_card">
                     <GridLayout
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
@@ -323,7 +351,7 @@
                             android:layout_row="0"
                             android:layout_column="3"
                             android:layout_rowSpan="2"
-                            android:src="@drawable/ic_home_black_24dp"/>
+                            android:src="@drawable/ic_user_party_24dp"/>
                     </GridLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -333,7 +361,7 @@
                     android:layout_height="100dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    app:cardCornerRadius="2pt">
+                    app:cardCornerRadius="@dimen/rounded_corner_card">
                     <GridLayout
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
@@ -370,7 +398,7 @@
                             android:layout_row="0"
                             android:layout_column="3"
                             android:layout_rowSpan="2"
-                            android:src="@drawable/ic_home_black_24dp"/>
+                            android:src="@drawable/ic_user_party_24dp"/>
                     </GridLayout>
 
                 </androidx.cardview.widget.CardView>
