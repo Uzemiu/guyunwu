@@ -20,6 +20,6 @@
     <fragment
             android:id="@+id/navigation_notifications"
             android:name="com.example.guyunwu.ui.user.UserFragment"
-            android:label="@string/title_explore"
+            android:label="@string/title_user"
             tools:layout="@layout/fragment_user"/>
 </navigation>
