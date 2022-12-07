@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
             Calendar startTime = Calendar.getInstance();
             startTime.set(1970, 0, 1);
             Calendar endTime = Calendar.getInstance();
-            TimePickerView pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
+            TimePickerView pvTime = new TimePickerBuilder(ProfileActivity.this, new OnTimeSelectListener() {
                 @Override
                 public void onTimeSelect(Date date, View v) {
                     Calendar calendar = Calendar.getInstance();
@@ -43,7 +43,6 @@ public class ProfileActivity extends AppCompatActivity {
             }).isAlphaGradient(true)
                     .setRangDate(startTime, endTime)
                     .setDate(endTime)
-                    .setOutSideCancelable(true)
                     .build();
             pvTime.show();
         });
@@ -54,13 +53,12 @@ public class ProfileActivity extends AppCompatActivity {
             gender.add("保密");
             List<String> dummy = new ArrayList<>();
             dummy.add(" ");
-            OptionsPickerView<String> pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+            OptionsPickerView<String> pvOptions = new OptionsPickerBuilder(ProfileActivity.this, new OnOptionsSelectListener() {
                 @Override
                 public void onOptionsSelect(int options1, int option2, int options3, View v) {
                     Toast.makeText(ProfileActivity.this, gender.get(option2), Toast.LENGTH_SHORT).show();
                 }
             }).isAlphaGradient(true)
-                    .setOutSideCancelable(true)
                     .build();
             pvOptions.setNPicker(dummy, gender, dummy);
             pvOptions.show();

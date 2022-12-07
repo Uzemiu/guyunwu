@@ -5,7 +5,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            tools:context=".ui.user.setting.privacy.PrivacySettingActivity"
+            tools:context=".ui.user.setting.PrivacySettingActivity"
             android:paddingTop="10dp"
             android:background="@color/grey">
     <LinearLayout

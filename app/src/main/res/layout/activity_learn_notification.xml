@@ -5,7 +5,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            tools:context=".ui.user.setting.SystemManageActivity"
+            tools:context=".ui.user.setting.LearnNotificationActivity"
             android:paddingTop="10dp"
             android:background="@color/grey">
     <LinearLayout
@@ -40,27 +40,24 @@
                         android:clickable="true"
                         android:background="@color/white">
                     <LinearLayout
-                            android:id="@+id/layout_network_permission"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
                         <TextView
-                                android:text="网络权限"
+                                android:text="每日提醒学习"
                                 android:layout_marginStart="10dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_network_permission"
+                                android:id="@+id/text_learn_everyday"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"/>
-                        <ImageView
-                                android:src="@drawable/ic_user_arrowright_24dp"
-                                android:scaleType="fitCenter"
-                                android:layout_width="15dp"
-                                android:layout_gravity="center"
-                                android:layout_height="15dp"/>
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/personalized_switch"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
@@ -73,54 +70,28 @@
                         android:clickable="true"
                         android:background="@color/white">
                     <LinearLayout
-                            android:id="@+id/layout_photo_permission"
+                            android:id="@+id/layout_notification_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
                         <TextView
-                                android:text="相机权限"
+                                android:text="提醒时间"
                                 android:layout_marginStart="10dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_photo_permission"
+                                android:id="@+id/text_notification_time"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"/>
-                        <ImageView
-                                android:src="@drawable/ic_user_arrowright_24dp"
-                                android:scaleType="fitCenter"
-                                android:layout_width="15dp"
+                        <TextView
+                                android:text="10:00"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_height="15dp"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:contentPadding="20dp"
-                        app:rippleColor="@color/grey"
-                        app:cardCornerRadius="0dp"
-                        app:cardElevation="0dp"
-                        android:clickable="true"
-                        android:background="@color/white">
-                    <LinearLayout
-                            android:id="@+id/layout_location_permission"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_vertical">
-                        <TextView
-                                android:text="位置权限"
-                                android:layout_marginStart="10dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:id="@+id/text_location_permission"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"/>
+                                android:layout_marginEnd="10dp"
+                                android:id="@+id/notification_time"/>
                         <ImageView
                                 android:src="@drawable/ic_user_arrowright_24dp"
                                 android:scaleType="fitCenter"
