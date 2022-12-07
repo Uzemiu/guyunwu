@@ -5,7 +5,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            tools:context=".ui.user.setting.privacy.PrivacySettingActivity"
+            tools:context=".ui.user.setting.SystemManageActivity"
             android:paddingTop="10dp"
             android:background="@color/grey">
     <LinearLayout
@@ -14,8 +14,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity=""
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
         <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

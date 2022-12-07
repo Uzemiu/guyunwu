@@ -1,4 +1,4 @@
-package com.example.guyunwu.ui.user.setting.privacy;
+package com.example.guyunwu.ui.user.setting;
 
 import android.content.Intent;
 import android.net.Uri;

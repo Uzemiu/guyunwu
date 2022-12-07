@@ -5,7 +5,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            tools:context=".ui.user.setting.PrivacySettingActivity"
+            tools:context=".ui.user.setting.LearnNotificationActivity"
             android:paddingTop="10dp"
             android:background="@color/grey">
     <LinearLayout
@@ -40,49 +40,16 @@
                         android:clickable="true"
                         android:background="@color/white">
                     <LinearLayout
-                            android:id="@+id/layout_system_manage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
                         <TextView
-                                android:text="系统权限管理"
+                                android:text="每日提醒学习"
                                 android:layout_marginStart="10dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_system_manage"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"/>
-                        <ImageView
-                                android:src="@drawable/ic_user_arrowright_24dp"
-                                android:scaleType="fitCenter"
-                                android:layout_width="15dp"
-                                android:layout_gravity="center"
-                                android:layout_height="15dp" android:id="@+id/system_manage_rightarrow"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:contentPadding="20dp"
-                        app:rippleColor="@color/grey"
-                        app:cardCornerRadius="0dp"
-                        app:cardElevation="0dp"
-                        android:clickable="true"
-                        android:background="@color/white">
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_vertical">
-                        <TextView
-                                android:text="个性化推送"
-                                android:layout_marginStart="10dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:id="@+id/text_personalized"
+                                android:id="@+id/text_learn_everyday"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
@@ -103,27 +70,34 @@
                         android:clickable="true"
                         android:background="@color/white">
                     <LinearLayout
-                            android:id="@+id/layout_profile"
+                            android:id="@+id/layout_notification_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
                         <TextView
-                                android:text="账号资料"
+                                android:text="提醒时间"
                                 android:layout_marginStart="10dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_profile"
+                                android:id="@+id/text_notification_time"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"/>
+                        <TextView
+                                android:text="10:00"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginEnd="10dp"
+                                android:id="@+id/notification_time"/>
                         <ImageView
                                 android:src="@drawable/ic_user_arrowright_24dp"
                                 android:scaleType="fitCenter"
                                 android:layout_width="15dp"
                                 android:layout_gravity="center"
-                                android:layout_height="15dp" android:id="@+id/profile_rightarrow"/>
+                                android:layout_height="15dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>

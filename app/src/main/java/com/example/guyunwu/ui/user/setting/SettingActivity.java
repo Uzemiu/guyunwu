@@ -6,8 +6,6 @@ import android.view.MenuItem;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.guyunwu.R;
-import com.example.guyunwu.ui.user.profile.ProfileActivity;
-import com.example.guyunwu.ui.user.setting.privacy.PrivacySettingActivity;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -19,6 +17,11 @@ public class SettingActivity extends AppCompatActivity {
         findViewById(R.id.layout_privacy_setting).setOnClickListener((v) -> {
             Intent toPrivacySettingPage = new Intent();
             toPrivacySettingPage.setClass(this, PrivacySettingActivity.class);
+            startActivity(toPrivacySettingPage);
+        });
+        findViewById(R.id.layout_learn_notification).setOnClickListener((v) -> {
+            Intent toPrivacySettingPage = new Intent();
+            toPrivacySettingPage.setClass(this, LearnNotificationActivity.class);
             startActivity(toPrivacySettingPage);
         });
     }
