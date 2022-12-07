@@ -1,25 +1,25 @@
-package com.example.guyunwu.ui.user.setting;
+package com.example.guyunwu.ui.user.profile;
 
-import android.content.Intent;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.guyunwu.R;
-import com.example.guyunwu.ui.user.profile.ProfileActivity;
-import com.example.guyunwu.ui.user.setting.privacy.PrivacySettingActivity;
 
-public class SettingActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_profile);
         initActionBar();
-        findViewById(R.id.layout_privacy_setting).setOnClickListener((v) -> {
-            Intent toPrivacySettingPage = new Intent();
-            toPrivacySettingPage.setClass(this, PrivacySettingActivity.class);
-            startActivity(toPrivacySettingPage);
+        findViewById(R.id.layout_birthday).setOnClickListener((v) -> {
+            DatePickerDialog pickerDialog = new DatePickerDialog(this,
+                    (view, year, month, dayOfMonth) -> {
+
+                    }, 2018, 11, 11);
+            pickerDialog.show();
         });
     }
 
@@ -35,8 +35,9 @@ public class SettingActivity extends AppCompatActivity {
     private void initActionBar() {
         ActionBar bar = getSupportActionBar();
         if (bar != null) {
-            bar.setTitle("设置");
+            bar.setTitle("个人资料");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 }
+
