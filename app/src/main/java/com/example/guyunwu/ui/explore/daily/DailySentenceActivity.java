@@ -6,12 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.guyunwu.R;
+import com.example.guyunwu.ui.explore.ExploreDataProvider;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class DailySentenceActivity extends AppCompatActivity {
 
     private void fetchDailySentence(int count){
         int size = dailySentenceList.size();
-        List<DailySentence> sentences = DailySentenceProvider.getSentences(size, count);
+        List<DailySentence> sentences = ExploreDataProvider.getSentences(size, count);
         dailySentenceList.addAll(sentences);
 
         recyclerView.post(() -> adapter.notifyItemRangeChanged(size, count));

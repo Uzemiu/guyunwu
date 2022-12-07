@@ -50,8 +50,6 @@ public class DailySentenceAdapter extends RecyclerView.Adapter<DailySentenceAdap
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.daily_sentence, parent, false);
         final ViewHolder holder = new ViewHolder(view);
 
-        Object a = view.findViewById(R.id.daily_day);
-
         return holder;
     }
 

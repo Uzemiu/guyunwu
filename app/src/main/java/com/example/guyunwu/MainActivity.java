@@ -3,6 +3,8 @@ package com.example.guyunwu;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.guyunwu.exception.handler.ExceptionHandler;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.ActionBar;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         x.Ext.init(getApplication());
+        new ExceptionHandler(getApplicationContext()).register();
     }
 
     @Override
