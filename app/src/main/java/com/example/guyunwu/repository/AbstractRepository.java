@@ -17,7 +17,7 @@ import java.util.List;
 
 public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<ENTITY, ID>{
 
-    DbManager manager;
+    private final DbManager manager;
 
     private final Class<ENTITY> actualClass;
 
@@ -28,6 +28,7 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
         actualClass = (Class<ENTITY>) ((ParameterizedType) this.getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0];
         entityName = actualClass.getSimpleName();
+        manager = DBManager.getManager();
     }
 
     @Override

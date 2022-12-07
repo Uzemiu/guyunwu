@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.guyunwu.entity.ArticleEntity;
 import com.example.guyunwu.exception.handler.ExceptionHandler;
+import com.example.guyunwu.repository.ArticleRepository;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
