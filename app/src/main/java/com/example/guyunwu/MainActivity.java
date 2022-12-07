@@ -3,25 +3,28 @@ package com.example.guyunwu;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.guyunwu.exception.handler.ExceptionHandler;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.guyunwu.databinding.ActivityMainBinding;
-import com.example.guyunwu.ui.explore.daily.DailySentenceActivity;
 import com.example.guyunwu.ui.user.setting.SettingActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
 
 import org.xutils.x;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     private ActivityMainBinding binding;
 
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_home, R.id.navigation_explore, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -50,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
         new ExceptionHandler(getApplicationContext()).register();
         // 重写导航栏监听事件用于改变ActionBar
         navView.setOnItemSelectedListener(item -> {
+            if(item.getItemId() == this.currentFragment){
+                if(item.getItemId() == R.id.navigation_explore){
+                    Intent toDailyPage = new Intent(this, SettingActivity.class);
+                    startActivity(toDailyPage);
+                }
+                return false;
+            }
             this.currentFragment = item.getItemId();
             onPrepareOptionsMenu(menu);
             return onNavDestinationSelected(item, navController);
@@ -68,8 +78,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.clear();
+
+        BottomNavigationItemView menuItem = findViewById(R.id.navigation_explore);
+        menuItem.setIconSize(80);
+
         switch (this.currentFragment) {
-            case R.id.navigation_dashboard:
+            case R.id.navigation_explore:
+                // 底部“发现”变为“➕”
+                BottomNavigationView navigation = findViewById(R.id.nav_view);
+                navigation.getMenu().getItem(1).setChecked(true);
+
+                menuItem.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.menu_add));
+                menuItem.setIconSize(160);
+                menuItem.setTitle("");
                 break;
             case R.id.navigation_notifications:
                 MenuItem setting = menu.add(Menu.NONE, R.drawable.ic_user_setting_24dp, 1, "");

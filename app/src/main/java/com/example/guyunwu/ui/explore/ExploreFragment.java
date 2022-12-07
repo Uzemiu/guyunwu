@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,6 +17,8 @@ import com.example.guyunwu.ui.explore.daily.DailySentenceActivity;
 import com.example.guyunwu.ui.explore.lecture.LectureActivity;
 
 public class ExploreFragment extends Fragment {
+
+    private static final String TAG = "ExploreFragment";
 
     private FragmentExploreBinding binding;
 
