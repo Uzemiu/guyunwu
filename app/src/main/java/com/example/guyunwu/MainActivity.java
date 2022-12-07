@@ -1,17 +1,12 @@
 package com.example.guyunwu;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.example.guyunwu.entity.ArticleEntity;
-import com.example.guyunwu.exception.handler.ExceptionHandler;
-import com.example.guyunwu.repository.ArticleRepository;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
@@ -19,11 +14,21 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.guyunwu.databinding.ActivityMainBinding;
+import com.example.guyunwu.exception.handler.ExceptionHandler;
 import com.example.guyunwu.ui.user.setting.SettingActivity;
+import com.example.guyunwu.util.NotificationUtil;
+import com.example.guyunwu.util.NotifyObject;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import org.xutils.x;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
-
-import org.xutils.x;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         new ExceptionHandler(getApplicationContext()).register();
         // 重写导航栏监听事件用于改变ActionBar
         navView.setOnItemSelectedListener(item -> {
-            if(item.getItemId() == this.currentFragment){
-                if(item.getItemId() == R.id.navigation_explore){
+            if (item.getItemId() == this.currentFragment) {
+                if (item.getItemId() == R.id.navigation_explore) {
                     Intent toDailyPage = new Intent(this, SettingActivity.class);
                     startActivity(toDailyPage);
                 }
