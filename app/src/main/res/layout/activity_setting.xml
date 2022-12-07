@@ -5,7 +5,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            tools:context=".ui.user.UserFragment"
+            tools:context=".ui.user.setting.SettingActivity"
             android:paddingTop="10dp"
             android:background="@color/grey">
     <LinearLayout
@@ -16,110 +16,13 @@
             android:layout_gravity=""
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
-
-        <LinearLayout
-                android:id="@+id/layout_user"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="30dp">
-            <ImageView
-                    android:id="@+id/avatar"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_user_user_24dp"/>
-            <TextView
-                    android:text="未登录"
-                    android:layout_width="0dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:id="@+id/username"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-            />
-            <ImageView
-                    android:src="@drawable/ic_user_arrowright_24dp"
-                    android:scaleType="fitCenter"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp" android:id="@+id/user_rightarrow"/>
-        </LinearLayout>
-        <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                app:cardCornerRadius="@dimen/rounded_corner_card"
-                app:cardBackgroundColor="@color/grey_200"
-                app:cardElevation="0dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp">
-            <ImageView
-                    android:id="@+id/background"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_user_party_24dp"
-                    android:translationX="200dp"
-                    android:translationY="-60dp"
-                    android:alpha="0.3"
-            />
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp">
-                <TextView
-                        android:text="学习古文"
-                        android:layout_marginStart="10dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:id="@+id/text_learn_article"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"/>
-                <TextView
-                        android:text="0 "
-                        android:layout_marginStart="10dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:id="@+id/article_num"
-                        android:textSize="16sp"
-                        android:textStyle="bold|italic"
-                        android:layout_width="wrap_content"/>
-                <TextView
-                        android:text="学习天数"
-                        android:layout_marginStart="10dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:id="@+id/text_learn_day"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"/>
-                <TextView
-                        android:text="0 "
-                        android:layout_marginStart="10dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:id="@+id/day_num"
-                        android:textSize="16sp"
-                        android:textStyle="bold|italic"
-                        android:layout_width="wrap_content"/>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/rounded_corner_card"
                 android:background="@color/white"
                 app:cardElevation="0dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp">
             <LinearLayout
                     android:gravity="center_horizontal"
@@ -137,21 +40,17 @@
                         android:clickable="true"
                         android:background="@color/white">
                     <LinearLayout
-                            android:id="@+id/layout_my_course"
+                            android:id="@+id/layout_account_manage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
-                        <ImageView
-                                android:src="@drawable/ic_user_course_24dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
                         <TextView
-                                android:text="我的课程"
+                                android:text="账号管理"
                                 android:layout_marginStart="10dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_my_course"
+                                android:id="@+id/texview_account_manage"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
@@ -160,42 +59,8 @@
                                 android:src="@drawable/ic_user_arrowright_24dp"
                                 android:scaleType="fitCenter"
                                 android:layout_width="15dp"
-                                android:layout_height="15dp"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:contentPadding="20dp"
-                        app:rippleColor="@color/grey"
-                        app:cardCornerRadius="0dp"
-                        app:cardElevation="0dp"
-                        android:clickable="true">
-                    <LinearLayout
-                            android:id="@+id/layout_my_star"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_vertical">
-                        <ImageView
-                                android:src="@drawable/ic_user_star_24dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        <TextView
-                                android:text="我的收藏"
-                                android:layout_marginStart="10dp"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:id="@+id/text_my_star"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"/>
-                        <ImageView
-                                android:src="@drawable/ic_user_arrowright_24dp"
-                                android:scaleType="fitCenter"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"/>
+                                android:layout_gravity="center"
+                                android:layout_height="15dp" android:id="@+id/account_manage_rightarrow"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -206,7 +71,7 @@
                 app:cardCornerRadius="@dimen/rounded_corner_card"
                 android:background="@color/white"
                 app:cardElevation="0dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp">
             <LinearLayout
                     android:gravity="center_horizontal"
@@ -224,21 +89,17 @@
                         android:clickable="true"
                         android:background="@color/white">
                     <LinearLayout
-                            android:id="@+id/layout_my_book"
+                            android:id="@+id/layout_learn_attention"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
-                        <ImageView
-                                android:src="@drawable/ic_user_book_24dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
                         <TextView
-                                android:text="我的图书"
+                                android:text="学习提醒"
                                 android:layout_marginStart="10dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_my_book"
+                                android:id="@+id/text_learn_attention"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
@@ -247,7 +108,8 @@
                                 android:src="@drawable/ic_user_arrowright_24dp"
                                 android:scaleType="fitCenter"
                                 android:layout_width="15dp"
-                                android:layout_height="15dp"/>
+                                android:layout_gravity="center"
+                                android:layout_height="15dp" android:id="@+id/learn_attention_rightarrow"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
@@ -259,21 +121,17 @@
                         app:cardElevation="0dp"
                         android:clickable="true">
                     <LinearLayout
-                            android:id="@+id/layout_help"
+                            android:id="@+id/layout_learn_setting"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
-                        <ImageView
-                                android:src="@drawable/ic_user_help_24dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
                         <TextView
-                                android:text="帮助与反馈"
+                                android:text="学习设置"
                                 android:layout_marginStart="10dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_help"
+                                android:id="@+id/text_learn_setting"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
@@ -282,10 +140,108 @@
                                 android:src="@drawable/ic_user_arrowright_24dp"
                                 android:scaleType="fitCenter"
                                 android:layout_width="15dp"
-                                android:layout_height="15dp"/>
+                                android:layout_gravity="center"
+                                android:layout_height="15dp" android:id="@+id/learn_setting_rightarrow"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:contentPadding="20dp"
+                        app:rippleColor="@color/grey"
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="0dp"
+                        android:clickable="true">
+                    <LinearLayout
+                            android:id="@+id/layout_privacy_setting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical">
+                        <TextView
+                                android:text="隐私设置"
+                                android:layout_marginStart="10dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:id="@+id/text_privacy_setting"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"/>
+                        <ImageView
+                                android:src="@drawable/ic_user_arrowright_24dp"
+                                android:scaleType="fitCenter"
+                                android:layout_width="15dp"
+                                android:layout_gravity="center"
+                                android:layout_height="15dp" android:id="@+id/privacy_setting_rightarrow"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/rounded_corner_card"
+                android:background="@color/white"
+                app:cardElevation="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+            <LinearLayout
+                    android:gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="">
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:contentPadding="20dp"
+                        app:rippleColor="@color/grey"
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="0dp"
+                        android:clickable="true"
+                        android:background="@color/white">
+                    <LinearLayout
+                            android:id="@+id/layout_about_us"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical">
+                        <TextView
+                                android:text="关于我们"
+                                android:layout_marginStart="10dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:id="@+id/text_about_us"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"/>
+                        <ImageView
+                                android:src="@drawable/ic_user_arrowright_24dp"
+                                android:scaleType="fitCenter"
+                                android:layout_width="15dp"
+                                android:layout_gravity="center"
+                                android:layout_height="15dp" android:id="@+id/about_us_rightarrow"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton
+                android:text="退出登录"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                app:backgroundTint="@color/red_100"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_500"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/rounded_corner_card"
+
+                android:id="@+id/btn_logout"/>
     </LinearLayout>
 </ScrollView>

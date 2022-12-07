@@ -32,7 +32,28 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".ui.user.setting.privacy.PrivacySettingActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.user.profile.ProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.explore.daily.DailySentenceActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.user.setting.SettingActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
