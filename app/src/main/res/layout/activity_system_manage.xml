@@ -40,17 +40,17 @@
                         android:clickable="true"
                         android:background="@color/white">
                     <LinearLayout
-                            android:id="@+id/layout_system_manage"
+                            android:id="@+id/layout_network_permission"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
                         <TextView
-                                android:text="系统权限管理"
+                                android:text="网络权限"
                                 android:layout_marginStart="10dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_system_manage"
+                                android:id="@+id/text_network_permission"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
@@ -60,7 +60,7 @@
                                 android:scaleType="fitCenter"
                                 android:layout_width="15dp"
                                 android:layout_gravity="center"
-                                android:layout_height="15dp" android:id="@+id/system_manage_rightarrow"/>
+                                android:layout_height="15dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
@@ -73,24 +73,27 @@
                         android:clickable="true"
                         android:background="@color/white">
                     <LinearLayout
+                            android:id="@+id/layout_photo_permission"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
                         <TextView
-                                android:text="个性化推送"
+                                android:text="相机权限"
                                 android:layout_marginStart="10dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_personalized"
+                                android:id="@+id/text_photo_permission"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"/>
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/personalized_switch"/>
+                        <ImageView
+                                android:src="@drawable/ic_user_arrowright_24dp"
+                                android:scaleType="fitCenter"
+                                android:layout_width="15dp"
+                                android:layout_gravity="center"
+                                android:layout_height="15dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
@@ -103,17 +106,17 @@
                         android:clickable="true"
                         android:background="@color/white">
                     <LinearLayout
-                            android:id="@+id/layout_profile"
+                            android:id="@+id/layout_location_permission"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
                         <TextView
-                                android:text="账号资料"
+                                android:text="位置权限"
                                 android:layout_marginStart="10dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_profile"
+                                android:id="@+id/text_location_permission"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
@@ -123,7 +126,7 @@
                                 android:scaleType="fitCenter"
                                 android:layout_width="15dp"
                                 android:layout_gravity="center"
-                                android:layout_height="15dp" android:id="@+id/profile_rightarrow"/>
+                                android:layout_height="15dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
