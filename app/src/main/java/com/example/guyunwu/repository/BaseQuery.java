@@ -14,10 +14,6 @@ import lombok.Data;
 @Data
 public class BaseQuery<ENTITY> {
 
-    private Date[] createTime;
-
-    private Date[] updateTime;
-
     protected Selector<ENTITY> between(Selector<ENTITY> selector, Object[] iterable, String columnName){
         if(iterable == null){
             return selector;
@@ -33,11 +29,7 @@ public class BaseQuery<ENTITY> {
 
     public Selector<ENTITY> toSelector(DbManager dbManager, Class<ENTITY> c){
         try {
-            Selector<ENTITY> selector = dbManager.selector(c);
-            selector.where(WhereBuilder.b());
-            between(selector, createTime, "create_time");
-            between(selector, updateTime, "update_time");
-            return selector;
+            return dbManager.selector(c);
         } catch (DbException e) {
             throw new DBException(e.getMessage());
         }

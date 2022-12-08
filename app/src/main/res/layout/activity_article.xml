@@ -31,6 +31,7 @@
             android:text="标题"
             android:textSize="30dp"
             android:textStyle="bold"
+            android:textColor="#000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -56,7 +57,7 @@
             <TextView
                 android:id="@+id/article_author_name"
                 android:text="作者"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -65,6 +66,7 @@
         <TextView
             android:id="@+id/article_content"
             android:layout_marginTop="20dp"
+            android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

@@ -1,25 +1,19 @@
 package com.example.guyunwu.ui.explore.article;
 
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.TextView;
-
-import com.example.guyunwu.R;
 import com.example.guyunwu.columnconverter.LocalDateTimeColumnConverter;
 import com.example.guyunwu.databinding.ActivityArticleBinding;
-import com.example.guyunwu.databinding.FragmentExploreBinding;
-import com.example.guyunwu.ui.explore.ExploreViewModel;
-
-import net.nightwhistler.htmlspanner.HtmlSpanner;
 
 import org.xutils.x;
 
-import java.text.DateFormat;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import io.github.mthli.knife.KnifeParser;
@@ -66,11 +60,14 @@ public class ArticleActivity extends AppCompatActivity {
         binding = ActivityArticleBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        HtmlSpanner spanner = new HtmlSpanner();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         articleViewModel.getMArticle().observe(this, article -> {
-            x.image().bind(binding.articleCoverImage, article.getCoverImage());
+            if(TextUtils.isEmpty(article.getCoverImage())){
+                binding.articleHeader.setVisibility(View.GONE);
+            } else {
+                x.image().bind(binding.articleCoverImage, article.getCoverImage());
+            }
             if (article.getAuthor() != null) {
                 x.image().bind(binding.articleAuthorAvatar, article.getAuthor().getAvatar());
                 binding.articleAuthorName.setText(article.getAuthor().getName());

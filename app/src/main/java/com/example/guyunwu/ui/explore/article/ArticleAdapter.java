@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.guyunwu.R;
@@ -34,6 +35,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         ImageView articlePreviewCover;
         TextView articlePreviewContent;
         TextView articlePreviewReads;
+        CardView articlePreviewCoverCard;
 
         public ViewHolder(View view) {
             super(view);
@@ -44,6 +46,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             articlePreviewCover = view.findViewById(R.id.article_preview_cover);
             articlePreviewContent = view.findViewById(R.id.article_preview_content);
             articlePreviewReads = view.findViewById(R.id.article_preview_reads);
+            articlePreviewCoverCard = view.findViewById(R.id.article_preview_cover_wrapper);
         }
     }
 
@@ -89,7 +92,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         if(cover != null && cover.length() > 0){
             x.image().bind(holder.articlePreviewCover, article.getCoverImage());
         } else {
-            holder.articlePreviewCover.setVisibility(View.GONE);
+            holder.articlePreviewCoverCard.setVisibility(View.GONE);
         }
         holder.articlePreviewContent.setText(article.getSummary());
         holder.articlePreviewReads.setText(String.valueOf(article.getReads()));

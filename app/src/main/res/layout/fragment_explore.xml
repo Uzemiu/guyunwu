@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:focusable="true"
+    android:padding="16dp"
     tools:context=".ui.explore.ExploreFragment">
 
     <ScrollView
@@ -19,59 +19,91 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="8dp">
+                <com.jama.carouselview.CarouselView
+                    android:id="@+id/explore_carousel_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    app:carouselOffset="center"
+                    app:enableSnapping="true"
+                    app:indicatorAnimationType="drop"
+                    app:indicatorPadding="5"
+                    app:indicatorRadius="5"
+                    app:indicatorSelectedColor="@color/blue_700"
+                    app:indicatorUnselectedColor="@color/blue_200"
+                    app:resource="@layout/image_carousel_item"
+                    app:scaleOnScroll="false"
+                    app:setAutoPlay="true"
+                    app:setAutoPlayDelay="3000"
+                    app:size="10"
+                    app:spacing="10" />
+            </androidx.cardview.widget.CardView>
+
             <LinearLayout
                 android:id="@+id/explore_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent"
-                android:baselineAligned="false">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/explore_to_daily_page"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:selectableItemBackground"
+                    android:clickable="true"
+                    android:drawablePadding="@dimen/explore_drawable_padding"
+                    android:gravity="center"
                     android:text="每日一句"
-                    android:textSize="14sp"
-                    app:drawableTopCompat="@drawable/explore_bulb">
-                </TextView>
+                    android:textSize="@dimen/explore_text_size"
+                    app:drawableTopCompat="@drawable/explore_bulb"/>
 
                 <TextView
                     android:id="@+id/explore_to_lecture_page"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:selectableItemBackground"
+                    android:clickable="true"
+                    android:drawablePadding="@dimen/explore_drawable_padding"
+                    android:gravity="center"
                     android:text="小课堂"
-                    android:textSize="14sp"
-                    app:drawableTopCompat="@drawable/explore_book">
-                </TextView>
+                    android:textSize="@dimen/explore_text_size"
+                    app:drawableTopCompat="@drawable/explore_book"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:selectableItemBackground"
+                    android:clickable="true"
+                    android:drawablePadding="@dimen/explore_drawable_padding"
+                    android:gravity="center"
                     android:text="古韵活动"
-                    android:textSize="14sp"
-                    app:drawableTopCompat="@drawable/explore_flag">
-                </TextView>
+                    android:textSize="@dimen/explore_text_size"
+                    app:drawableTopCompat="@drawable/explore_flag"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:selectableItemBackground"
+                    android:clickable="true"
+                    android:drawablePadding="@dimen/explore_drawable_padding"
+                    android:gravity="center"
                     android:text="发现"
-                    android:textSize="14sp"
-                    app:drawableTopCompat="@drawable/explore_star">
-                </TextView>
+                    android:textSize="@dimen/explore_text_size"
+                    app:drawableTopCompat="@drawable/explore_star"/>
 
             </LinearLayout>
 
@@ -101,15 +133,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="这里写什么"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:text="这里写什么"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

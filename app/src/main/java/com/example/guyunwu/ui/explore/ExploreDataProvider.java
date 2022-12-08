@@ -1,13 +1,18 @@
 package com.example.guyunwu.ui.explore;
 
 import com.example.guyunwu.repository.ArticleRepository;
+import com.example.guyunwu.repository.BaseQuery;
+import com.example.guyunwu.repository.Pageable;
 import com.example.guyunwu.ui.explore.article.Article;
 import com.example.guyunwu.ui.explore.article.Author;
 import com.example.guyunwu.ui.explore.daily.DailySentence;
 
+import org.xutils.db.Selector;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ExploreDataProvider {
@@ -61,7 +66,9 @@ public class ExploreDataProvider {
     }
 
     public static List<Article> getArticles() {
-        List<Article> articles = articleRepository.findAll();
+        Selector.OrderBy orderBy = new Selector.OrderBy("id", true);
+        Pageable pageable = new Pageable(1, 10, Collections.singletonList(orderBy));
+        List<Article> articles = articleRepository.query(new BaseQuery<>(), pageable);
 
         for (int i = 0; i < SENTENCES.length; i++) {
             String[] sentence = SENTENCES[i];
