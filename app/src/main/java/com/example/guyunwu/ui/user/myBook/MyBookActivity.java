@@ -11,13 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.guyunwu.R;
+import com.example.guyunwu.databinding.ActivityBookBinding;
 import com.example.guyunwu.ui.user.BookDataProvider;
 import com.example.guyunwu.ui.user.book.Book;
 import com.example.guyunwu.ui.user.book.BookAdapter;
+import com.example.guyunwu.ui.user.book.BookViewModel;
 
 import java.util.List;
 
 public class MyBookActivity  extends AppCompatActivity {
+
+    private static final String TAG = "BookActivity";
+
+    private ActivityBookBinding binding;
+
+    private BookViewModel bookViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,6 +33,9 @@ public class MyBookActivity  extends AppCompatActivity {
         setContentView(R.layout.user_books);
         initActionBar();
         initRecyclerView();
+
+        Book book = (Book) getIntent().getSerializableExtra("book");
+        bookViewModel.getMBook().setValue(book);
     }
 
     @Override
