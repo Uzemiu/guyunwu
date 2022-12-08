@@ -17,6 +17,8 @@ import com.example.guyunwu.R;
 import com.example.guyunwu.databinding.ActivityPublishArticleBinding;
 import com.example.guyunwu.repository.ArticleRepository;
 
+import org.xutils.x;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -32,6 +34,8 @@ public class PublishArticleActivity extends AppCompatActivity {
 
     private ArticleRepository articleRepository;
 
+    private String coverImageUrl = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,19 +43,42 @@ public class PublishArticleActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         articleRepository = new ArticleRepository();
-        knife = binding.knife;
+        knife = binding.editorKnife;
         setupKnife();
     }
 
     private void setupKnife(){
-        binding.bold.setOnClickListener(v -> knife.bold(!knife.contains(KnifeText.FORMAT_BOLD)));
-        binding.italic.setOnClickListener(v -> knife.italic(!knife.contains(KnifeText.FORMAT_ITALIC)));
-        binding.underline.setOnClickListener(v -> knife.underline(!knife.contains(KnifeText.FORMAT_UNDERLINED)));
-        binding.strikethrough.setOnClickListener(v -> knife.strikethrough(!knife.contains(KnifeText.FORMAT_STRIKETHROUGH)));
-        binding.bullet.setOnClickListener(v -> knife.bullet(!knife.contains(KnifeText.FORMAT_BULLET)));
-        binding.quote.setOnClickListener(v -> knife.quote(!knife.contains(KnifeText.FORMAT_QUOTE)));
-        binding.link.setOnClickListener(v -> showLinkDialog());
-        binding.clear.setOnClickListener(v -> knife.clearFormats());
+        binding.editorBold.setOnClickListener(v -> knife.bold(!knife.contains(KnifeText.FORMAT_BOLD)));
+        binding.editorItalic.setOnClickListener(v -> knife.italic(!knife.contains(KnifeText.FORMAT_ITALIC)));
+        binding.editorUnderline.setOnClickListener(v -> knife.underline(!knife.contains(KnifeText.FORMAT_UNDERLINED)));
+        binding.editorStrikethrough.setOnClickListener(v -> knife.strikethrough(!knife.contains(KnifeText.FORMAT_STRIKETHROUGH)));
+        binding.editorBullet.setOnClickListener(v -> knife.bullet(!knife.contains(KnifeText.FORMAT_BULLET)));
+        binding.editorQuote.setOnClickListener(v -> knife.quote(!knife.contains(KnifeText.FORMAT_QUOTE)));
+        binding.editorLink.setOnClickListener(v -> showLinkDialog());
+        binding.editorClear.setOnClickListener(v -> knife.clearFormats());
+        binding.editorCoverImage.setOnClickListener(v -> showCoverImageDialog());
+    }
+
+    private void showCoverImageDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Cover Image");
+        builder.setMessage("Please enter the image url");
+        View view = getLayoutInflater().inflate(R.layout.dialog_link, null);
+        builder.setView(view);
+        EditText editText = view.findViewById(R.id.edit);
+        editText.setText(coverImageUrl);
+        builder.setPositiveButton(R.string.dialog_button_ok, (dialog, which) -> {
+            String url = editText.getText().toString();
+            if(TextUtils.isEmpty(url)){
+                Toast.makeText(this, "Please enter the image url", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            coverImageUrl = url;
+            x.image().bind(binding.editorCoverImage, url);
+        });
+        builder.setNegativeButton(R.string.dialog_button_cancel, (dialog, which) -> dialog.dismiss());
+        builder.show();
     }
 
     private void showLinkDialog() {
@@ -120,10 +147,9 @@ public class PublishArticleActivity extends AppCompatActivity {
     }
 
     private void completeEdit(){
-        String title = "Test title";
         String content = knife.toHtml();
         Article article = new Article();
-        article.setTitle(title);
+        article.setTitle(binding.editorTitleInput.getText().toString());
         article.setContent(content);
 
         String text = knife.getText().toString();
@@ -132,7 +158,7 @@ public class PublishArticleActivity extends AppCompatActivity {
         article.setReads(1L);
         article.setLikes(0L);
         article.setCategory("未分类");
-        article.setCoverImage("https://bing.com/th?id=OHR.WistmansWood_ZH-CN4453301808_1920x1080.jpg&qlt=100");
+        article.setCoverImage(coverImageUrl);
         article.setTags(Arrays.asList("test", "test2"));
         article.setAuthor(new Author(
                 1,
