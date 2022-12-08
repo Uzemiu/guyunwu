@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.guyunwu.R;
 import com.example.guyunwu.databinding.FragmentUserBinding;
+import com.example.guyunwu.ui.user.mybook.MyBookActivity;
 import com.example.guyunwu.ui.user.profile.ProfileActivity;
 
 public class UserFragment extends Fragment {
@@ -20,7 +21,6 @@ public class UserFragment extends Fragment {
 
         binding = FragmentUserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
         root.findViewById(R.id.layout_user).setOnClickListener(v -> {
             Intent toProfilePage = new Intent();
             toProfilePage.setClass(getActivity(), ProfileActivity.class);
