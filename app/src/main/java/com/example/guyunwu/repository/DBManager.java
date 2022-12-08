@@ -7,7 +7,6 @@ import com.example.guyunwu.columnconverter.ListColumnConverter;
 import com.example.guyunwu.columnconverter.LocalDateTimeColumnConverter;
 import com.example.guyunwu.ui.explore.article.Author;
 
-import org.apache.tools.ant.util.ReflectUtil;
 import org.xutils.DbManager;
 import org.xutils.db.converter.ColumnConverter;
 import org.xutils.db.converter.ColumnConverterFactory;
