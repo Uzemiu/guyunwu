@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 navigation.getMenu().getItem(1).setChecked(true);
 
                 menuItem.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.menu_add));
-                menuItem.setIconSize(160);
+                menuItem.setIconSize(120);
                 menuItem.setTitle("");
                 break;
             case R.id.navigation_notifications:
