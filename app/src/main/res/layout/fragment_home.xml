@@ -17,146 +17,270 @@
             android:paddingRight="15dp">
 
         <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/book_image"
+                    android:src="@drawable/ic_signin_unfinished_24dp"
+                    android:clickable="true"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/schedule"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="20dp"
+                    android:clickable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/book_type"
+                            android:text="高考词汇"
+                            android:textSize="15sp"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="修改"
+                            android:textSize="10sp"/>
+
+                        <ImageView
+                            android:src="@drawable/ic_user_arrowright_24dp"
+                            android:scaleType="fitCenter"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/account_manage_rightarrow"/>
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:id="@+id/process_bar"
+                        style="?android:attr/progressBarStyleHorizontal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/learned"
+                            android:text="0"
+                            android:textSize="10sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:text="/"
+                            android:textSize="10sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/all"
+                            android:layout_marginLeft="3dp"
+                            android:layout_weight="1"
+                            android:text="4135"
+                            android:textSize="10sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="剩余"
+                            android:textSize="10sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/day_remained"
+                            android:layout_marginLeft="3dp"
+                            android:text="400"
+                            android:textSize="10sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:text="天"
+                            android:textSize="10sp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 app:cardElevation="0dp"
                 android:layout_height="320dp"
                 app:cardCornerRadius="@dimen/rounded_corner_card">
 
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
                 <TextView
-                        android:layout_width="115dp"
-                        android:layout_height="55dp"
-                        android:text="今日计划"
-                        android:textSize="23sp"
-                        android:textStyle="bold"
+                    android:layout_width="115dp"
+                    android:layout_height="55dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="13dp"
+                    android:text="今日计划"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:paddingStart="15dp"
-                        android:paddingTop="13dp"
-                        android:textColor="@color/black"/>
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:orientation="horizontal">
+                        android:paddingTop="10dp"
+                        android:text="需新学"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
                     <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:text="需新学"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:paddingStart="15dp"
-                            android:paddingTop="10dp"
-                            android:layout_weight="1"/>
-
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:text="需复习"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:paddingStart="15dp"
-                            android:paddingTop="10dp"
-                            android:layout_weight="1"/>
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        android:text="需复习"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:orientation="horizontal">
 
-                    <LinearLayout
-                            android:layout_width="200dp"
+                        <TextView
+                            android:id="@+id/needToLearn"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_weight="1">
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp"
+                            android:text="10 "
+                            android:textColor="@color/black"
+                            android:textSize="50sp"
+                            android:textStyle="italic|bold" />
 
                         <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:id="@+id/needToLearn"
-                                android:text="10 "
-                                android:textSize="50sp"
-                                android:textStyle="italic|bold"
-                                android:paddingStart="10dp"
-                                android:paddingTop="10dp"
-                                android:textColor="@color/black"/>
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="词"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:paddingStart="5dp"
-                                android:paddingTop="40dp"
-                                android:textColor="@color/black"/>
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingStart="5dp"
+                            android:paddingTop="40dp"
+                            android:text="词"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
-                            android:layout_width="200dp"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/needToReview"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_weight="1">
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp"
+                            android:text="10 "
+                            android:textColor="@color/black"
+                            android:textSize="50sp"
+                            android:textStyle="italic|bold" />
+
                         <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:id="@+id/needToReview"
-                                android:text="10 "
-                                android:textSize="50sp"
-                                android:textStyle="italic|bold"
-                                android:paddingStart="10dp"
-                                android:paddingTop="10dp"
-                                android:textColor="@color/black"/>
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="词"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:paddingLeft="5dp"
-                                android:paddingTop="40dp"
-                                android:textColor="@color/black"/>
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="40dp"
+                            android:text="词"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_margin="10dp"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="center">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_home_clock_24dp"
-                    />
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_home_clock_24dp" />
+
                     <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="20dp"
-                            android:text="预计用时"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="预计用时" />
+
                     <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="20dp"
-                            android:id="@+id/minutes"
-                            android:text=" 4 "/>
+                        android:id="@+id/minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text=" 4 " />
+
                     <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="20dp"
-                            android:text="分钟"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="分钟" />
                 </LinearLayout>
 
 
                 <Button
-                        android:layout_width="300dp"
-                        android:layout_height="80dp"
-                        android:text="开始背诗词吧！"
-                        android:textColor="@color/white"
-                        android:textSize="25dp"
-                        android:layout_gravity="center"/>
+                    android:layout_width="300dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:text="开始背诗词吧！"
+                    android:textColor="@color/white"
+                    android:textSize="25dp" />
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
