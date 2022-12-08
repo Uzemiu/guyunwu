@@ -1,23 +1,66 @@
 package com.example.guyunwu.util;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
+import android.app.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
+import androidx.annotation.DrawableRes;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 
 public class NotificationUtil {
+    public static class NotifyObject implements Serializable {
+        public Integer type;
+        public String title;
+        public String subText;
+        public String content;
+        public String param;
+        public Long firstTime;
+        public Class<? extends Activity> activityClass;
+        @DrawableRes
+        public int icon;
+        public List<Long> times = new ArrayList<>();
+
+        public static byte[] toBytes(NotifyObject obj) throws IOException {
+            ByteArrayOutputStream bout = new ByteArrayOutputStream();
+            ObjectOutputStream oos;
+            oos = new ObjectOutputStream(bout);
+            oos.writeObject(obj);
+            oos.close();
+            byte[] bytes = bout.toByteArray();
+            bout.close();
+            return bytes;
+        }
+
+        public static NotifyObject from(String content) throws IOException, ClassNotFoundException {
+            ByteArrayInputStream bin = new ByteArrayInputStream(content.getBytes(StandardCharsets.ISO_8859_1));
+            ObjectInputStream ois;
+            NotifyObject obj;
+
+            ois = new ObjectInputStream(bin);
+            obj = (NotifyObject) ois.readObject();
+            ois.close();
+            bin.close();
+            return obj;
+        }
+
+        public static String to(NotifyObject obj) throws IOException {
+            ByteArrayOutputStream bout = new ByteArrayOutputStream();
+            ObjectOutputStream oos;
+            String content;
+            oos = new ObjectOutputStream(bout);
+            oos.writeObject(obj);
+            oos.close();
+            content = bout.toString("ISO-8859-1");
+            bout.close();
+            return content;
+        }
+    }
 
     private static final String TAG = "NotificationUtil";
 

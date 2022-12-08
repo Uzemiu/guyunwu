@@ -30,9 +30,14 @@ public class SettingActivity extends AppCompatActivity {
             toPrivacySettingPage.setClass(this, LearnNotificationActivity.class);
             startActivity(toPrivacySettingPage);
         });
+        findViewById(R.id.layout_about_us).setOnClickListener(v -> {
+            Intent toAboutUsPage = new Intent();
+            toAboutUsPage.setClass(this, AboutUsActivity.class);
+            startActivity(toAboutUsPage);
+        });
         findViewById(R.id.btn_logout).setOnClickListener((v) -> {
             // TODO
-            Toast.makeText(this,"退出登录成功",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "退出登录成功", Toast.LENGTH_LONG).show();
         });
     }
 

@@ -31,6 +31,7 @@
                     android:orientation="vertical"
                     android:layout_gravity="">
                 <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/layout_system_manage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:contentPadding="20dp"
@@ -40,7 +41,6 @@
                         android:clickable="true"
                         android:background="@color/white">
                     <LinearLayout
-                            android:id="@+id/layout_system_manage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -101,9 +101,10 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:id="@+id/layout_profile">
                     <LinearLayout
-                            android:id="@+id/layout_profile"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"

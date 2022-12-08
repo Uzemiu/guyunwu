@@ -38,9 +38,10 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:id="@+id/layout_network_permission">
                     <LinearLayout
-                            android:id="@+id/layout_network_permission"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -71,9 +72,10 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:id="@+id/layout_photo_permission">
                     <LinearLayout
-                            android:id="@+id/layout_photo_permission"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -104,9 +106,10 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:id="@+id/layout_location_permission">
                     <LinearLayout
-                            android:id="@+id/layout_location_permission"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"

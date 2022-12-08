@@ -38,9 +38,10 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:id="@+id/layout_avatar">
                     <LinearLayout
-                            android:id="@+id/layout_avatar"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -79,9 +80,10 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:id="@+id/layout_nickname">
                     <LinearLayout
-                            android:id="@+id/layout_nickname"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -119,9 +121,10 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:id="@+id/layout_gender">
                     <LinearLayout
-                            android:id="@+id/layout_gender"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -159,9 +162,9 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:id="@+id/layout_birthday">
                     <LinearLayout
-                            android:id="@+id/layout_birthday"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/grey"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:layout_gravity="center"
+            android:text="古韵屋"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="V 1.0"/>
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="250dp"
+            android:layout_height="wrap_content"
+            app:contentPadding="20dp"
+            app:rippleColor="@color/grey"
+            app:cardCornerRadius="@dimen/rounded_corner_card"
+            app:cardElevation="0dp"
+            android:id="@+id/repositoryURL"
+            android:clickable="true"
+            android:background="@color/white">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="加入我们"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"/>
+            <ImageView
+                    android:src="@drawable/ic_user_arrowright_24dp"
+                    android:scaleType="fitCenter"
+                    android:layout_width="15dp"
+                    android:layout_gravity="center"
+                    android:layout_height="15dp"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

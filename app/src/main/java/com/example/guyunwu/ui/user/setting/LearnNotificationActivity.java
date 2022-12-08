@@ -17,7 +17,6 @@ import com.example.guyunwu.entity.SettingEntity;
 import com.example.guyunwu.entity.SettingEnum;
 import com.example.guyunwu.repository.SettingRepository;
 import com.example.guyunwu.util.NotificationUtil;
-import com.example.guyunwu.util.NotifyObject;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.text.DateFormat;
@@ -107,9 +106,9 @@ public class LearnNotificationActivity extends AppCompatActivity {
         Date date = new Date(time);
         DateFormat format = new SimpleDateFormat("yyyy年MM月dd日 hh时mm分");
         Toast.makeText(this, "下次提醒将在 \n" + format.format(date), Toast.LENGTH_LONG).show();
-        Map<Integer, NotifyObject> notifyObjects = new HashMap<>();
+        Map<Integer, NotificationUtil.NotifyObject> notifyObjects = new HashMap<>();
 
-        NotifyObject obj = new NotifyObject();
+        NotificationUtil.NotifyObject obj = new NotificationUtil.NotifyObject();
         obj.type = 1;
         obj.title = "每日提醒";
         obj.subText = "每日提醒";

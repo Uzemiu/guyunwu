@@ -135,9 +135,10 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:id="@+id/layout_my_course">
                     <LinearLayout
-                            android:id="@+id/layout_my_course"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -170,9 +171,10 @@
                         app:rippleColor="@color/grey"
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
-                        android:clickable="true">
+                        android:clickable="true"
+                        android:id="@+id/layout_my_star">
                     <LinearLayout
-                            android:id="@+id/layout_my_star"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -222,9 +224,10 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:id="@+id/layout_my_book">
                     <LinearLayout
-                            android:id="@+id/layout_my_book"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -257,9 +260,10 @@
                         app:rippleColor="@color/grey"
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
-                        android:clickable="true">
+                        android:clickable="true"
+                        android:id="@+id/layout_help">
                     <LinearLayout
-                            android:id="@+id/layout_help"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
