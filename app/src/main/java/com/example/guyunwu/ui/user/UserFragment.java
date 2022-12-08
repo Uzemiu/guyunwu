@@ -26,6 +26,11 @@ public class UserFragment extends Fragment {
             toProfilePage.setClass(getActivity(), ProfileActivity.class);
             startActivity(toProfilePage);
         });
+        root.findViewById(R.id.text_my_book).setOnClickListener(v -> {
+            Intent toMyBook = new Intent();
+            toMyBook.setClass(getActivity(), MyBookActivity.class);
+            startActivity(toMyBook);
+        });
         return root;
     }
 

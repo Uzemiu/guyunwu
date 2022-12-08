@@ -20,11 +20,6 @@ public class MyBookActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_books);
         initActionBar();
-        findViewById(R.id.layout_privacy_setting).setOnClickListener((v) -> {
-            Intent toPrivacySettingPage = new Intent();
-            toPrivacySettingPage.setClass(this, PrivacySettingActivity.class);
-            startActivity(toPrivacySettingPage);
-        });
     }
 
     @Override
