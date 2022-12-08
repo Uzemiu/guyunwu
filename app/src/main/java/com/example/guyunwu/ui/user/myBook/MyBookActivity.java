@@ -3,8 +3,6 @@ package com.example.guyunwu.ui.user.myBook;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,18 +26,16 @@ public class MyBookActivity  extends AppCompatActivity {
     private BookViewModel bookViewModel;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_books);
+
         initActionBar();
         initRecyclerView();
-
-        Book book = (Book) getIntent().getSerializableExtra("book");
-        bookViewModel.getMBook().setValue(book);
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {   //返回键的id
             this.finish();
             return false;

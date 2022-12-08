@@ -13,6 +13,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.guyunwu.R;
+import com.example.guyunwu.ui.user.book.Book;
+import com.example.guyunwu.ui.user.book.Author;
 
 import org.xutils.x;
 
@@ -72,11 +74,31 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull BookAdapter.ViewHolder holder, int position) {
+        Book book = bookList.get(position);
+        holder.bookPreviewTitle.setText(book.getTitle());
 
+        Author author = book.getAuthor();
+        if(author != null){
+            String avatar = author.getAvatar();
+            if(TextUtils.isEmpty(avatar)) {
+                holder.bookPreviewAuthorAvatar.setImageResource(R.drawable.ic_user_user_24dp);
+            } else {
+                x.image().bind(holder.bookPreviewAuthorAvatar, avatar);
+            }
+            holder.bookPreviewAuthorName.setText(author.getName());
+        }
+        String cover = book.getCoverImage();
+        if(cover != null && cover.length() > 0){
+            x.image().bind(holder.bookPreviewCover, book.getCoverImage());
+        } else {
+            holder.bookPreviewCoverCard.setVisibility(View.GONE);
+        }
+        holder.bookPreviewContent.setText(book.getSummary());
+        holder.bookPreviewReads.setText(String.valueOf(book.getReads()));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return bookList.size();
     }
 }
