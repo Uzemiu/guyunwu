@@ -22,7 +22,7 @@ public class Pageable {
         page = 1;
         size = 10;
         orderByList = new ArrayList<>(1);
-        orderByList.add(new Selector.OrderBy("update_time", true));
+        orderByList.add(new Selector.OrderBy("id", true));
     }
 
     public int getOffset(){

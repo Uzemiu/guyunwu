@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.guyunwu.R;
+import com.example.guyunwu.columnconverter.LocalDateTimeColumnConverter;
 import com.example.guyunwu.databinding.ActivityArticleBinding;
 import com.example.guyunwu.databinding.FragmentExploreBinding;
 import com.example.guyunwu.ui.explore.ExploreViewModel;
@@ -18,7 +19,10 @@ import net.nightwhistler.htmlspanner.HtmlSpanner;
 import org.xutils.x;
 
 import java.text.DateFormat;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+
+import io.github.mthli.knife.KnifeParser;
 
 public class ArticleActivity extends AppCompatActivity {
 
@@ -67,11 +71,14 @@ public class ArticleActivity extends AppCompatActivity {
 
         articleViewModel.getMArticle().observe(this, article -> {
             x.image().bind(binding.articleCoverImage, article.getCoverImage());
-            x.image().bind(binding.articleAuthorAvatar, article.getAuthor().getName());
-            binding.articleAuthorName.setText(article.getAuthor().getName());
+            if (article.getAuthor() != null) {
+                x.image().bind(binding.articleAuthorAvatar, article.getAuthor().getAvatar());
+                binding.articleAuthorName.setText(article.getAuthor().getName());
+            }
             binding.articleTitle.setText(article.getTitle());
-            binding.articleContent.setText(spanner.fromHtml(article.getContent()));
-            binding.articlePublishDate.setText(article.getPublishDate().format(formatter));
+            binding.articleContent.setText(KnifeParser.fromHtml(article.getContent()));
+            binding.articlePublishDate.setText( article.getPublishDate()
+                    .atZone(LocalDateTimeColumnConverter.ZONE_OFFSET).format(formatter));
 
             ActionBar bar = getSupportActionBar();
             if (bar != null) {

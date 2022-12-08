@@ -1,6 +1,7 @@
 package com.example.guyunwu.ui.explore.article;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,15 +74,24 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Article article = articleList.get(position);
         holder.articlePreviewTitle.setText(article.getTitle());
-        x.image().bind(holder.articlePreviewAuthorAvatar, article.getAuthor().getAvatar());
-        holder.articlePreviewAuthorName.setText(article.getAuthor().getName());
+
+        Author author = article.getAuthor();
+        if(author != null){
+            String avatar = author.getAvatar();
+            if(TextUtils.isEmpty(avatar)) {
+                holder.articlePreviewAuthorAvatar.setImageResource(R.drawable.ic_user_user_24dp);
+            } else {
+                x.image().bind(holder.articlePreviewAuthorAvatar, avatar);
+            }
+            holder.articlePreviewAuthorName.setText(author.getName());
+        }
         String cover = article.getCoverImage();
         if(cover != null && cover.length() > 0){
             x.image().bind(holder.articlePreviewCover, article.getCoverImage());
         } else {
             holder.articlePreviewCover.setVisibility(View.GONE);
         }
-        holder.articlePreviewContent.setText(article.getContent());
+        holder.articlePreviewContent.setText(article.getSummary());
         holder.articlePreviewReads.setText(String.valueOf(article.getReads()));
     }
 

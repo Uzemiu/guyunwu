@@ -45,6 +45,7 @@ dependencies {
     implementation 'org.xutils:xutils:3.8.5'
     implementation 'com.github.NightWhistler:HtmlSpanner:0.4'
     implementation 'com.github.mthli:Knife:v1.1'
+    implementation group: 'com.alibaba.fastjson2', name: 'fastjson2', version: '2.0.20.android'
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     testCompileOnly 'org.projectlombok:lombok:1.18.20'

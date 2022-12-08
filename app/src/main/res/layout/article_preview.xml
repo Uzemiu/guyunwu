@@ -40,7 +40,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="6dp">
+                        app:cardCornerRadius="30dp">
                         <ImageView
                             android:id="@+id/article_preview_author_avatar"
                             android:layout_width="30dp"
@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:textStyle="bold"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:text="查特"/>
                 </LinearLayout>
 
@@ -61,7 +61,8 @@
                     android:id="@+id/article_preview_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="2"
+                    android:maxLines="3"
+                    android:textSize="16sp"
                     android:ellipsize="end"
                     android:text="哥哥失踪两年后，我收到了哥哥的短信。短信上只有一句话：千万不要上家里的哪一步楼梯。我心里"/>
             </LinearLayout>

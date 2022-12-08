@@ -1,29 +1,35 @@
 package com.example.guyunwu;
 
+import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.guyunwu.entity.ArticleEntity;
-import com.example.guyunwu.exception.handler.ExceptionHandler;
-import com.example.guyunwu.repository.ArticleRepository;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import com.example.guyunwu.databinding.ActivityMainBinding;
-import com.example.guyunwu.ui.user.setting.SettingActivity;
 
-import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
+import com.example.guyunwu.columnconverter.LocalDateTimeColumnConverter;
+import com.example.guyunwu.databinding.ActivityMainBinding;
+import com.example.guyunwu.exception.handler.ExceptionHandler;
+import com.example.guyunwu.ui.explore.article.PublishArticleActivity;
+import com.example.guyunwu.ui.user.setting.SettingActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.xutils.x;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnItemSelectedListener(item -> {
             if(item.getItemId() == this.currentFragment){
                 if(item.getItemId() == R.id.navigation_explore){
-                    Intent toDailyPage = new Intent(this, SettingActivity.class);
-                    startActivity(toDailyPage);
+                    Intent toPublishArticle = new Intent(this, PublishArticleActivity.class);
+                    startActivity(toPublishArticle);
                 }
                 return false;
             }

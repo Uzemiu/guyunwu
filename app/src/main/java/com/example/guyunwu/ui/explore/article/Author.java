@@ -1,5 +1,7 @@
 package com.example.guyunwu.ui.explore.article;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
@@ -16,4 +18,8 @@ public class Author implements Serializable {
     private String name;
 
     private String avatar;
+
+    public String gertName(){
+        return TextUtils.isEmpty(name) ? "匿名" : name;
+    }
 }

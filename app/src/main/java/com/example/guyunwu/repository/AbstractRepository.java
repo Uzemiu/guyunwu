@@ -147,6 +147,7 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
         try {
             return postQuery(manager.findById(actualClass, id));
         } catch (DbException e) {
+            e.printStackTrace();
             throw new DBException(e.getMessage());
         }
     }

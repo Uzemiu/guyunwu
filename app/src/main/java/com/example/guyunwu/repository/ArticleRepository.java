@@ -1,6 +1,6 @@
 package com.example.guyunwu.repository;
 
-import com.example.guyunwu.entity.ArticleEntity;
+import com.example.guyunwu.ui.explore.article.Article;
 
-public class ArticleRepository extends AbstractRepository<ArticleEntity, Integer>{
+public class ArticleRepository extends AbstractRepository<Article, Integer>{
 }

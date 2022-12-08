@@ -1,5 +1,6 @@
 package com.example.guyunwu.ui.explore;
 
+import com.example.guyunwu.repository.ArticleRepository;
 import com.example.guyunwu.ui.explore.article.Article;
 import com.example.guyunwu.ui.explore.article.Author;
 import com.example.guyunwu.ui.explore.daily.DailySentence;
@@ -41,6 +42,8 @@ public class ExploreDataProvider {
 
     };
 
+    private static final ArticleRepository articleRepository = new ArticleRepository();
+
     public static List<DailySentence> getSentences(int dayUntilNow, int count) {
         List<DailySentence> sentences = new ArrayList<>();
         for (int i = 0; i < count; i++) {
@@ -58,7 +61,8 @@ public class ExploreDataProvider {
     }
 
     public static List<Article> getArticles() {
-        List<Article> articles = new ArrayList<>();
+        List<Article> articles = articleRepository.findAll();
+
         for (int i = 0; i < SENTENCES.length; i++) {
             String[] sentence = SENTENCES[i];
             int imageIndex = Math.min(i, IMAGES.length - 1);
@@ -67,6 +71,7 @@ public class ExploreDataProvider {
                     IMAGES[imageIndex],
                     sentence[1],
                     new Author(),
+                    sentence[0],
                     sentence[0],
                     LocalDateTime.now().minusDays(i),
                     0L,
