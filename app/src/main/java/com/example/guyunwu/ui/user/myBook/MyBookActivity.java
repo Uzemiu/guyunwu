@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.guyunwu.R;
-import com.example.guyunwu.ui.explore.article.ArticleAdapter;
 import com.example.guyunwu.ui.user.BookDataProvider;
 import com.example.guyunwu.ui.user.book.Book;
+import com.example.guyunwu.ui.user.book.BookAdapter;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class MyBookActivity  extends AppCompatActivity {
     }
     private void initRecyclerView(){
         // 获取图书数据
-        List<Book> articles = BookDataProvider.getBooks();
+        List<Book> books = BookDataProvider.getBooks();
         RecyclerView recyclerView = findViewById(R.id.my_book_recycler_view);
         StaggeredGridLayoutManager layoutManager = new
                 StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);

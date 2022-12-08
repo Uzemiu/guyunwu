@@ -66,6 +66,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
         layoutParams.bottomMargin = 16;
         layoutParams.topMargin = 16;
         view.setLayoutParams(layoutParams);
+
+        return holder;
     }
 
     @Override
