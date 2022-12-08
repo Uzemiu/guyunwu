@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.example.guyunwu.entity.ArticleEntity;
 import com.example.guyunwu.exception.handler.ExceptionHandler;
 import com.example.guyunwu.repository.ArticleRepository;
+import com.example.guyunwu.ui.home.signIn.SignInActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -101,7 +102,9 @@ public class MainActivity extends AppCompatActivity {
                 setting.setIcon(R.drawable.ic_user_setting_24dp);
                 break;
             case R.id.navigation_home:
-
+                MenuItem signIn = menu.add(Menu.NONE, R.drawable.ic_home_signin_24dp, 1, "");
+                signIn.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                signIn.setIcon(R.drawable.ic_home_signin_24dp);
                 break;
         }
         return super.onPrepareOptionsMenu(menu);
@@ -117,6 +120,11 @@ public class MainActivity extends AppCompatActivity {
                 settingPage.setClass(this, SettingActivity.class);
                 startActivity(settingPage);
                 break;
+
+            case R.drawable.ic_home_signin_24dp:
+                Intent signInPage = new Intent();
+                signInPage.setClass(this, SignInActivity.class);
+                startActivity(signInPage);
         }
         return false;
     }
