@@ -1,28 +1,31 @@
 package com.example.guyunwu;
 
-import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.example.guyunwu.databinding.ActivityMainBinding;
+import com.example.guyunwu.entity.SettingEntity;
+import com.example.guyunwu.entity.SettingEnum;
 import com.example.guyunwu.exception.handler.ExceptionHandler;
+import com.example.guyunwu.repository.SettingRepository;
 import com.example.guyunwu.ui.explore.article.PublishArticleActivity;
+import com.example.guyunwu.ui.home.signIn.SignInActivity;
 import com.example.guyunwu.ui.user.setting.SettingActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import org.xutils.x;
+
+import java.util.Calendar;
+
+import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Menu menu;
 
-    private int currentFragment;
+    private int currentFragment = R.id.navigation_home;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -55,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         new ExceptionHandler(getApplicationContext()).register();
         // 重写导航栏监听事件用于改变ActionBar
         navView.setOnItemSelectedListener(item -> {
-            if(item.getItemId() == this.currentFragment){
-                if(item.getItemId() == R.id.navigation_explore){
+            if (item.getItemId() == this.currentFragment) {
+                if (item.getItemId() == R.id.navigation_explore) {
                     Intent toPublishArticle = new Intent(this, PublishArticleActivity.class);
                     startActivity(toPublishArticle);
                 }
@@ -66,12 +69,38 @@ public class MainActivity extends AppCompatActivity {
             onPrepareOptionsMenu(menu);
             return onNavDestinationSelected(item, navController);
         });
+        initSettings();
+    }
+
+    private void initSettings() {
+        SettingRepository settingRepository = new SettingRepository();
+        if (settingRepository.findById(SettingEnum.HAS_PARAPHRASE.ordinal()) == null) {
+            settingRepository.save(new SettingEntity(SettingEnum.HAS_PARAPHRASE.ordinal(), true, null, null, null, null));
+        }
+        if (settingRepository.findById(SettingEnum.HAS_TRANSLATION.ordinal()) == null) {
+            settingRepository.save(new SettingEntity(SettingEnum.HAS_TRANSLATION.ordinal(), true, null, null, null, null));
+        }
+        if (settingRepository.findById(SettingEnum.HAS_TONE.ordinal()) == null) {
+            settingRepository.save(new SettingEntity(SettingEnum.HAS_TONE.ordinal(), true, null, null, null, null));
+        }
+
+        if (settingRepository.findById(SettingEnum.HAS_NOTIFICATION.ordinal()) == null) {
+            settingRepository.save(new SettingEntity(SettingEnum.HAS_NOTIFICATION.ordinal(), false, null, null, null, null));
+        }
+        if (settingRepository.findById(SettingEnum.NOTIFICATION_TIME.ordinal()) == null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 10);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            settingRepository.save(new SettingEntity(SettingEnum.NOTIFICATION_TIME.ordinal(), false, null, null, null, calendar.getTime()));
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_layout, menu);
         this.menu = menu;
+        onPrepareOptionsMenu(menu);
         return true;
     }
 
@@ -100,7 +129,9 @@ public class MainActivity extends AppCompatActivity {
                 setting.setIcon(R.drawable.ic_user_setting_24dp);
                 break;
             case R.id.navigation_home:
-
+                MenuItem signIn = menu.add(Menu.NONE, R.drawable.ic_home_signin_24dp, 1, "");
+                signIn.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                signIn.setIcon(R.drawable.ic_home_signin_24dp);
                 break;
         }
         return super.onPrepareOptionsMenu(menu);
@@ -115,6 +146,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent settingPage = new Intent();
                 settingPage.setClass(this, SettingActivity.class);
                 startActivity(settingPage);
+                break;
+            case R.drawable.ic_home_signin_24dp:
+                Intent signInPage = new Intent();
+                signInPage.setClass(this, SignInActivity.class);
+                startActivity(signInPage);
                 break;
         }
         return false;

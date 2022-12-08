@@ -28,53 +28,60 @@
             </intent-filter>
         </service>
         <activity
-            android:name=".ui.explore.article.PublishArticleActivity"
-            android:exported="false">
+                android:name=".ui.user.setting.LearnSettingActivity"
+                android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                    android:name="android.app.lib_name"
+                    android:value="" />
         </activity>
         <activity
-            android:name=".ui.user.setting.LearnNotificationActivity"
-            android:exported="false">
+                android:name=".ui.explore.article.PublishArticleActivity"
+                android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                    android:name="android.app.lib_name"
+                    android:value="" />
         </activity>
         <activity
-            android:name=".ui.explore.article.ArticleActivity"
-            android:exported="false">
+                android:name=".ui.user.setting.LearnNotificationActivity"
+                android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                    android:name="android.app.lib_name"
+                    android:value="" />
         </activity>
         <activity
-            android:name=".ui.explore.lecture.LectureActivity"
-            android:exported="false">
+                android:name=".ui.explore.article.ArticleActivity"
+                android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                    android:name="android.app.lib_name"
+                    android:value="" />
         </activity>
         <activity
-            android:name=".ui.user.setting.SystemManageActivity"
-            android:exported="false">
+                android:name=".ui.explore.lecture.LectureActivity"
+                android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                    android:name="android.app.lib_name"
+                    android:value="" />
         </activity>
         <activity
-            android:name=".ui.user.setting.PrivacySettingActivity"
-            android:exported="false">
+                android:name=".ui.user.setting.SystemManageActivity"
+                android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                    android:name="android.app.lib_name"
+                    android:value="" />
         </activity>
         <activity
-            android:name=".ui.user.profile.ProfileActivity"
-            android:exported="false">
+                android:name=".ui.user.setting.PrivacySettingActivity"
+                android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                    android:name="android.app.lib_name"
+                    android:value="" />
+        </activity>
+        <activity
+                android:name=".ui.user.profile.ProfileActivity"
+                android:exported="false">
+            <meta-data
+                    android:name="android.app.lib_name"
+                    android:value="" />
         </activity>
         <activity
             android:name=".ui.explore.daily.DailySentenceActivity"
@@ -84,11 +91,11 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.user.setting.SettingActivity"
-            android:exported="false">
+                android:name=".ui.user.setting.SettingActivity"
+                android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                    android:name="android.app.lib_name"
+                    android:value="" />
         </activity>
         <activity
                 android:name=".ui.home.signIn.SignInActivity"

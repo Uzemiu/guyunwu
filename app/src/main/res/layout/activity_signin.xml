@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -8,87 +9,90 @@
             android:background="@color/grey">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="30dp"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-
-        <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-            <CalendarView
-                android:id="@+id/calendarView"
+            android:padding="30dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+        <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
-                android:layout_height="300dp"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/rounded_corner_card">
+            <CalendarView
+                    android:id="@+id/calendarView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center_horizontal"/>
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/theDay"
-            android:layout_marginTop="30dp"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:text="12月6日"
-            android:layout_gravity="left"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/theDay"
+                android:layout_marginTop="30dp"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text="12月6日"
+                android:layout_gravity="left"/>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/grey"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="left">
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/rounded_corner_card"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="left">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:layout_marginLeft="20dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:layout_marginLeft="20dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="20sp"
-                    android:src="@drawable/ic_signin_unfinished_24dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="20sp"
+                        android:src="@drawable/ic_signin_unfinished_24dp"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="学习计划 "
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="10dp"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="学习计划 "
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="10dp"/>
 
                 <TextView
-                    android:id="@+id/finished"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="未完成"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:layout_weight="1"/>
+                        android:id="@+id/finished"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="未完成"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_weight="1"/>
 
                 <Button
-                    android:id="@+id/complement_sign"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:text="补日历" />
+                        android:id="@+id/complement_sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:text="补日历"/>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/studyRecord"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:text="无学习记录"
-            android:layout_gravity="left"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/studyRecord"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:text="无学习记录"
+                android:layout_gravity="left"/>
     </LinearLayout>
 
 

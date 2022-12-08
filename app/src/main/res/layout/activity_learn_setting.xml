@@ -5,7 +5,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            tools:context=".ui.user.setting.SettingActivity"
+            tools:context=".ui.user.setting.LearnSettingActivity"
             android:paddingTop="10dp"
             android:background="@color/grey">
     <LinearLayout
@@ -40,109 +40,26 @@
                         android:clickable="true"
                         android:background="@color/white">
                     <LinearLayout
-                            android:id="@+id/layout_learn_notification"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
                         <TextView
-                                android:text="学习提醒"
+                                android:text="单词选图添加释义"
                                 android:layout_marginStart="10dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_learn_notification"
+                                android:id="@+id/text_add_paraphrase"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"/>
-                        <ImageView
-                                android:src="@drawable/ic_user_arrowright_24dp"
-                                android:scaleType="fitCenter"
-                                android:layout_width="15dp"
-                                android:layout_gravity="center"
-                                android:layout_height="15dp" android:id="@+id/learn_attention_rightarrow"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:contentPadding="20dp"
-                        app:rippleColor="@color/grey"
-                        app:cardCornerRadius="0dp"
-                        app:cardElevation="0dp"
-                        android:clickable="true">
-                    <LinearLayout
-                            android:id="@+id/layout_learn_setting"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_vertical">
-                        <TextView
-                                android:text="学习设置"
-                                android:layout_marginStart="10dp"
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:id="@+id/text_learn_setting"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"/>
-                        <ImageView
-                                android:src="@drawable/ic_user_arrowright_24dp"
-                                android:scaleType="fitCenter"
-                                android:layout_width="15dp"
-                                android:layout_gravity="center"
-                                android:layout_height="15dp" android:id="@+id/learn_setting_rightarrow"/>
+                                android:id="@+id/add_paraphrase_switch"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:contentPadding="20dp"
-                        app:rippleColor="@color/grey"
-                        app:cardCornerRadius="0dp"
-                        app:cardElevation="0dp"
-                        android:clickable="true">
-                    <LinearLayout
-                            android:id="@+id/layout_privacy_setting"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_vertical">
-                        <TextView
-                                android:text="隐私设置"
-                                android:layout_marginStart="10dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:id="@+id/text_privacy_setting"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"/>
-                        <ImageView
-                                android:src="@drawable/ic_user_arrowright_24dp"
-                                android:scaleType="fitCenter"
-                                android:layout_width="15dp"
-                                android:layout_gravity="center"
-                                android:layout_height="15dp" android:id="@+id/privacy_setting_rightarrow"/>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/rounded_corner_card"
-                android:background="@color/white"
-                app:cardElevation="0dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
-            <LinearLayout
-                    android:gravity="center_horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="">
                 <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -153,46 +70,57 @@
                         android:clickable="true"
                         android:background="@color/white">
                     <LinearLayout
-                            android:id="@+id/layout_about_us"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
                         <TextView
-                                android:text="关于我们"
+                                android:text="例句显示中文翻译"
                                 android:layout_marginStart="10dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_about_us"
+                                android:id="@+id/text_add_translation"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"/>
-                        <ImageView
-                                android:src="@drawable/ic_user_arrowright_24dp"
-                                android:scaleType="fitCenter"
-                                android:layout_width="15dp"
-                                android:layout_gravity="center"
-                                android:layout_height="15dp" android:id="@+id/about_us_rightarrow"/>
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/add_translation_switch"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:contentPadding="20dp"
+                        app:rippleColor="@color/grey"
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="0dp"
+                        android:clickable="true"
+                        android:background="@color/white">
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical">
+                        <TextView
+                                android:text="选项提示音"
+                                android:layout_marginStart="10dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:id="@+id/text_add_tone"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"/>
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/add_tone_switch"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.button.MaterialButton
-                android:text="退出登录"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                app:backgroundTint="@color/red_100"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/red_500"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:cornerRadius="@dimen/rounded_corner_card"
-
-                android:id="@+id/btn_logout"/>
     </LinearLayout>
 </ScrollView>
