@@ -1,18 +1,12 @@
 package com.example.guyunwu;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.example.guyunwu.entity.ArticleEntity;
-import com.example.guyunwu.exception.handler.ExceptionHandler;
-import com.example.guyunwu.repository.ArticleRepository;
-import com.example.guyunwu.ui.home.signIn.SignInActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
@@ -20,11 +14,21 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.guyunwu.databinding.ActivityMainBinding;
+import com.example.guyunwu.exception.handler.ExceptionHandler;
 import com.example.guyunwu.ui.user.setting.SettingActivity;
+import com.example.guyunwu.util.NotificationUtil;
+import com.example.guyunwu.util.NotifyObject;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import org.xutils.x;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
-
-import org.xutils.x;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         new ExceptionHandler(getApplicationContext()).register();
         // 重写导航栏监听事件用于改变ActionBar
         navView.setOnItemSelectedListener(item -> {
-            if(item.getItemId() == this.currentFragment){
-                if(item.getItemId() == R.id.navigation_explore){
+            if (item.getItemId() == this.currentFragment) {
+                if (item.getItemId() == R.id.navigation_explore) {
                     Intent toDailyPage = new Intent(this, SettingActivity.class);
                     startActivity(toDailyPage);
                 }
@@ -102,9 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 setting.setIcon(R.drawable.ic_user_setting_24dp);
                 break;
             case R.id.navigation_home:
-                MenuItem signIn = menu.add(Menu.NONE, R.drawable.ic_home_signin_24dp, 1, "");
-                signIn.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-                signIn.setIcon(R.drawable.ic_home_signin_24dp);
+
                 break;
         }
         return super.onPrepareOptionsMenu(menu);
@@ -120,11 +122,6 @@ public class MainActivity extends AppCompatActivity {
                 settingPage.setClass(this, SettingActivity.class);
                 startActivity(settingPage);
                 break;
-
-            case R.drawable.ic_home_signin_24dp:
-                Intent signInPage = new Intent();
-                signInPage.setClass(this, SignInActivity.class);
-                startActivity(signInPage);
         }
         return false;
     }
