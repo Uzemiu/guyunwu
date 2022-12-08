@@ -3,12 +3,12 @@ package com.example.guyunwu.ui.home.signIn;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.CalendarView;
-import android.widget.Toast;
-
+import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.guyunwu.R;
+
+import java.util.Calendar;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -17,13 +17,14 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         initActionBar();
-        CalendarView calendarview = (CalendarView) findViewById(R.id.calendarView);
-
+        CalendarView calendarview = findViewById(R.id.calendarView);
+        TextView text = findViewById(R.id.theDay);
+        Calendar calendar = Calendar.getInstance();
+        text.setText(calendar.get(Calendar.MONTH) + 1 + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日");
         calendarview.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                Toast.makeText(SignInActivity.this,"您选择的时间是："+ year + "年" + month + "月" + dayOfMonth + "日",Toast.LENGTH_SHORT).show();
+                text.setText(month + 1 + "月" + dayOfMonth + "日");
             }
         });
     }

@@ -9,7 +9,22 @@ public enum SettingEnum {
     /**
      * 提醒时间
      */
-    NOTIFICATION_TIME
+    NOTIFICATION_TIME,
+
+    /**
+     * 释义
+     */
+    HAS_PARAPHRASE,
+
+    /**
+     * 翻译
+     */
+    HAS_TRANSLATION,
+
+    /**
+     * 提示音
+     */
+    HAS_TONE
 
 }
 

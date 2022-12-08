@@ -3,6 +3,7 @@ package com.example.guyunwu.ui.user.setting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.guyunwu.R;
@@ -19,10 +20,19 @@ public class SettingActivity extends AppCompatActivity {
             toPrivacySettingPage.setClass(this, PrivacySettingActivity.class);
             startActivity(toPrivacySettingPage);
         });
+        findViewById(R.id.layout_learn_setting).setOnClickListener((v) -> {
+            Intent toLearnSettingPage = new Intent();
+            toLearnSettingPage.setClass(this, LearnSettingActivity.class);
+            startActivity(toLearnSettingPage);
+        });
         findViewById(R.id.layout_learn_notification).setOnClickListener((v) -> {
             Intent toPrivacySettingPage = new Intent();
             toPrivacySettingPage.setClass(this, LearnNotificationActivity.class);
             startActivity(toPrivacySettingPage);
+        });
+        findViewById(R.id.btn_logout).setOnClickListener((v) -> {
+            // TODO
+            Toast.makeText(this,"退出登录成功",Toast.LENGTH_LONG).show();
         });
     }
 

@@ -90,20 +90,8 @@ public class LearnNotificationActivity extends AppCompatActivity {
 
     private void loadSettings() {
         hasNotification = settingRepository.findById(SettingEnum.HAS_NOTIFICATION.ordinal());
-        if (hasNotification == null) {
-            hasNotification = new SettingEntity(SettingEnum.HAS_NOTIFICATION.ordinal(), false, null, null, null, null);
-
-            settingRepository.save(hasNotification);
-        }
         notificationTime = settingRepository.findById(SettingEnum.NOTIFICATION_TIME.ordinal());
-        if (notificationTime == null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 10);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-            notificationTime = new SettingEntity(SettingEnum.NOTIFICATION_TIME.ordinal(), false, null, null, null, calendar.getTime());
-            settingRepository.save(notificationTime);
-        }
+
         SwitchMaterial switchMaterial = findViewById(R.id.learn_everyday_switch);
         switchMaterial.setChecked(hasNotification.getBooleanData());
         TextView textView = findViewById(R.id.notification_time);
