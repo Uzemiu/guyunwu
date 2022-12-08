@@ -1,4 +1,4 @@
-package com.example.guyunwu.ui.explore.article;
+package com.example.guyunwu.ui.user.book;
 
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
@@ -14,9 +14,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "article")
-public class Article implements Serializable {
-
+@Table(name = "book")
+public class Book implements Serializable {
     @Column(name = "id", isId = true)
     private Integer id;
 

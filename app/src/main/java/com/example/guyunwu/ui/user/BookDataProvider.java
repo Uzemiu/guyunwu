@@ -1,44 +1,39 @@
-package com.example.guyunwu.ui.explore;
+package com.example.guyunwu.ui.user;
 
-import com.example.guyunwu.repository.ArticleRepository;
 import com.example.guyunwu.repository.BaseQuery;
+import com.example.guyunwu.repository.BookRepository;
 import com.example.guyunwu.repository.Pageable;
-import com.example.guyunwu.ui.explore.article.Article;
-import com.example.guyunwu.ui.explore.article.Author;
-import com.example.guyunwu.ui.explore.daily.DailySentence;
+import com.example.guyunwu.ui.user.book.Author;
+import com.example.guyunwu.ui.user.book.Book;
 
 import org.xutils.db.Selector;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ExploreDataProvider {
-
-    private static final String[][] SENTENCES = {
+public class BookDataProvider {
+    private static final String[][] INTRODUCE = {
             {"大白鹭，翱翔于天际。\n" +
                     "纤细的长脖，轻盈的翅膀。\n" +
                     "在清澈的江水上，悠然自得地漫步。\n" +
                     "它的声音清脆，如同细水流淌。\n" +
-                    "没有什么能阻挡它的飞翔，它是自由的。", "查特·詹娜瑞提福·皮·崔宁"},
+                    "没有什么能阻挡它的飞翔，它是自由的。", "庄子"},
             {"乞力马扎罗山，雄峙于天际。\n" +
                     "白云缭绕，如同巨象的裘皮。\n" +
                     "在山附近，大象穿梭于山林。\n" +
                     "它们踏着威武的步伐，踏碎了树枝和石头。\n" +
                     "它们的脚步壮阔，威严而庄严。\n" +
-                    "在这片神奇的土地上，它们是王者。", "查特·詹娜瑞提福·皮·崔宁"},
+                    "在这片神奇的土地上，它们是王者。", "老子"},
             {"迈阿密海滩，阳光明媚。\n" +
                     "青蓝的海水，碧绿的海滩。\n" +
                     "在海洋大道上，汽车和人们穿梭。\n" +
                     "他们去到海边，享受阳光和清凉的海风。\n" +
                     "这里是生活的天堂，也是梦想的家园。\n" +
-                    "在美国佛罗里达州，你可以找到幸福和自由。", "查特·詹娜瑞提福·皮·崔宁"},
-
-
+                    "在美国佛罗里达州，你可以找到幸福和自由。", "世说新语"},
             {"空山不见人，但闻人语响。\n" +
-                    "返景入深林，复照青苔上。", "杜甫 《茅屋为秋风所破歌》"},
+                    "返景入深林，复照青苔上。", "古文观止"},
     };
 
     private static final String[] IMAGES = {
@@ -57,45 +52,29 @@ public class ExploreDataProvider {
             ,
     };
 
-    private static final ArticleRepository articleRepository = new ArticleRepository();
+    private static final BookRepository bookRepository = new BookRepository();
 
-    public static List<DailySentence> getSentences(int dayUntilNow, int count) {
-        List<DailySentence> sentences = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            int index = Math.min(dayUntilNow + i, SENTENCES.length - 1);
-            int imageIndex = Math.min(dayUntilNow + i, IMAGES.length - 1);
-            String[] sentence = SENTENCES[index];
-            sentences.add(new DailySentence(
-                    null,
-                    sentence[0],
-                    sentence[1],
-                    LocalDateTime.now().minusDays(dayUntilNow + i),
-                    IMAGES[imageIndex]));
-        }
-        return sentences;
-    }
-
-    public static List<Article> getArticles() {
+    public static List<Book> getBooks() {
         Selector.OrderBy orderBy = new Selector.OrderBy("id", true);
         Pageable pageable = new Pageable(1, 10, Collections.singletonList(orderBy));
-        List<Article> articles = articleRepository.query(new BaseQuery<>(), pageable);
+        List<Book> books = bookRepository.query(new BaseQuery<>(), pageable);
 
-        for (int i = 0; i < SENTENCES.length; i++) {
-            String[] sentence = SENTENCES[i];
+        for (int i = 0; i < INTRODUCE.length; i++) {
+            String[] book = INTRODUCE[i];
             int imageIndex = Math.min(i, IMAGES.length - 1);
-            articles.add(new Article(
+            books.add(new Book(
                     i,
                     IMAGES[imageIndex],
-                    sentence[1],
+                    book[1],
                     new Author(),
-                    sentence[0],
-                    sentence[0],
+                    book[0],
+                    book[0],
                     LocalDateTime.now().minusDays(i),
                     0L,
                     0L,
                     "class",
                     Arrays.asList("tag1", "tag2")));
         }
-        return articles;
+        return books;
     }
 }

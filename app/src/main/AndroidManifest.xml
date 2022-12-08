@@ -112,7 +112,7 @@
                     android:value="" />
         </activity>
         <activity
-            android:name=".ui.user.mybook.MyBookActivity"
+            android:name=".ui.user.myBook.MyBookActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -46,7 +46,6 @@ public class LectureActivity extends AppCompatActivity {
     private void initRecyclerView(){
         // 获取“小课堂”数据
         List<Article> articles = ExploreDataProvider.getArticles();
-
         RecyclerView recyclerView = findViewById(R.id.lecture_article_preview_recycler_view);
         StaggeredGridLayoutManager layoutManager = new
                 StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);

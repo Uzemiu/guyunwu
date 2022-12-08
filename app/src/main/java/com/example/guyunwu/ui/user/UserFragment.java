@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.guyunwu.R;
 import com.example.guyunwu.databinding.FragmentUserBinding;
-import com.example.guyunwu.ui.user.mybook.MyBookActivity;
+import com.example.guyunwu.ui.user.myBook.MyBookActivity;
 import com.example.guyunwu.ui.user.profile.ProfileActivity;
 
 public class UserFragment extends Fragment {
