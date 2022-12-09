@@ -6,8 +6,7 @@
             android:layout_height="match_parent"
             android:scrollbars="none"
             tools:context=".ui.user.UserFragment"
-            android:paddingTop="10dp"
-            android:background="@color/grey">
+            android:paddingTop="10dp">
     <LinearLayout
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
@@ -51,7 +50,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:cardCornerRadius="@dimen/rounded_corner_card"
-                app:cardBackgroundColor="@color/grey_200"
                 app:cardElevation="0dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp">
@@ -136,23 +134,22 @@
                         app:cardElevation="0dp"
                         android:clickable="true"
                         android:background="@color/white"
-                        android:id="@+id/layout_my_course">
+                        android:id="@+id/layout_my_book">
                     <LinearLayout
-
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
                         <ImageView
-                                android:src="@drawable/ic_user_course_24dp"
+                                android:src="@drawable/ic_user_book_24dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
                         <TextView
-                                android:text="我的课程"
+                                android:text="我的图书"
                                 android:layout_marginStart="10dp"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_my_course"
+                                android:id="@+id/text_my_book"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
@@ -225,31 +222,31 @@
                         app:cardElevation="0dp"
                         android:clickable="true"
                         android:background="@color/white"
-                        android:id="@+id/layout_my_book">
+                        android:id="@+id/layout_dark_mode">
                     <LinearLayout
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_gravity="center_vertical">
                         <ImageView
-                                android:src="@drawable/ic_user_book_24dp"
+                                android:src="@drawable/ic_user_moon_24dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
                         <TextView
-                                android:text="我的图书"
+                                android:text="夜间模式"
                                 android:layout_marginStart="10dp"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
-                                android:id="@+id/text_my_book"
+                                android:id="@+id/text_dark_mode"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"/>
-                        <ImageView
-                                android:src="@drawable/ic_user_arrowright_24dp"
-                                android:scaleType="fitCenter"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"/>
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/dark_mode_switch"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView

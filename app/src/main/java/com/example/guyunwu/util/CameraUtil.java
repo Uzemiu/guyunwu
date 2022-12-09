@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -37,7 +38,7 @@ public class CameraUtil {
     private static void openCamera(Activity activity, int code, PhotoUriWrapper wrapper) {
         Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // 判断是否有相机
-        if (captureIntent.resolveActivity(activity.getPackageManager()) != null) {
+        if (activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             Uri photoUri = createImageUri(activity);
             wrapper.photoUri = photoUri;
             if (photoUri != null) {

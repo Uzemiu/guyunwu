@@ -5,8 +5,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            tools:context=".ui.home.signIn.SignInActivity"
-            android:background="@color/grey">
+            tools:context=".ui.home.signIn.SignInActivity">
 
     <LinearLayout
             android:layout_width="wrap_content"

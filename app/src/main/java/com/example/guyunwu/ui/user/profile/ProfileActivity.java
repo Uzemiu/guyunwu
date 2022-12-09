@@ -20,6 +20,8 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.guyunwu.R;
 import com.example.guyunwu.util.CameraUtil;
 import org.jetbrains.annotations.NotNull;
@@ -147,19 +149,17 @@ public class ProfileActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_ALBUM:
-                    Glide.with(this).load(data.getData()).into((ImageView) findViewById(R.id.avatar));
+                    Glide.with(this).load(data.getData()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into((ImageView) findViewById(R.id.avatar));
                     break;
                 case REQUEST_CODE_CAMERA:
-                    Glide.with(this).load(photoUriWrapper.photoUri).into((ImageView) findViewById(R.id.avatar));
+                    Glide.with(this).load(photoUriWrapper.photoUri).apply(RequestOptions.bitmapTransform(new CircleCrop())).into((ImageView) findViewById(R.id.avatar));
                     break;
             }
         }
     }
 
     private void showBottomDialog() {
-        // 使用Dialog、设置style
         final Dialog dialog = new Dialog(this, R.style.DialogTheme);
-        // 设置布局
         View view = View.inflate(this, R.layout.dialog_bottom_menu, null);
         dialog.setContentView(view);
 
@@ -173,13 +173,11 @@ public class ProfileActivity extends AppCompatActivity {
         dialog.show();
 
         dialog.findViewById(R.id.tv_take_photo).setOnClickListener(v -> {
-            // 判断是否有相机权限
             ifHaveCameraPermission(ProfileActivity.this, REQUEST_CODE_CAMERA, photoUriWrapper);
             dialog.dismiss();
         });
 
         dialog.findViewById(R.id.tv_take_pic).setOnClickListener(v -> {
-            // 判断是否有文件存储权限
             ifHaveAlbumPermission(ProfileActivity.this, REQUEST_CODE_ALBUM);
             dialog.dismiss();
         });
