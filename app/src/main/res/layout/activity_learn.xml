@@ -38,6 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:id="@+id/answer_a"
+            android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
@@ -57,14 +59,24 @@
                     android:layout_height="wrap_content"
                     android:text="语文书"
                     android:textSize="20sp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="image"
+                    android:src="@drawable/ic_home_corrent_24dp"
+                    android:visibility="invisible"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:id="@+id/answer_b"
+            android:clickable="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,14 +95,24 @@
                     android:layout_height="wrap_content"
                     android:text="语文书"
                     android:textSize="20sp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="image"
+                    android:src="@drawable/ic_home_corrent_24dp"
+                    android:visibility="invisible"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:id="@+id/answer_c"
+            android:clickable="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -109,14 +131,24 @@
                     android:layout_height="wrap_content"
                     android:text="语文书"
                     android:textSize="20sp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="image"
+                    android:src="@drawable/ic_home_corrent_24dp"
+                    android:visibility="invisible"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:id="@+id/answer_d"
+            android:clickable="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -135,7 +167,15 @@
                     android:layout_height="wrap_content"
                     android:text="语文书"
                     android:textSize="20sp"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="image"
+                    android:src="@drawable/ic_home_corrent_24dp"
+                    android:visibility="invisible"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
