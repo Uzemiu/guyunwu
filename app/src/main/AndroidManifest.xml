@@ -119,6 +119,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".ui.user.book.BookActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.home.schedule.UpdateScheduleActivity"
             android:exported="true">
             <meta-data
