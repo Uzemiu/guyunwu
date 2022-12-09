@@ -92,8 +92,11 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        String imgUri = photoUriWrapper.photoUri.toString();
-        outState.putString("photoUri", imgUri);
+        if (photoUriWrapper.photoUri != null) {
+            String imgUri = photoUriWrapper.photoUri.toString();
+            outState.putString("photoUri", imgUri);
+        }
+
     }
 
     @Override
