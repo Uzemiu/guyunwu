@@ -296,7 +296,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/train"
+                android:id="@+id/daily_sentence"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
@@ -316,18 +316,18 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_home_black_24dp" />
+                        android:src="@drawable/explore_bulb" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="单词训练" />
+                        android:text="每日一句" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/booklet"
+                android:id="@+id/lecture"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -345,18 +345,18 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_home_black_24dp" />
+                        android:src="@drawable/explore_book" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="单词训练" />
+                        android:text="小小课堂" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/search"
+                android:id="@+id/guyun_activity"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -374,17 +374,18 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_home_black_24dp" />
+                        android:src="@drawable/explore_flag" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="单词训练" />
+                        android:text="古韵活动" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/recommend"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
@@ -404,20 +405,20 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_user_party_24dp" />
+                        android:src="@drawable/explore_star" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="单词训练" />
+                        android:text="猜你喜欢" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
@@ -425,6 +426,7 @@
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:id="@+id/ecnu"
                 app:cardCornerRadius="@dimen/rounded_corner_card"
                 app:cardElevation="0dp">
 
@@ -443,7 +445,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="15dp"
                             android:paddingTop="13dp"
-                            android:text="学姐说 Excel是核心竞争力"
+                            android:text="华东师范大学"
                             android:textColor="@color/black"
                             android:textSize="23sp"
                             android:textStyle="bold" />
@@ -453,20 +455,21 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="15dp"
                             android:paddingTop="15dp"
-                            android:text="每天20分钟，社团/实习/求职都搞定"
+                            android:text=" 双一流 211高校 985高校"
                             android:textSize="15sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="3.5">
+                        android:layout_weight="2">
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/ic_user_party_24dp" />
+                            android:layout_margin="10dp"
+                            android:src="@drawable/ecnu_icon" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
