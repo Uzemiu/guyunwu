@@ -13,8 +13,8 @@
     <!-- Dialog -->
     <string name="dialog_title">Insert link</string>
     <string name="dialog_edit_hint">http(s)://</string>
-    <string name="dialog_button_ok">OK</string>
-    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_button_ok">确认</string>
+    <string name="dialog_button_cancel">取消</string>
 
     <!-- Toast -->
     <string name="toast_bold">Bold</string>

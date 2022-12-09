@@ -1,5 +1,7 @@
 package com.example.guyunwu.ui.explore.daily;
 
+import static com.example.guyunwu.util.UiUtil.isScrollToBottom;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -80,19 +82,13 @@ public class DailySentenceActivity extends AppCompatActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (isScrollToBottom(recyclerView)) {
+                if (isScrollToBottom(recyclerView, 600)) {
                     fetchDailySentence(5);
                 }
             }
         });
 
         fetchDailySentence(10);
-    }
-
-    public static boolean isScrollToBottom(RecyclerView recyclerView) {
-        if (recyclerView == null) return false;
-        return recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() + 600
-                >= recyclerView.computeVerticalScrollRange();
     }
 
 }

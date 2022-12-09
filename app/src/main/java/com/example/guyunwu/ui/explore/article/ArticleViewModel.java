@@ -13,4 +13,8 @@ public class ArticleViewModel extends ViewModel {
     public ArticleViewModel() {
         mArticle = new MutableLiveData<>();
     }
+
+    public Integer getArticleId(){
+        return mArticle.getValue() == null ? null : mArticle.getValue().getId();
+    }
 }

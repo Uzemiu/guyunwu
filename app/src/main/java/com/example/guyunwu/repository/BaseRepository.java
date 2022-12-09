@@ -32,4 +32,6 @@ public interface BaseRepository<ENTITY, ID> {
     List<ENTITY> query(BaseQuery<ENTITY> query, Pageable pageable);
 
     long count();
+
+    long count(BaseQuery<ENTITY> query);
 }

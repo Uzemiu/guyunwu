@@ -268,6 +268,16 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
         }
     }
 
+    @Override
+    public long count(BaseQuery<ENTITY> query) {
+        Assert.notNull(query, "Query must not be null");
+        try {
+            return query.toSelector(manager, actualClass).count();
+        } catch (DbException e) {
+            throw new DBException(e.getMessage());
+        }
+    }
+
     private List<ENTITY> postQuery(List<ENTITY> entities){
         for (ENTITY entity : entities) {
             postQuery(entity);
