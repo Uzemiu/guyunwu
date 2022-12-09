@@ -15,6 +15,8 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/rounded_corner_card"
             android:layout_margin="15dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -38,6 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:id="@+id/answer_a"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/rounded_corner_card"
             android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent">
 
@@ -75,6 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:id="@+id/answer_b"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/rounded_corner_card"
             android:clickable="true">
 
             <LinearLayout
@@ -111,6 +117,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:id="@+id/answer_c"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/rounded_corner_card"
             android:clickable="true">
 
             <LinearLayout
@@ -147,6 +155,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:id="@+id/answer_d"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/rounded_corner_card"
             android:clickable="true">
 
             <LinearLayout

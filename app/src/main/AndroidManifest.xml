@@ -20,6 +20,13 @@
         android:theme="@style/Theme.GuYunWu"
         tools:targetApi="31">
         <activity
+                android:name=".ui.home.BlankActivity"
+                android:exported="true">
+            <meta-data
+                    android:name="android.app.lib_name"
+                    android:value="" />
+        </activity>
+        <activity
                 android:name=".ui.user.setting.AboutUsActivity"
                 android:exported="true">
             <meta-data

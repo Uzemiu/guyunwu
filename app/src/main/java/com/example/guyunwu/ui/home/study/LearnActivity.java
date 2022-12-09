@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.guyunwu.R;
 import com.google.android.material.card.MaterialCardView;
 
@@ -68,14 +66,14 @@ public class LearnActivity extends AppCompatActivity {
     }
 
     @SuppressLint("ResourceAsColor")
-    private void selectAnswer(MaterialCardView cardView, Answer answer){
-        if(answer == key) {
-            cardView.setBackgroundColor(correct_color);
+    private void selectAnswer(MaterialCardView cardView, Answer answer) {
+        if (answer == key) {
+            cardView.setCardBackgroundColor(correct_color);
             ImageView imageView = cardView.findViewWithTag("image");
             imageView.setImageResource(R.drawable.ic_home_corrent_24dp);
             imageView.setVisibility(View.VISIBLE);
         } else {
-            cardView.setBackgroundColor(incorrect_color);
+            cardView.setCardBackgroundColor(incorrect_color);
             ImageView imageView = cardView.findViewWithTag("image");
             imageView.setImageResource(R.drawable.ic_home_incorrent_24dp);
             imageView.setVisibility(View.VISIBLE);

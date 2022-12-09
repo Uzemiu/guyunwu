@@ -60,6 +60,11 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         });
+        binding.guyunActivity.setOnClickListener(v->{
+            Intent toBlankPage = new Intent();
+            toBlankPage.setClass(getActivity(), BlankActivity.class);
+            startActivity(toBlankPage);
+        });
     }
 
 }

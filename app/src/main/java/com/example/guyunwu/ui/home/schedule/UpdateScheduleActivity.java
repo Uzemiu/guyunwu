@@ -55,7 +55,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
     private void initActionBar() {
         ActionBar bar = getSupportActionBar();
         if (bar != null) {
-            bar.setTitle("学习日历");
+            bar.setTitle("学习计划");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }

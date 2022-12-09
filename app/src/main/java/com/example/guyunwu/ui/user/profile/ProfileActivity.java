@@ -105,7 +105,9 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             String imgUri = savedInstanceState.getString("photoUri");
-            photoUriWrapper.photoUri = Uri.parse(imgUri);
+            if(imgUri!=null) {
+                photoUriWrapper.photoUri = Uri.parse(imgUri);
+            }
         }
     }
 
