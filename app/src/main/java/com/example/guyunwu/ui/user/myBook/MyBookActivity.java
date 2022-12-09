@@ -38,11 +38,11 @@ public class MyBookActivity  extends AppCompatActivity {
         onPrepareOptionsMenu(menu);
 
         MenuItem menuItem = findViewById(R.id.book_more_add);
-        menuItem.setOnMenuItemClickListener(v -> {
+        /*menuItem.setOnMenuItemClickListener(v -> {
             Intent toProfilePage = new Intent();
             toProfilePage.setClass(MyBookActivity.this, ProfileActivity.class);
             startActivity(toProfilePage);
-        });
+        });*/
 
         return true;
     }
