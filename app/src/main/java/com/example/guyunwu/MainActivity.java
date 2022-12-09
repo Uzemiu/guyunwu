@@ -2,10 +2,13 @@ package com.example.guyunwu;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,6 +24,7 @@ import com.example.guyunwu.ui.home.signIn.SignInActivity;
 import com.example.guyunwu.ui.user.setting.SettingActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import org.jetbrains.annotations.NotNull;
 import org.xutils.x;
 
 import java.util.Calendar;
@@ -72,6 +76,23 @@ public class MainActivity extends AppCompatActivity {
         initSettings();
     }
 
+
+    @Override
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("currentFragment", currentFragment + "");
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            String c = savedInstanceState.getString("currentFragment");
+            currentFragment = Integer.parseInt(c);
+        }
+    }
+
+
     private void initSettings() {
         SettingRepository settingRepository = new SettingRepository();
         if (settingRepository.findById(SettingEnum.HAS_PARAPHRASE.ordinal()) == null) {
@@ -93,6 +114,17 @@ public class MainActivity extends AppCompatActivity {
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
             settingRepository.save(new SettingEntity(SettingEnum.NOTIFICATION_TIME.ordinal(), false, null, null, null, calendar.getTime()));
+        }
+        if (settingRepository.findById(SettingEnum.DARK_MODE.ordinal()) == null) {
+            settingRepository.save(new SettingEntity(SettingEnum.DARK_MODE.ordinal(), false, null, null, null, null));
+        }
+
+        SettingEntity darkMode = settingRepository.findById(SettingEnum.DARK_MODE.ordinal());
+        Boolean booleanData = darkMode.getBooleanData();
+        if (booleanData) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
 

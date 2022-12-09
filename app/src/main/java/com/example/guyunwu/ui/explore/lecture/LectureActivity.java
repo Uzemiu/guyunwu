@@ -15,7 +15,9 @@ import com.example.guyunwu.ui.explore.article.ArticleAdapter;
 
 import java.util.List;
 
-public class LectureActivity extends AppCompatActivity {
+public class
+
+LectureActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

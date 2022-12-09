@@ -19,7 +19,13 @@ public class Author implements Serializable {
 
     private String avatar;
 
+    private String dynasty;
+
     public String gertName(){
         return TextUtils.isEmpty(name) ? "匿名" : name;
+    }
+
+    public String getDynasty(){
+        return dynasty;
     }
 }

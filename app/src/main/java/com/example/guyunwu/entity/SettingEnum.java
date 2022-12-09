@@ -24,7 +24,12 @@ public enum SettingEnum {
     /**
      * 提示音
      */
-    HAS_TONE
+    HAS_TONE,
+
+    /**
+     * 夜间模式
+     */
+    DARK_MODE,
 
 }
 

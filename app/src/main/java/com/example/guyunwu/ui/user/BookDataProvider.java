@@ -19,21 +19,21 @@ public class BookDataProvider {
                     "鲲之大，不知其几千里也。\n" +
                     "化而为鸟，其名为鹏。\n" +
                     "鹏之背，不知其几千里也。\n" +
-                    "怒而飞，其翼若垂天之云。", "庄子"},
+                    "怒而飞，其翼若垂天之云。", "庄子", "庄子", "春秋战国"},
             {"乞力马扎罗山，雄峙于天际。\n" +
                     "白云缭绕，如同巨象的裘皮。\n" +
                     "在山附近，大象穿梭于山林。\n" +
                     "它们踏着威武的步伐，踏碎了树枝和石头。\n" +
                     "它们的脚步壮阔，威严而庄严。\n" +
-                    "在这片神奇的土地上，它们是王者。", "道德经"},
+                    "在这片神奇的土地上，它们是王者。", "道德经", "老子", "春秋战国"},
             {"迈阿密海滩，阳光明媚。\n" +
                     "青蓝的海水，碧绿的海滩。\n" +
                     "在海洋大道上，汽车和人们穿梭。\n" +
                     "他们去到海边，享受阳光和清凉的海风。\n" +
                     "这里是生活的天堂，也是梦想的家园。\n" +
-                    "在美国佛罗里达州，你可以找到幸福和自由。", "世说新语"},
+                    "在美国佛罗里达州，你可以找到幸福和自由。", "世说新语", "刘义庆", "南朝·宋"},
             {"空山不见人，但闻人语响。\n" +
-                    "返景入深林，复照青苔上。", "古文观止"},
+                    "返景入深林，复照青苔上。", "古文观止", "吴楚材、吴调侯", "清"},
     };
 
     private static final String[] IMAGES = {
@@ -62,11 +62,14 @@ public class BookDataProvider {
         for (int i = 0; i < INTRODUCE.length; i++) {
             String[] book = INTRODUCE[i];
             int imageIndex = Math.min(i, IMAGES.length - 1);
+
+            Author author = new Author(i, book[2], "", book[3]);
+
             books.add(new Book(
                     i,
                     IMAGES[imageIndex],
                     book[1],
-                    new Author(),
+                    author,
                     book[0],
                     book[0],
                     LocalDateTime.now().minusDays(i),

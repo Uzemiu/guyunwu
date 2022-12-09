@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    xmlns:tools="http://schemas.android.com/tools"
                                                    tools:context=".ui.home.schedule.UpdateScheduleActivity"
                                                    android:paddingTop="10dp"
-                                                   android:background="@color/grey"
 >
 
     <LinearLayout
@@ -52,11 +52,11 @@
 
                         <TextView
                                 android:id="@+id/book_type"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="高考词汇"
                                 android:textColor="@color/black"
-                                android:textSize="22sp"
+                                android:textSize="21sp"
                                 android:textStyle="bold"
                                 android:layout_weight="1"/>
 
@@ -69,7 +69,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="重置"
-                                android:textSize="17sp"
+                                android:textSize="16sp"
                                 android:layout_marginLeft="2dp"/>
                     </LinearLayout>
 
@@ -84,7 +84,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="每日"
                                 android:textColor="@color/black"
-                                android:textSize="17sp"/>
+                                android:textSize="16sp"/>
 
                         <TextView
                                 android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
                                 android:id="@+id/per_day"
                                 android:text="35"
                                 android:textColor="@color/black"
-                                android:textSize="17sp"
+                                android:textSize="16sp"
                                 android:layout_marginLeft="3dp"/>
 
                         <TextView
@@ -100,7 +100,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="词，剩余"
                                 android:textColor="@color/black"
-                                android:textSize="17sp"
+                                android:textSize="16sp"
                                 android:layout_marginLeft="3dp"/>
 
                         <TextView
@@ -109,7 +109,7 @@
                                 android:id="@+id/days"
                                 android:text="119"
                                 android:textColor="@color/black"
-                                android:textSize="17sp"
+                                android:textSize="16sp"
                                 android:layout_marginLeft="3dp"/>
 
                         <TextView
@@ -176,20 +176,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="完成日期："
-                    android:textSize="17dp"/>
+                    android:textSize="16sp"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2023年04月05日"
-                    android:textSize="17dp"
+                    android:textSize="16sp"
                     android:textColor="@color/purple_500"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="预计每天"
-                    android:textSize="17dp"
+                    android:textSize="16sp"
                     android:layout_marginLeft="15dp"/>
 
             <TextView
@@ -197,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/minutes_per_day"
                     android:text="15"
-                    android:textSize="17dp"/>
+                    android:textSize="16sp"/>
 
             <TextView
                     android:layout_width="wrap_content"
@@ -232,6 +232,8 @@
                         android:layout_marginRight="50dp"
                         android:text="完成天数"
                         android:textSize="18sp"
+                        android:gravity="right"
+                        android:layout_weight="1"
                         android:textColor="@color/black"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

@@ -6,8 +6,7 @@
             android:layout_height="match_parent"
             android:scrollbars="none"
             tools:context=".ui.user.setting.LearnNotificationActivity"
-            android:paddingTop="10dp"
-            android:background="@color/grey">
+            android:paddingTop="10dp">
     <LinearLayout
             android:gravity="center_horizontal"
             android:layout_width="match_parent"

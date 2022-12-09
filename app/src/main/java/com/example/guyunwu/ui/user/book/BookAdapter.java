@@ -1,5 +1,6 @@
 package com.example.guyunwu.ui.user.book;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -60,7 +61,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
             int position = holder.getAdapterPosition();
             Book book = bookList.get(position);
             Intent intent = new Intent(v.getContext(), BookActivity.class);
-            intent.putExtra("article", book);
+            intent.putExtra("book", book);
             v.getContext().startActivity(intent);
         });
         // set margin in view
@@ -72,6 +73,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
         return holder;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull BookAdapter.ViewHolder holder, int position) {
         Book book = bookList.get(position);
@@ -85,7 +87,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
             } else {
                 x.image().bind(holder.bookPreviewAuthorAvatar, avatar);
             }
-            holder.bookPreviewAuthorName.setText(author.getName());
+            holder.bookPreviewAuthorName.setText('[' + author.getDynasty() + ']'+ author.getName());
         }
         String cover = book.getCoverImage();
         if(cover != null && cover.length() > 0){

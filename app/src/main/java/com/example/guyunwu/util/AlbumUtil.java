@@ -1,31 +1,27 @@
 package com.example.guyunwu.util;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.runtime.Permission;
+import android.widget.Toast;
+import androidx.fragment.app.FragmentActivity;
+import com.permissionx.guolindev.PermissionX;
 
 public class AlbumUtil {
 
     // 判断是否有文件存储权限
     public static void ifHaveAlbumPermission(Activity activity, int code) {
-        //  Permission.Group.STORAGE：文件存储权限
-        if (!AndPermission.hasPermissions(activity, Permission.Group.STORAGE)) {
-            AndPermission.with(activity).runtime().permission(Permission.Group.STORAGE).onGranted(permissions -> {
-                openAlbum(activity, code);
-            }).onDenied(denieds -> {
-                if (denieds != null && denieds.size() > 0) {
-                    for (String denied : denieds) {
-                        if (!activity.shouldShowRequestPermissionRationale(denied)) {
-                            DialogUtil.permissionDialog(activity, "没有访问存储权限！");
-                            break;
+
+        PermissionX.init((FragmentActivity) activity)
+                .permissions(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .request((allGranted, grantedList, deniedList) -> {
+                            if (allGranted) {
+                                openAlbum(activity, code);
+                            } else {
+                                Toast.makeText(activity, "没有访问存储权限！", Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
-                }
-            }).start();
-        } else {
-            openAlbum(activity, code);
-        }
+                );
     }
 
     // 打开相册
