@@ -69,13 +69,11 @@ public class BookActivity extends AppCompatActivity {
                 x.image().bind(binding.bookCoverImage, book.getCoverImage());
             }
             if (book.getAuthor() != null) {
-                x.image().bind(binding.bookAuthorAvatar, book.getAuthor().getAvatar());
-                binding.bookAuthorName.setText(book.getAuthor().getName());
+                binding.bookAuthorName.setText('[' + book.getAuthor().getDynasty() + ']' + book.getAuthor().getName());
             }
             binding.bookTitle.setText(book.getTitle());
             binding.bookContent.setText(KnifeParser.fromHtml(book.getContent()));
-            binding.bookPublishDate.setText( book.getPublishDate()
-                    .atZone(LocalDateTimeColumnConverter.ZONE_OFFSET).format(formatter));
+            binding.bookPress.setText(book.getPress());
 
             ActionBar bar = getSupportActionBar();
             if (bar != null) {

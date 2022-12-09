@@ -17,8 +17,6 @@ public class Author implements Serializable {
 
     private String name;
 
-    private String avatar;
-
     private String dynasty;
 
     public String gertName(){

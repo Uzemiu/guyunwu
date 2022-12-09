@@ -44,17 +44,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="30dp">
-                        <ImageView
-                            android:id="@+id/book_preview_author_avatar"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_user_user_24dp"/>
+
                     </androidx.cardview.widget.CardView>
                     <TextView
                         android:id="@+id/book_preview_author_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
                         android:textStyle="bold"
                         android:textSize="14sp"
                         android:text="查特"/>
@@ -97,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:text="阅读"/>
+                android:text="喜欢"/>
             <TextView
                 android:id="@+id/book_preview_reads"
                 android:layout_width="wrap_content"

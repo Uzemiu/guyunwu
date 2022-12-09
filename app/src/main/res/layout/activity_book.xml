@@ -41,19 +41,6 @@
             android:layout_marginTop="6dp"
             android:gravity="center_vertical">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp"
-                android:layout_marginRight="10dp">
-                <ImageView
-                    android:id="@+id/book_author_avatar"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_user_user_24dp"
-                    android:scaleType="centerCrop" />
-            </androidx.cardview.widget.CardView>
-
             <TextView
                 android:id="@+id/book_author_name"
                 android:text="作者"
@@ -79,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="阅读"/>
+                android:text="喜欢"/>
             <TextView
                 android:id="@+id/book_reads"
                 android:layout_width="wrap_content"
@@ -95,9 +82,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="发布于"/>
+                android:text="出版社"/>
             <TextView
-                android:id="@+id/book_publish_date"
+                android:id="@+id/book_press"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"/>

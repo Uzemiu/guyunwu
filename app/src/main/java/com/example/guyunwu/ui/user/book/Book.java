@@ -4,7 +4,6 @@ import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -28,14 +27,14 @@ public class Book implements Serializable {
     @Column(name = "author")
     private Author author;
 
+    @Column(name = "introduce")
+    private String introduce;
+
     @Column(name = "content")
     private String content;
 
-    @Column(name = "summary")
-    private String summary;
-
-    @Column(name = "publish_date")
-    private LocalDateTime publishDate;
+    @Column(name = "press")
+    private String press;
 
     @Column(name = "reads")
     private Long reads;

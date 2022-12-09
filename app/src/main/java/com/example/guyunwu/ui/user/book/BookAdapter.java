@@ -2,7 +2,6 @@ package com.example.guyunwu.ui.user.book;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.guyunwu.R;
-import com.example.guyunwu.ui.user.book.Book;
-import com.example.guyunwu.ui.user.book.Author;
 
 import org.xutils.x;
 
@@ -31,7 +28,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
     static class ViewHolder extends RecyclerView.ViewHolder {
         View bookPreviewView;
         TextView bookPreviewTitle;
-        ImageView bookPreviewAuthorAvatar;
         TextView bookPreviewAuthorName;
         ImageView bookPreviewCover;
         TextView bookPreviewContent;
@@ -42,7 +38,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
             super(view);
             bookPreviewView = view;
             bookPreviewTitle = view.findViewById(R.id.book_preview_title);
-            bookPreviewAuthorAvatar = view.findViewById(R.id.book_preview_author_avatar);
             bookPreviewAuthorName = view.findViewById(R.id.book_preview_author_name);
             bookPreviewCover = view.findViewById(R.id.book_preview_cover);
             bookPreviewContent = view.findViewById(R.id.book_preview_content);
@@ -81,12 +76,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
 
         Author author = book.getAuthor();
         if(author != null){
-            String avatar = author.getAvatar();
-            if(TextUtils.isEmpty(avatar)) {
-                holder.bookPreviewAuthorAvatar.setImageResource(R.drawable.ic_user_user_24dp);
-            } else {
-                x.image().bind(holder.bookPreviewAuthorAvatar, avatar);
-            }
             holder.bookPreviewAuthorName.setText('[' + author.getDynasty() + ']'+ author.getName());
         }
         String cover = book.getCoverImage();
@@ -95,7 +84,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
         } else {
             holder.bookPreviewCoverCard.setVisibility(View.GONE);
         }
-        holder.bookPreviewContent.setText(book.getSummary());
+        holder.bookPreviewContent.setText(book.getIntroduce());
         holder.bookPreviewReads.setText(String.valueOf(book.getReads()));
     }
 

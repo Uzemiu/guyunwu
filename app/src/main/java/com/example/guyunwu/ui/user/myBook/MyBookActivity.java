@@ -1,22 +1,20 @@
 package com.example.guyunwu.ui.user.myBook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.guyunwu.R;
-import com.example.guyunwu.databinding.ActivityBookBinding;
 import com.example.guyunwu.ui.user.BookDataProvider;
 import com.example.guyunwu.ui.user.book.Book;
 import com.example.guyunwu.ui.user.book.BookAdapter;
-import com.example.guyunwu.ui.user.book.BookViewModel;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.example.guyunwu.ui.user.profile.ProfileActivity;
 
 import java.util.List;
 
@@ -38,6 +36,14 @@ public class MyBookActivity  extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_book, menu);
         this.menu = menu;
         onPrepareOptionsMenu(menu);
+
+        MenuItem menuItem = findViewById(R.id.book_more_add);
+        menuItem.setOnMenuItemClickListener(v -> {
+            Intent toProfilePage = new Intent();
+            toProfilePage.setClass(MyBookActivity.this, ProfileActivity.class);
+            startActivity(toProfilePage);
+        });
+
         return true;
     }
 
