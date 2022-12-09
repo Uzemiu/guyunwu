@@ -1,5 +1,6 @@
 package com.example.guyunwu.util;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
@@ -8,8 +9,9 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.runtime.Permission;
+import android.widget.Toast;
+import androidx.fragment.app.FragmentActivity;
+import com.permissionx.guolindev.PermissionX;
 
 
 public class CameraUtil {
@@ -18,26 +20,16 @@ public class CameraUtil {
     }
 
     public static void ifHaveCameraPermission(Activity activity, int code, PhotoUriWrapper wrapper) {
-        if (!AndPermission.hasPermissions(activity, Permission.Group.CAMERA)) {
-            // 动态申请权限
-            AndPermission.with(activity).runtime().permission(Permission.Group.CAMERA)
-                    .onGranted(permissions -> {
-                        openCamera(activity, code, wrapper);
-                    })
-                    .onDenied(denieds -> {
-                        if (denieds != null && denieds.size() > 0) {
-                            for (String denied : denieds) {
-                                if (!activity.shouldShowRequestPermissionRationale(denied)) {
-                                    DialogUtil.permissionDialog(activity, "没有拍摄和录制权限！");
-                                    break;
-                                }
+        PermissionX.init((FragmentActivity) activity)
+                .permissions(Manifest.permission.CAMERA)
+                .request((allGranted, grantedList, deniedList) -> {
+                            if (allGranted) {
+                                openCamera(activity, code, wrapper);
+                            } else {
+                                Toast.makeText(activity, "没有拍摄和录制权限！", Toast.LENGTH_LONG).show();
                             }
                         }
-                    }).start();
-        } else {
-            // 有权限 打开相机
-            openCamera(activity, code, wrapper);
-        }
+                );
     }
 
     // 打开相机
