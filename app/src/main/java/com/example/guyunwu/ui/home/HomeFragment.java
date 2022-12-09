@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import com.example.guyunwu.R;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,8 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.guyunwu.databinding.FragmentHomeBinding;
 import com.example.guyunwu.ui.home.schedule.UpdateScheduleActivity;
-import com.example.guyunwu.ui.home.signIn.SignInActivity;
-import com.example.guyunwu.ui.user.profile.ProfileActivity;
+import com.example.guyunwu.ui.home.study.LearnActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -29,16 +27,16 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        root.findViewById(R.id.book_image).setOnClickListener(v -> {
-//            Intent toProfilePage = new Intent();
-//            toProfilePage.setClass(getActivity(), ProfileActivity.class);
-//            startActivity(toProfilePage);
-        });
-
         root.findViewById(R.id.schedule).setOnClickListener(v -> {
             Intent toSchedulePage = new Intent();
             toSchedulePage.setClass(getActivity(), UpdateScheduleActivity.class);
             startActivity(toSchedulePage);
+        });
+
+        root.findViewById(R.id.start_learn).setOnClickListener(v -> {
+            Intent toLearnPage = new Intent();
+            toLearnPage.setClass(getActivity(), LearnActivity.class);
+            startActivity(toLearnPage);
         });
 
         return root;
