@@ -60,7 +60,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
             int position = holder.getAdapterPosition();
             Book book = bookList.get(position);
             Intent intent = new Intent(v.getContext(), BookActivity.class);
-            intent.putExtra("article", book);
+            intent.putExtra("book", book);
             v.getContext().startActivity(intent);
         });
         // set margin in view
