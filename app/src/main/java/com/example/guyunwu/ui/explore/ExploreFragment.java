@@ -1,27 +1,34 @@
 package com.example.guyunwu.ui.explore;
 
-import android.content.Intent;
+import static com.example.guyunwu.util.UiUtil.isScrollToBottom;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.guyunwu.R;
 import com.example.guyunwu.databinding.FragmentExploreBinding;
-import com.example.guyunwu.ui.explore.daily.DailySentenceActivity;
-import com.example.guyunwu.ui.explore.lecture.LectureActivity;
+import com.example.guyunwu.repository.ArticleRepository;
+import com.example.guyunwu.repository.BaseQuery;
+import com.example.guyunwu.repository.Pageable;
+import com.example.guyunwu.ui.explore.article.Article;
+import com.example.guyunwu.ui.explore.article.ArticleAdapter;
 import com.jama.carouselview.CarouselView;
-import com.jama.carouselview.CarouselViewListener;
 import com.jama.carouselview.enums.IndicatorAnimationType;
 import com.jama.carouselview.enums.OffsetType;
 
 import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExploreFragment extends Fragment {
 
@@ -29,19 +36,16 @@ public class ExploreFragment extends Fragment {
 
     private FragmentExploreBinding binding;
 
+    private final ArticleRepository articleRepository = new ArticleRepository();
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ExploreViewModel exploreViewModel =
-                new ViewModelProvider(this).get(ExploreViewModel.class);
-
         binding = FragmentExploreBinding.inflate(inflater, container, false);
 
-        final TextView textView = binding.textDashboard;
-        exploreViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
-
-        initRouter();
         initCarousel();
+        setupArticle();
+        initSwipeRefresh();
+        reloadArticle();
 
         return binding.getRoot();
     }
@@ -76,16 +80,62 @@ public class ExploreFragment extends Fragment {
         carouselView.show();
     }
 
-    private void initRouter(){
-       binding.exploreToDailyPage.setOnClickListener(v -> {
-            Intent toDailyPage = new Intent();
-            toDailyPage.setClass(getActivity(), DailySentenceActivity.class);
-            startActivity(toDailyPage);
+    private void initSwipeRefresh(){
+        binding.exploreSwipeRefreshLayout.setOnRefreshListener(() -> {
+            reloadArticle();
+            binding.exploreSwipeRefreshLayout.setRefreshing(false);
         });
-        binding.exploreToLecturePage.setOnClickListener(v -> {
-            Intent toLecture = new Intent();
-            toLecture.setClass(getActivity(), LectureActivity.class);
-            startActivity(toLecture);
+    }
+
+    private final List<Article> articleList = new ArrayList<>();
+
+    private final Pageable pageable = new Pageable();
+
+    private long total = 0;
+
+    private synchronized void reloadArticle(){
+        pageable.setPage(1);
+        articleList.clear();
+        fetchArticle();
+        binding.exploreArticlePreviewRecyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    private synchronized void fetchArticle(){
+        total = articleRepository.count();
+        if(articleList.size() >= total){
+            return;
+        }
+
+        int size = articleList.size();
+        List<Article> res = articleRepository.query(new BaseQuery<>(), pageable);
+        articleList.addAll(res);
+        binding.exploreArticlePreviewRecyclerView.getAdapter().notifyItemRangeInserted(size, res.size());
+        pageable.setPage(pageable.getPage() + 1);
+    }
+
+    private void setupArticle(){
+        pageable.setSize(10);
+
+        // 获取“小课堂”数据
+        RecyclerView recyclerView = binding.exploreArticlePreviewRecyclerView;
+        StaggeredGridLayoutManager layoutManager = new
+                StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        ArticleAdapter adapter = new ArticleAdapter(articleList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (isScrollToBottom(recyclerView, 600)) {
+                    fetchArticle();
+                }
+            }
         });
     }
 
