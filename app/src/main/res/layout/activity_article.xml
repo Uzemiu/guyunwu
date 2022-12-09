@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/grey"
     tools:context=".ui.explore.article.ArticleActivity">
 
     <LinearLayout
@@ -30,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:background="#fff"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <TextView
@@ -38,7 +37,7 @@
                 android:text="标题"
                 android:textSize="30dp"
                 android:textStyle="bold"
-                android:textColor="#000"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -117,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#fff"
+            android:background="@color/white"
             android:layout_marginTop="16dp"
             android:padding="16dp">
 
