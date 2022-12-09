@@ -13,6 +13,7 @@ import com.example.guyunwu.ui.explore.daily.DailySentenceActivity;
 import com.example.guyunwu.ui.explore.lecture.LectureActivity;
 import com.example.guyunwu.ui.home.schedule.UpdateScheduleActivity;
 import com.example.guyunwu.ui.home.study.LearnActivity;
+import com.example.guyunwu.ui.home.wordbook.WordBookActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -60,10 +61,15 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         });
-        binding.guyunActivity.setOnClickListener(v->{
+        binding.guyunActivity.setOnClickListener(v -> {
             Intent toBlankPage = new Intent();
             toBlankPage.setClass(getActivity(), BlankActivity.class);
             startActivity(toBlankPage);
+        });
+        binding.wordBook.setOnClickListener(v -> {
+            Intent toWordBookPage = new Intent();
+            toWordBookPage.setClass(getActivity(), WordBookActivity.class);
+            startActivity(toWordBookPage);
         });
     }
 

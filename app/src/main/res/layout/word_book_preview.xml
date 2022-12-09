@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardCornerRadius="0dp"
+        android:clickable="true"
+        android:id="@+id/layout_word_book"
+        app:cardElevation="0dp">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="16dp"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+            <TextView
+                    android:id="@+id/word_book_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:singleLine="true"
+                    android:text="何"/>
+            <TextView
+                    android:layout_marginTop="6dp"
+                    android:id="@+id/word_book_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:maxLines="3"
+                    android:textSize="16sp"
+                    android:ellipsize="end"
+                    android:text="啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"/>
+        </LinearLayout>
+        <ImageView
+                android:src="@drawable/ic_user_arrowright_24dp"
+                android:scaleType="fitCenter"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+        android:layout_marginEnd="15dp"/>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

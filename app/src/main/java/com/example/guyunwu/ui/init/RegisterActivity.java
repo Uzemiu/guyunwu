@@ -1,4 +1,4 @@
-package com.example.guyunwu.ui.user.myBook.init;
+package com.example.guyunwu.ui.init;
 
 import androidx.appcompat.app.AppCompatActivity;
 
