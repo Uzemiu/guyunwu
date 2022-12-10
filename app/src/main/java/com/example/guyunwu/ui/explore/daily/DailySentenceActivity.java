@@ -8,13 +8,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.guyunwu.R;
-import com.example.guyunwu.ui.explore.ExploreDataProvider;
+import com.example.guyunwu.api.BaseResponse;
+import com.example.guyunwu.api.CollectionRequest;
+import com.example.guyunwu.api.RequestModule;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DailySentenceActivity extends AppCompatActivity {
 
@@ -56,12 +65,41 @@ public class DailySentenceActivity extends AppCompatActivity {
         }
     }
 
-    private void fetchDailySentence(int count){
-        int size = dailySentenceList.size();
-        List<DailySentence> sentences = ExploreDataProvider.getSentences(size, count);
-        dailySentenceList.addAll(sentences);
+    private int page = 0;
+    private volatile boolean reachEnd = false;
+    private volatile boolean loading = false;
 
-        recyclerView.post(() -> adapter.notifyItemRangeChanged(size, count));
+    private synchronized void fetchDailySentence(){
+        if(reachEnd || loading) return;
+
+        loading = true;
+        CollectionRequest request = RequestModule.COLLECTION_REQUEST;
+
+        int size = dailySentenceList.size();
+        request.dailySentences(page, 10).enqueue(new Callback<BaseResponse<List<DailySentence>>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<List<DailySentence>>> call, Response<BaseResponse<List<DailySentence>>> response) {
+                BaseResponse<List<DailySentence>> baseResponse = response.body();
+                if (baseResponse != null) {
+                    List<DailySentence> dailySentences = baseResponse.getData();
+                    if (dailySentences != null && dailySentences.size() > 0) {
+                        dailySentenceList.addAll(dailySentences);
+                        recyclerView.post(() -> adapter.notifyItemRangeChanged(size, dailySentences.size()));
+                    } else {
+                        reachEnd = true;
+                    }
+                }
+                page++;
+                loading = false;
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<List<DailySentence>>> call, Throwable t) {
+                Toast.makeText(DailySentenceActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onFailure: ", t);
+                loading = false;
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -83,12 +121,12 @@ public class DailySentenceActivity extends AppCompatActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (isScrollToBottom(recyclerView, 600)) {
-                    fetchDailySentence(5);
+                    fetchDailySentence();
                 }
             }
         });
 
-        fetchDailySentence(10);
+        fetchDailySentence();
     }
 
 }

@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class ExploreDataProvider {
@@ -58,22 +59,6 @@ public class ExploreDataProvider {
     };
 
     private static final ArticleRepository articleRepository = new ArticleRepository();
-
-    public static List<DailySentence> getSentences(int dayUntilNow, int count) {
-        List<DailySentence> sentences = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            int index = Math.min(dayUntilNow + i, SENTENCES.length - 1);
-            int imageIndex = Math.min(dayUntilNow + i, IMAGES.length - 1);
-            String[] sentence = SENTENCES[index];
-            sentences.add(new DailySentence(
-                    null,
-                    sentence[0],
-                    sentence[1],
-                    LocalDateTime.now().minusDays(dayUntilNow + i),
-                    IMAGES[imageIndex]));
-        }
-        return sentences;
-    }
 
     public static List<Article> getArticles() {
         Selector.OrderBy orderBy = new Selector.OrderBy("id", true);

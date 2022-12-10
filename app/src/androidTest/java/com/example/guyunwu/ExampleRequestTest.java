@@ -50,11 +50,11 @@ public class ExampleRequestTest {
         loginReq.setPassword(MD5.md5("pl,okm123"));
         BaseResponse<?> r = userRequest.login(loginReq).execute().body();
         assertNotNull(r);
-        assertEquals(Integer.valueOf(0), r.getCode());
+        assertEquals(Integer.valueOf(0), r.getStatus());
 
         BaseResponse<MeResp> meResp = userRequest.me().execute().body();
         assertNotNull(meResp);
-        assertEquals("ecnu_admin", meResp.getResult().getUsername());
+        assertEquals("ecnu_admin", meResp.getData().getUsername());
     }
 
     @Test

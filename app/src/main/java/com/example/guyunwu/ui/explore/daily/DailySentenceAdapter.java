@@ -1,6 +1,6 @@
 package com.example.guyunwu.ui.explore.daily;
 
-import android.net.Uri;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,7 @@ import com.example.guyunwu.R;
 
 import org.xutils.x;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 
 public class DailySentenceAdapter extends RecyclerView.Adapter<DailySentenceAdapter.ViewHolder>{
@@ -56,12 +56,18 @@ public class DailySentenceAdapter extends RecyclerView.Adapter<DailySentenceAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DailySentence daily = dailySentenceList.get(position);
-        holder.dailySentence.setText(daily.getSentence());
-        holder.dailyDay.setText(String.valueOf(daily.getDate().getDayOfMonth()));
-        holder.dailyYearMonth.setText(daily.getDate().getYear() + "年" + daily.getDate().getMonthValue() + "月");
-        holder.dailyFrom.setText(daily.getFrom());
-        x.image().bind(holder.dailyImage, daily.getImageUrl());
-//        holder.dailyImage.setImageURI(Uri.parse(daily.getImageUrl()));
+        holder.dailySentence.setText(daily.getContent());
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(daily.getTime());
+        holder.dailyDay.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+        holder.dailyYearMonth.setText(calendar.get(Calendar.YEAR) + "年" + (calendar.get(Calendar.MONTH) + 1) + "月");
+        holder.dailyFrom.setText("-  " + daily.getAuthor() + "  " + daily.getSource());
+
+        String dailyImageUrl = TextUtils.isEmpty(daily.getImageUrl())
+                ? "https://bing.com/th?id=OHR.BambooTreesIndia_ZH-CN3943852151_1920x1080.jpg&qlt=100"
+                : daily.getImageUrl();
+        x.image().bind(holder.dailyImage, dailyImageUrl);
     }
 
     @Override

@@ -21,9 +21,11 @@ public class RequestModule {
 
     private static final Retrofit RETROFIT;
 
-    public static final String BASE_URL = "https://sei-test.021hqit.com/liwa-api/";
+    public static final String BASE_URL = "http://10.0.2.2:8080/";
 
     public static final UserRequest USER_REQUEST;
+
+    public static final CollectionRequest COLLECTION_REQUEST;
 
     static {
         HTTP_CLIENT = new OkHttpClient.Builder()
@@ -75,5 +77,6 @@ public class RequestModule {
                 .build();
 
         USER_REQUEST = RETROFIT.create(UserRequest.class);
+        COLLECTION_REQUEST = RETROFIT.create(CollectionRequest.class);
     }
 }

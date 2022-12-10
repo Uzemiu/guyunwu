@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class BaseResponse<T> {
 
-    private Integer code;
+    private Integer status;
 
     private String message;
 
-    private T result;
+    private T data;
 
 }
