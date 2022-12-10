@@ -32,7 +32,7 @@ public class RequestModule {
         HTTP_CLIENT = new OkHttpClient.Builder()
                 // add cookie
                 .addInterceptor(chain -> {
-                    String token = SharedPreferencesUtil.getString("TokenIfNeeded", "");
+                    String token = SharedPreferencesUtil.getString("token", "");
                     Request request = chain.request()
                             .newBuilder()
                             .addHeader("Authorization", token)

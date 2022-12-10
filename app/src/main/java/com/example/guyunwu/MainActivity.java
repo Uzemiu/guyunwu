@@ -1,7 +1,5 @@
 package com.example.guyunwu;
 
-import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,7 +14,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.example.guyunwu.databinding.ActivityMainBinding;
 import com.example.guyunwu.entity.SettingEntity;
 import com.example.guyunwu.entity.SettingEnum;
@@ -24,21 +21,25 @@ import com.example.guyunwu.exception.handler.ExceptionHandler;
 import com.example.guyunwu.repository.SettingRepository;
 import com.example.guyunwu.ui.explore.article.PublishArticleActivity;
 import com.example.guyunwu.ui.home.calendar.CalendarActivity;
+import com.example.guyunwu.ui.init.LoginActivity;
 import com.example.guyunwu.ui.user.setting.SettingActivity;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import org.jetbrains.annotations.NotNull;
 import org.xutils.x;
 
 import java.util.Calendar;
+
+import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
     private ActivityMainBinding binding;
+
+    public static MainActivity instance;
 
     private Menu menu;
 
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        instance = this;
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
 
@@ -80,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
             return onNavDestinationSelected(item, navController);
         });
         initSettings();
+        if (SharedPreferencesUtil.getString("token","").length() == 0) {
+            Intent toLoginPage = new Intent();
+            toLoginPage.setClass(this, LoginActivity.class);
+            startActivity(toLoginPage);
+            finish();
+        }
     }
 
 

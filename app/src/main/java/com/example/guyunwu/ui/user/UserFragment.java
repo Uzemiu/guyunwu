@@ -64,12 +64,9 @@ public class UserFragment extends Fragment {
             startActivity(toMyBook);
         });
         binding.layoutHelp.setOnClickListener(v -> {
-//            Uri uri = Uri.parse("https://github.com/Uzemiu/guyunwu/issues");
-//            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//            startActivity(intent);
-            Intent toLogin = new Intent();
-            toLogin.setClass(getActivity(), RegisterActivity.class);
-            startActivity(toLogin);
+            Uri uri = Uri.parse("https://github.com/Uzemiu/guyunwu/issues");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         });
         binding.darkModeSwitch.setOnClickListener(v -> {
             darkMode.setBooleanData(!darkMode.getBooleanData());
