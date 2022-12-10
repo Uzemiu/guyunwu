@@ -30,10 +30,13 @@ import com.example.guyunwu.ui.explore.comment.CommentAdapter;
 import org.xutils.db.Selector;
 import org.xutils.x;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import io.github.mthli.knife.KnifeParser;
@@ -186,9 +189,10 @@ public class ArticleActivity extends AppCompatActivity {
             }
             binding.articleTitle.setText(article.getTitle());
             binding.articleContent.setText(KnifeParser.fromHtml(article.getContent()));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            binding.articlePublishDate.setText(article.getPublishDate()
-                    .atZone(LocalDateTimeColumnConverter.ZONE_OFFSET).format(formatter));
+            if(article.getPublishDate() != null){
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                binding.articlePublishDate.setText(dateFormat.format(article.getPublishDate()));
+            }
             binding.articleReads.setText(String.valueOf(article.getReads()));
 
             ActionBar bar = getSupportActionBar();

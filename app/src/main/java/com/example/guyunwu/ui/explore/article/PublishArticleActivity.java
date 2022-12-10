@@ -1,28 +1,32 @@
 package com.example.guyunwu.ui.explore.article;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.guyunwu.R;
+import com.example.guyunwu.api.ArticleRequest;
+import com.example.guyunwu.api.BaseResponse;
+import com.example.guyunwu.api.RequestModule;
+import com.example.guyunwu.api.req.AddArticleReq;
 import com.example.guyunwu.databinding.ActivityPublishArticleBinding;
 import com.example.guyunwu.repository.ArticleRepository;
+import com.example.guyunwu.util.SharedPreferencesUtil;
 
 import org.xutils.x;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-
 import io.github.mthli.knife.KnifeText;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PublishArticleActivity extends AppCompatActivity {
 
@@ -32,8 +36,6 @@ public class PublishArticleActivity extends AppCompatActivity {
 
     private KnifeText knife;
 
-    private ArticleRepository articleRepository;
-
     private String coverImageUrl = "";
 
     @Override
@@ -42,7 +44,6 @@ public class PublishArticleActivity extends AppCompatActivity {
         binding = ActivityPublishArticleBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        articleRepository = new ArticleRepository();
         knife = binding.editorKnife;
         setupKnife();
     }
@@ -146,29 +147,48 @@ public class PublishArticleActivity extends AppCompatActivity {
         return true;
     }
 
+    private volatile boolean loading = false;
+
     private void completeEdit(){
-        String content = knife.toHtml();
-        Article article = new Article();
-        article.setTitle(binding.editorTitleInput.getText().toString());
-        article.setContent(content);
+        if(loading){
+            Toast.makeText(this, "发送中，请稍后", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        loading = true;
 
+        ArticleRequest articleRequest = RequestModule.ARTICLE_REQUEST;
+
+        AddArticleReq req = new AddArticleReq();
+        req.setTitle(binding.editorTitleInput.getText().toString());
+        req.setContent(knife.toHtml());
+        req.setCoverImage(coverImageUrl);
         String text = knife.getText().toString();
-        article.setSummary(text.substring(0, Math.min(text.length(), 100)));
-        article.setPublishDate(LocalDateTime.now());
-        article.setReads(1L);
-        article.setLikes(0L);
-        article.setCategory("未分类");
-        article.setCoverImage(coverImageUrl);
-        article.setTags(Arrays.asList("test", "test2"));
-        article.setAuthor(new Author(
-                1,
-                "guyunwu",
-                "https://bing.com/th?id=OHR.WistmansWood_ZH-CN4453301808_1920x1080.jpg&qlt=100"));
-        articleRepository.save(article);
+        req.setSummary(text.substring(0, Math.min(text.length(), 100)));
 
-        Toast.makeText(this, "发送成功", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "completeEdit: " + articleRepository.findById(article.getId()));
-        
-        finish();
+        if(TextUtils.isEmpty(req.getTitle())){
+            Toast.makeText(this, "标题不能为空", Toast.LENGTH_SHORT).show();
+            loading = false;
+            return;
+        }
+        if(TextUtils.isEmpty(req.getContent()) || TextUtils.isEmpty(req.getSummary())){
+            Toast.makeText(this, "内容不能为空", Toast.LENGTH_SHORT).show();
+            loading = false;
+            return;
+        }
+
+        articleRequest.addArticle(req).enqueue(new Callback<BaseResponse<Object>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
+                Toast.makeText(PublishArticleActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
+                loading = false;
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
+                Toast.makeText(PublishArticleActivity.this, "发送失败" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                loading = false;
+            }
+        });
     }
 }

@@ -20,13 +20,15 @@ public class RequestModule {
 
     private static final Retrofit RETROFIT;
 
-//    public static final String BASE_URL = "http://10.0.2.2:8080/";
+    public static final String BASE_URL = "http://10.0.2.2:8080/";
 
-    public static final String BASE_URL = "http://192.168.31.62:8080/";
+//    public static final String BASE_URL = "http://192.168.31.62:8080/";
 
     public static final UserRequest USER_REQUEST;
 
     public static final CollectionRequest COLLECTION_REQUEST;
+
+    public static final ArticleRequest ARTICLE_REQUEST;
 
     static {
         HTTP_CLIENT = new OkHttpClient.Builder()
@@ -35,7 +37,7 @@ public class RequestModule {
                     String token = SharedPreferencesUtil.getString("TokenIfNeeded", "");
                     Request request = chain.request()
                             .newBuilder()
-                            .addHeader("Authorization", token)
+                            .addHeader("Authorization", "Bearer " + token)
                             .build();
                     return chain.proceed(request);
                 })
@@ -65,9 +67,6 @@ public class RequestModule {
                     }
                     return response;
                 })
-                .cookieJar(new PersistentCookieJar(
-                        new SetCookieCache(),
-                        new SharedPrefsCookiePersistor(SharedPreferencesUtil.getSharedPreferences())))
                 .build();
 
         RETROFIT = new Retrofit.Builder()
@@ -79,5 +78,6 @@ public class RequestModule {
 
         USER_REQUEST = RETROFIT.create(UserRequest.class);
         COLLECTION_REQUEST = RETROFIT.create(CollectionRequest.class);
+        ARTICLE_REQUEST = RETROFIT.create(ArticleRequest.class);
     }
 }

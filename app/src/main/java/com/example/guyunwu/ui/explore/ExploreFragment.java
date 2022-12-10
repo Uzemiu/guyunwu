@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.guyunwu.R;
+import com.example.guyunwu.api.ArticleRequest;
+import com.example.guyunwu.api.BaseResponse;
+import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.databinding.FragmentExploreBinding;
 import com.example.guyunwu.repository.ArticleRepository;
 import com.example.guyunwu.repository.BaseQuery;
@@ -29,6 +32,10 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ExploreFragment extends Fragment {
 
@@ -89,33 +96,56 @@ public class ExploreFragment extends Fragment {
 
     private final List<Article> articleList = new ArrayList<>();
 
-    private final Pageable pageable = new Pageable();
-
-    private long total = 0;
+    private int page = 0;
+    private volatile boolean loading = false;
+    private volatile boolean reachEnd = false;
 
     private synchronized void reloadArticle(){
-        pageable.setPage(1);
+        page = 0;
+        reachEnd = false;
         articleList.clear();
-        fetchArticle();
-        binding.exploreArticlePreviewRecyclerView.getAdapter().notifyDataSetChanged();
+        fetchArticle(true);
     }
 
-    private synchronized void fetchArticle(){
-        total = articleRepository.count();
-        if(articleList.size() >= total){
+    private synchronized void fetchArticle(boolean reload){
+        if (loading || reachEnd){
             return;
         }
+        loading = true;
 
-        int size = articleList.size();
-        List<Article> res = articleRepository.query(new BaseQuery<>(), pageable);
-        articleList.addAll(res);
-        binding.exploreArticlePreviewRecyclerView.getAdapter().notifyItemRangeInserted(size, res.size());
-        pageable.setPage(pageable.getPage() + 1);
+        ArticleRequest articleRequest = RequestModule.ARTICLE_REQUEST;
+
+        articleRequest.articles(page, 10, "explore").enqueue(new Callback<BaseResponse<List<Article>>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<List<Article>>> call, Response<BaseResponse<List<Article>>> response) {
+                BaseResponse<List<Article>> body = response.body();
+                if (body != null && body.getData() != null){
+                    int size = articleList.size();
+                    List<Article> res = body.getData();
+                    if(res.size() == 0){
+                        reachEnd = true;
+                    } else {
+                        articleList.addAll(res);
+                        if (reload){
+                            binding.exploreArticlePreviewRecyclerView.getAdapter().notifyDataSetChanged();
+                        } else {
+                            binding.exploreArticlePreviewRecyclerView.getAdapter().notifyItemRangeInserted(size, res.size());
+                        }
+                    }
+                }
+                page++;
+                loading = false;
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<List<Article>>> call, Throwable t) {
+                loading = false;
+            }
+        });
+
     }
 
     private void setupArticle(){
-        pageable.setSize(10);
-
         // 获取“小课堂”数据
         RecyclerView recyclerView = binding.exploreArticlePreviewRecyclerView;
         StaggeredGridLayoutManager layoutManager = new
@@ -133,7 +163,7 @@ public class ExploreFragment extends Fragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (isScrollToBottom(recyclerView, 600)) {
-                    fetchArticle();
+                    fetchArticle(false);
                 }
             }
         });

@@ -75,7 +75,7 @@ public class ExploreDataProvider {
                     new Author(),
                     sentence[0],
                     sentence[0],
-                    LocalDateTime.now().minusDays(i),
+                    new Date(),
                     0L,
                     0L,
                     "class",

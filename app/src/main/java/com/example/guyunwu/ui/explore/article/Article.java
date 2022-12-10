@@ -5,6 +5,7 @@ import org.xutils.db.annotation.Table;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -36,7 +37,7 @@ public class Article implements Serializable {
     private String summary;
 
     @Column(name = "publish_date")
-    private LocalDateTime publishDate;
+    private Date publishDate;
 
     @Column(name = "reads")
     private Long reads;
