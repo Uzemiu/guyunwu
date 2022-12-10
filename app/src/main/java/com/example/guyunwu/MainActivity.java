@@ -23,7 +23,7 @@ import com.example.guyunwu.entity.SettingEnum;
 import com.example.guyunwu.exception.handler.ExceptionHandler;
 import com.example.guyunwu.repository.SettingRepository;
 import com.example.guyunwu.ui.explore.article.PublishArticleActivity;
-import com.example.guyunwu.ui.home.signIn.SignInActivity;
+import com.example.guyunwu.ui.home.calendar.CalendarActivity;
 import com.example.guyunwu.ui.user.setting.SettingActivity;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.drawable.ic_home_signin_24dp:
                 Intent signInPage = new Intent();
-                signInPage.setClass(this, SignInActivity.class);
+                signInPage.setClass(this, CalendarActivity.class);
                 startActivity(signInPage);
                 break;
         }

@@ -5,112 +5,136 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GuYunWu"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-                android:name=".ui.home.wordbook.WordBookDetailActivity"
-                android:exported="true">
+            android:name=".ui.init.RegisterActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-                android:name=".ui.home.wordbook.WordBookActivity"
-                android:exported="true">
+            android:name=".ui.init.LoginActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-                android:name=".ui.home.BlankActivity"
-                android:exported="true">
+            android:name=".ui.home.signIn.SignInActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-                android:name=".ui.user.setting.AboutUsActivity"
-                android:exported="true">
+            android:name=".ui.home.wordbook.WordBookDetailActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
+        <activity
+            android:name=".ui.home.wordbook.WordBookActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.home.BlankActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.user.setting.AboutUsActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <service
-                android:name=".service.AlarmService"
-                android:enabled="true"
-                android:exported="false">
+            android:name=".service.AlarmService"
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="TIMER_ACTION" />
             </intent-filter>
         </service>
+
         <activity
-                android:name=".ui.user.setting.LearnSettingActivity"
-                android:exported="true">
+            android:name=".ui.user.setting.LearnSettingActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-                android:name=".ui.explore.article.PublishArticleActivity"
-                android:exported="true">
+            android:name=".ui.explore.article.PublishArticleActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-                android:name=".ui.user.setting.LearnNotificationActivity"
-                android:exported="true">
+            android:name=".ui.user.setting.LearnNotificationActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-                android:name=".ui.explore.article.ArticleActivity"
-                android:exported="true">
+            android:name=".ui.explore.article.ArticleActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-                android:name=".ui.explore.lecture.LectureActivity"
-                android:exported="true">
+            android:name=".ui.explore.lecture.LectureActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-                android:name=".ui.user.setting.SystemManageActivity"
-                android:exported="true">
+            android:name=".ui.user.setting.SystemManageActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-                android:name=".ui.user.setting.PrivacySettingActivity"
-                android:exported="true">
+            android:name=".ui.user.setting.PrivacySettingActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-                android:name=".ui.user.profile.ProfileActivity"
-                android:exported="true">
+            android:name=".ui.user.profile.ProfileActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
             android:name=".ui.explore.daily.DailySentenceActivity"
@@ -120,18 +144,18 @@
                 android:value="" />
         </activity>
         <activity
-                android:name=".ui.user.setting.SettingActivity"
-                android:exported="true">
+            android:name=".ui.user.setting.SettingActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-                android:name=".ui.home.signIn.SignInActivity"
-                android:exported="true">
+            android:name=".ui.home.calendar.CalendarActivity"
+            android:exported="true">
             <meta-data
-                    android:name="android.app.lib_name"
-                    android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
             android:name=".ui.user.myBook.MyBookActivity"
@@ -165,7 +189,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-        android:theme="@style/Theme.App.Starting">
+            android:theme="@style/Theme.App.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

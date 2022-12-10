@@ -1,11 +1,11 @@
-package com.example.guyunwu.api.req;
+package com.example.guyunwu.apitest.req;
 
 import lombok.Data;
 
 @Data
 public class LoginReq {
 
-    private String phoneNumber;
+    private String username;
 
     private String password;
 
