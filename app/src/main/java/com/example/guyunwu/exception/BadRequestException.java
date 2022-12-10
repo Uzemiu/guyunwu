@@ -1,6 +1,8 @@
 package com.example.guyunwu.exception;
 
-public class BadRequestException extends RuntimeException{
+import java.io.IOException;
+
+public class BadRequestException extends IOException {
 
     public BadRequestException() {
         super();

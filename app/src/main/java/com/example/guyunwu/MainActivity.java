@@ -2,6 +2,7 @@ package com.example.guyunwu;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import com.example.guyunwu.repository.SettingRepository;
 import com.example.guyunwu.ui.explore.article.PublishArticleActivity;
 import com.example.guyunwu.ui.home.signIn.SignInActivity;
 import com.example.guyunwu.ui.user.setting.SettingActivity;
+import com.example.guyunwu.util.Assert;
+import com.example.guyunwu.util.SharedPreferencesUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.jetbrains.annotations.NotNull;
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
         x.Ext.init(getApplication());
         new ExceptionHandler(getApplicationContext()).register();
+        SharedPreferences sharedPreferences = getSharedPreferences("Guyunwu", MODE_PRIVATE);
+        SharedPreferencesUtil.setSharedPreferences(sharedPreferences);
         // 重写导航栏监听事件用于改变ActionBar
         navView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == this.currentFragment) {
