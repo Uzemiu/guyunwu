@@ -41,11 +41,6 @@ public class HomeFragment extends Fragment {
             toSchedulePage.setClass(getActivity(), UpdateScheduleActivity.class);
             startActivity(toSchedulePage);
         });
-        binding.startLearn.setOnClickListener(v -> {
-            Intent toLearnPage = new Intent();
-            toLearnPage.setClass(getActivity(), LearnActivity.class);
-            startActivity(toLearnPage);
-        });
         binding.dailySentence.setOnClickListener(v -> {
             Intent toDailyPage = new Intent();
             toDailyPage.setClass(getActivity(), DailySentenceActivity.class);
