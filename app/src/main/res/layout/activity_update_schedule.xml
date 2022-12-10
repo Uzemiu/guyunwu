@@ -25,7 +25,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:layout_marginRight="15dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -41,7 +41,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/schedule"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:clickable="true"
                         android:orientation="vertical">
 
@@ -70,7 +70,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:layout_height="wrap_content"
                                 android:text="重置"
                                 android:textSize="16sp"
-                                android:layout_marginLeft="2dp"/>
+                                android:layout_marginStart="2dp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -93,7 +93,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:text="35"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
-                                android:layout_marginLeft="3dp"/>
+                                android:layout_marginStart="3dp"/>
 
                         <TextView
                                 android:layout_width="wrap_content"
@@ -101,7 +101,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:text="词，剩余"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
-                                android:layout_marginLeft="3dp"/>
+                                android:layout_marginStart="3dp"/>
 
                         <TextView
                                 android:layout_width="wrap_content"
@@ -110,7 +110,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:text="119"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
-                                android:layout_marginLeft="3dp"/>
+                                android:layout_marginStart="3dp"/>
 
                         <TextView
                                 android:layout_width="wrap_content"
@@ -118,7 +118,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:text="天"
                                 android:textColor="@color/black"
                                 android:textSize="17sp"
-                                android:layout_marginLeft="3dp"/>
+                                android:layout_marginStart="3dp"/>
                     </LinearLayout>
 
                     <ProgressBar
@@ -150,7 +150,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
+                                android:layout_marginStart="3dp"
                                 android:text="/"
                                 android:textSize="12sp"/>
 
@@ -158,7 +158,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/all"
-                                android:layout_marginLeft="3dp"
+                                android:layout_marginStart="3dp"
                                 android:text="4135"
                                 android:textSize="12sp"/>
                     </LinearLayout>
@@ -190,7 +190,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_height="wrap_content"
                     android:text="预计每天"
                     android:textSize="16sp"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginStart="15dp"/>
 
             <TextView
                     android:layout_width="wrap_content"
@@ -220,7 +220,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginStart="50dp"
                         android:text="每天背单词"
                         android:textSize="18sp"
                         android:textColor="@color/black"

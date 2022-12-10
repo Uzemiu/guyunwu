@@ -21,7 +21,7 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:layout_marginRight="15dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -35,7 +35,7 @@
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:clickable="true"
                         android:orientation="vertical">
 
@@ -72,7 +72,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="35"
                                 android:textSize="16sp"
-                                android:layout_marginLeft="3dp"/>
+                                android:layout_marginStart="3dp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -97,8 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/rounded_corner_card"
-                app:cardElevation="0dp"
-                android:background="@color/white">
+                app:cardElevation="0dp">
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

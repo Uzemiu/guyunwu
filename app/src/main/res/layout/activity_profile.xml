@@ -12,14 +12,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity=""
             android:paddingLeft="15dp"
             android:paddingRight="15dp">
         <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/rounded_corner_card"
-                android:background="@color/white"
                 app:cardElevation="0dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp">
@@ -37,7 +35,6 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white"
                         android:id="@+id/layout_avatar">
                     <LinearLayout
 
@@ -68,7 +65,7 @@
                                 android:scaleType="fitCenter"
                                 android:layout_width="15dp"
                                 android:layout_gravity="center"
-                                android:layout_height="15dp" android:id="@+id/avatar_rightarrow"/>
+                                android:layout_height="15dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
@@ -79,7 +76,6 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white"
                         android:id="@+id/layout_nickname">
                     <LinearLayout
 
@@ -109,7 +105,7 @@
                                 android:scaleType="fitCenter"
                                 android:layout_width="15dp"
                                 android:layout_gravity="center"
-                                android:layout_height="15dp" android:id="@+id/nickname_rightarrow"/>
+                                android:layout_height="15dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
@@ -120,7 +116,6 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white"
                         android:id="@+id/layout_gender">
                     <LinearLayout
 
@@ -150,7 +145,7 @@
                                 android:scaleType="fitCenter"
                                 android:layout_width="15dp"
                                 android:layout_gravity="center"
-                                android:layout_height="15dp" android:id="@+id/gender_rightarrow"/>
+                                android:layout_height="15dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
@@ -161,7 +156,6 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white"
                         android:id="@+id/layout_birthday">
                     <LinearLayout
                             android:layout_width="match_parent"
@@ -190,7 +184,7 @@
                                 android:scaleType="fitCenter"
                                 android:layout_width="15dp"
                                 android:layout_gravity="center"
-                                android:layout_height="15dp" android:id="@+id/birthday_rightarrow"/>
+                                android:layout_height="15dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>

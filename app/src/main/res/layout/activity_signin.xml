@@ -50,7 +50,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginStart="20dp">
 
                 <ImageView
                         android:layout_width="wrap_content"
@@ -63,11 +63,11 @@
                         android:text="学习计划 "
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:layout_marginLeft="10dp"/>
+                        android:layout_marginStart="10dp"/>
 
                 <TextView
                         android:id="@+id/finished"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="未完成"
                         android:textColor="@color/black"
@@ -78,7 +78,7 @@
                         android:id="@+id/complement_sign"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginEnd="20dp"
                         android:text="补日历"/>
 
             </LinearLayout>
@@ -93,6 +93,5 @@
                 android:text="无学习记录"
                 android:layout_gravity="left"/>
     </LinearLayout>
-
 
 </ScrollView>

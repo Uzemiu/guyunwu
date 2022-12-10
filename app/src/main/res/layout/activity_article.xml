@@ -35,7 +35,7 @@
             <TextView
                 android:id="@+id/article_title"
                 android:text="标题"
-                android:textSize="30dp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -155,7 +155,6 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/article_comment_list"
-                android:layout_below="@id/article_comment_list_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">

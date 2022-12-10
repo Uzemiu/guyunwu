@@ -27,7 +27,7 @@
             android:textSize="16sp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:text="V 1.0"/>
+            android:text="v 1.0"/>
     <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_marginTop="40dp"
@@ -38,15 +38,14 @@
             app:cardCornerRadius="@dimen/rounded_corner_card"
             app:cardElevation="0dp"
             android:id="@+id/repositoryURL"
-            android:clickable="true"
-            android:background="@color/white">
+            android:clickable="true">
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center_vertical">
             <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="加入我们"
                     android:textSize="18sp"

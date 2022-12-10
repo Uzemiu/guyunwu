@@ -115,7 +115,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/rounded_corner_card"
-                android:background="@color/white"
                 app:cardElevation="0dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp">
@@ -133,7 +132,6 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white"
                         android:id="@+id/layout_my_book">
                     <LinearLayout
                             android:layout_width="match_parent"
@@ -203,7 +201,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/rounded_corner_card"
-                android:background="@color/white"
                 app:cardElevation="0dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp">
@@ -221,7 +218,6 @@
                         app:cardCornerRadius="0dp"
                         app:cardElevation="0dp"
                         android:clickable="true"
-                        android:background="@color/white"
                         android:id="@+id/layout_dark_mode">
                     <LinearLayout
 

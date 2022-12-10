@@ -70,12 +70,12 @@ public class LearnActivity extends AppCompatActivity {
         if (answer == key) {
             cardView.setCardBackgroundColor(correct_color);
             ImageView imageView = cardView.findViewWithTag("image");
-            imageView.setImageResource(R.drawable.ic_home_corrent_24dp);
+            imageView.setImageResource(R.drawable.ic_home_correct_24dp);
             imageView.setVisibility(View.VISIBLE);
         } else {
             cardView.setCardBackgroundColor(incorrect_color);
             ImageView imageView = cardView.findViewWithTag("image");
-            imageView.setImageResource(R.drawable.ic_home_incorrent_24dp);
+            imageView.setImageResource(R.drawable.ic_home_incorrect_24dp);
             imageView.setVisibility(View.VISIBLE);
         }
     }

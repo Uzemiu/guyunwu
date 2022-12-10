@@ -58,18 +58,18 @@
                     android:textSize="20sp"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="语文书"
                     android:textSize="20sp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:tag="image"
-                    android:src="@drawable/ic_home_corrent_24dp"
+                    android:src="@drawable/ic_home_correct_24dp"
                     android:visibility="invisible"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -96,18 +96,18 @@
                     android:textSize="20sp"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="语文书"
                     android:textSize="20sp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:tag="image"
-                    android:src="@drawable/ic_home_corrent_24dp"
+                    android:src="@drawable/ic_home_correct_24dp"
                     android:visibility="invisible"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -134,18 +134,18 @@
                     android:textSize="20sp"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="语文书"
                     android:textSize="20sp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:tag="image"
-                    android:src="@drawable/ic_home_corrent_24dp"
+                    android:src="@drawable/ic_home_correct_24dp"
                     android:visibility="invisible"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -172,18 +172,18 @@
                     android:textSize="20sp"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="语文书"
                     android:textSize="20sp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:tag="image"
-                    android:src="@drawable/ic_home_corrent_24dp"
+                    android:src="@drawable/ic_home_correct_24dp"
                     android:visibility="invisible"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
