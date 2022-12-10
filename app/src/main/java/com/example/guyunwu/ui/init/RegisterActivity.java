@@ -19,11 +19,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
+
+    private static final String TAG = "RegisterActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,12 +92,11 @@ public class RegisterActivity extends AppCompatActivity {
         userRequest.register(loginReq).enqueue(new Callback<BaseResponse<Object>>() {
             @Override
             public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
-                if (response.code() != 200) {
+                if (response.body() == null || response.body().getStatus() != 200) {
                     onFailure(call, new Throwable("注册失败"));
                     return;
                 }
                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                Log.i("guyunwu", "注册成功");
                 Intent toLoginPage = new Intent();
                 toLoginPage.setClass(RegisterActivity.this, LoginActivity.class);
                 startActivity(toLoginPage);
@@ -105,27 +105,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NotNull Call<BaseResponse<Object>> call, @NotNull Throwable t) {
                 Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e("guyunwu", t.getMessage());
+                Log.e(TAG, "onFailure: ", t);
             }
         });
 
-
-//        try {
-//
-//
-//            BaseResponse<?> r = userRequest.register(loginReq).execute().body();
-//            if (r == null || r.getCode() != 200) {
-//                Toast.makeText(this, "注册失败", Toast.LENGTH_SHORT).show();
-//                Log.e("guyunwu", "注册失败");
-//            } else {
-//                Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
-//                Log.i("guyunwu", "注册成功");
-//                Intent toLoginPage = new Intent();
-//                toLoginPage.setClass(this, LoginActivity.class);
-//                startActivity(toLoginPage);
-//            }
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 }

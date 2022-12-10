@@ -6,7 +6,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.guyunwu.MainActivity;
 import com.example.guyunwu.R;
+import com.example.guyunwu.ui.init.LoginActivity;
+import com.example.guyunwu.util.SharedPreferencesUtil;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -36,8 +39,19 @@ public class SettingActivity extends AppCompatActivity {
             startActivity(toAboutUsPage);
         });
         findViewById(R.id.btn_logout).setOnClickListener((v) -> {
-            // TODO
+            SharedPreferencesUtil.delete("token");
+            SharedPreferencesUtil.delete("avatar");
+            SharedPreferencesUtil.delete("userName");
+            SharedPreferencesUtil.delete("token");
+            SharedPreferencesUtil.delete("birthDate");
+            SharedPreferencesUtil.delete("gender");
             Toast.makeText(this, "退出登录成功", Toast.LENGTH_LONG).show();
+            Intent toLoginPage = new Intent();
+            toLoginPage.setClass(this, LoginActivity.class);
+            startActivity(toLoginPage);
+            finish();
+            MainActivity.instance.finish();
+            // todo
         });
     }
 
