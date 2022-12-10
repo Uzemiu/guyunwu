@@ -1,20 +1,22 @@
 package com.example.guyunwu;
 
+import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
 import com.example.guyunwu.databinding.ActivityMainBinding;
 import com.example.guyunwu.entity.SettingEntity;
 import com.example.guyunwu.entity.SettingEnum;
@@ -23,16 +25,14 @@ import com.example.guyunwu.repository.SettingRepository;
 import com.example.guyunwu.ui.explore.article.PublishArticleActivity;
 import com.example.guyunwu.ui.home.signIn.SignInActivity;
 import com.example.guyunwu.ui.user.setting.SettingActivity;
-import com.example.guyunwu.util.Assert;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import org.jetbrains.annotations.NotNull;
 import org.xutils.x;
 
 import java.util.Calendar;
-
-import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
