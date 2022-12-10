@@ -1,4 +1,4 @@
-package com.example.guyunwu.api;
+package com.example.guyunwu.apitest;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.guyunwu.exception.BadRequestException;
@@ -6,6 +6,7 @@ import com.example.guyunwu.util.SharedPreferencesUtil;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -20,7 +21,7 @@ public class RequestModule {
 
     private static final Retrofit RETROFIT;
 
-    public static final String BASE_URL = "http://192.168.31.62:8080/";
+    public static final String BASE_URL = "https://sei-test.021hqit.com/liwa-api/";
 
     public static final UserRequest USER_REQUEST;
 
