@@ -1,5 +1,6 @@
 package com.example.guyunwu.ui.home.wordbook;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,9 @@ public class WordBookAdapter extends RecyclerView.Adapter<WordBookAdapter.ViewHo
         view.setOnClickListener(v -> {
             int position = holder.getAdapterPosition();
             WordBook wordBook = wordBookList.get(position);
-            // TODO
+            Intent intent = new Intent(v.getContext(), WordBookDetailActivity.class);
+            intent.putExtra("wordBook", wordBook);
+            v.getContext().startActivity(intent);
         });
         // set margin in view
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
