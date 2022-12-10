@@ -15,6 +15,8 @@ import com.example.guyunwu.databinding.FragmentUserBinding;
 import com.example.guyunwu.entity.SettingEntity;
 import com.example.guyunwu.entity.SettingEnum;
 import com.example.guyunwu.repository.SettingRepository;
+import com.example.guyunwu.ui.init.LoginActivity;
+import com.example.guyunwu.ui.init.RegisterActivity;
 import com.example.guyunwu.ui.user.myBook.MyBookActivity;
 import com.example.guyunwu.ui.user.profile.ProfileActivity;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -62,9 +64,12 @@ public class UserFragment extends Fragment {
             startActivity(toMyBook);
         });
         binding.layoutHelp.setOnClickListener(v -> {
-            Uri uri = Uri.parse("https://github.com/Uzemiu/guyunwu/issues");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+//            Uri uri = Uri.parse("https://github.com/Uzemiu/guyunwu/issues");
+//            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//            startActivity(intent);
+            Intent toLogin = new Intent();
+            toLogin.setClass(getActivity(), RegisterActivity.class);
+            startActivity(toLogin);
         });
         binding.darkModeSwitch.setOnClickListener(v -> {
             darkMode.setBooleanData(!darkMode.getBooleanData());

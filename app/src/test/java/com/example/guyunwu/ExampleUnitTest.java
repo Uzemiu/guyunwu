@@ -1,9 +1,9 @@
 package com.example.guyunwu;
 
-import com.example.guyunwu.api.BaseResponse;
-import com.example.guyunwu.api.RequestModule;
-import com.example.guyunwu.api.UserRequest;
-import com.example.guyunwu.api.req.LoginReq;
+import com.example.guyunwu.apitest.BaseResponse;
+import com.example.guyunwu.apitest.RequestModule;
+import com.example.guyunwu.apitest.UserRequest;
+import com.example.guyunwu.apitest.req.LoginReq;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 
 import org.junit.Before;
