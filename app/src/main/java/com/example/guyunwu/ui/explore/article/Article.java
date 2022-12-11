@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class Article implements Serializable {
 
     @Column(name = "id", isId = true)
-    private Integer id;
+    private Long id;
 
     @Column(name = "cover_image")
     private String coverImage;

@@ -19,6 +19,8 @@ import com.example.guyunwu.util.UiUtil;
 
 import org.xutils.x;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -77,11 +79,13 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 } else {
                     x.image().bind(holder.binding.commentAuthorAvatar, avatar);
                 }
-                holder.binding.commentAuthorName.setText(author.getName());
+                holder.binding.commentAuthorName.setText(author.getUsername());
             }
 
             holder.binding.commentContent.setText(article.getContent());
-            holder.binding.commentTime.setText(article.getPublishDate().format(UiUtil.DATE_TIME_FORMATTER));
+
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            holder.binding.commentTime.setText(format.format(article.getPublishDate()));
         }
     }
 

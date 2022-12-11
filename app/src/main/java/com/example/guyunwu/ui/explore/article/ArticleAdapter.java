@@ -109,7 +109,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 } else {
                     x.image().bind(holder.articlePreviewAuthorAvatar, avatar);
                 }
-                holder.articlePreviewAuthorName.setText(author.getName());
+                holder.articlePreviewAuthorName.setText(author.getUsername());
             }
             String cover = article.getCoverImage();
             if (cover != null && cover.length() > 0) {

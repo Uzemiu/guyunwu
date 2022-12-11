@@ -5,7 +5,7 @@ import com.example.guyunwu.ui.explore.article.Author;
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,5 +33,7 @@ public class Comment {
     private Long likes;
 
     @Column(name = "publish_date")
-    private LocalDateTime publishDate;
+    private Date publishDate;
+
+    private Boolean liked;
 }

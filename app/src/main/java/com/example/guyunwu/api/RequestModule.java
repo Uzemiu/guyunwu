@@ -30,6 +30,8 @@ public class RequestModule {
 
     public static final ArticleRequest ARTICLE_REQUEST;
 
+    public static final CommentRequest COMMENT_REQUEST;
+
     static {
         HTTP_CLIENT = new OkHttpClient.Builder()
                 // add cookie
@@ -79,5 +81,6 @@ public class RequestModule {
         USER_REQUEST = RETROFIT.create(UserRequest.class);
         COLLECTION_REQUEST = RETROFIT.create(CollectionRequest.class);
         ARTICLE_REQUEST = RETROFIT.create(ArticleRequest.class);
+        COMMENT_REQUEST = RETROFIT.create(CommentRequest.class);
     }
 }

@@ -15,11 +15,8 @@ public class Author implements Serializable {
 
     private Integer id;
 
-    private String name;
+    private String username;
 
     private String avatar;
 
-    public String gertName(){
-        return TextUtils.isEmpty(name) ? "匿名" : name;
-    }
 }

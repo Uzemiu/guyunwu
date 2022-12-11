@@ -69,7 +69,7 @@ public class ExploreDataProvider {
             String[] sentence = SENTENCES[i];
             int imageIndex = Math.min(i, IMAGES.length - 1);
             articles.add(new Article(
-                    i,
+                    (long)i,
                     IMAGES[imageIndex],
                     sentence[1],
                     new Author(),

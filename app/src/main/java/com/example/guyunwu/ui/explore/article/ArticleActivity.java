@@ -18,28 +18,26 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.guyunwu.R;
-import com.example.guyunwu.columnconverter.LocalDateTimeColumnConverter;
+import com.example.guyunwu.api.BaseResponse;
+import com.example.guyunwu.api.RequestModule;
+import com.example.guyunwu.api.req.AddCommentReq;
 import com.example.guyunwu.databinding.ActivityArticleBinding;
 import com.example.guyunwu.databinding.DialogCommentBinding;
-import com.example.guyunwu.repository.CommentQuery;
 import com.example.guyunwu.repository.CommentRepository;
-import com.example.guyunwu.repository.Pageable;
 import com.example.guyunwu.ui.explore.comment.Comment;
 import com.example.guyunwu.ui.explore.comment.CommentAdapter;
 
-import org.xutils.db.Selector;
 import org.xutils.x;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import io.github.mthli.knife.KnifeParser;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ArticleActivity extends AppCompatActivity {
 
@@ -73,49 +71,71 @@ public class ArticleActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private long totalComments = 0;
-
-    private int page = 1;
-
-    private final int size = 10;
+    private int page = 0;
+    private volatile boolean loading = false;
+    private volatile boolean reachEnd = false;
 
     private synchronized void fetchComment() {
-        CommentQuery query = new CommentQuery();
-        query.setArticleId(articleViewModel.getArticleId());
-        totalComments = commentRepository.count(query);
-
-        if (commentList.size() >= totalComments) {
+        if (loading || reachEnd) {
             return;
         }
+        loading = true;
 
-        Selector.OrderBy orderByLikes = new Selector.OrderBy("likes", true);
-        Selector.OrderBy orderById = new Selector.OrderBy("id", true);
-        Pageable pageable = new Pageable();
-        pageable.setOrderByList(Arrays.asList(orderByLikes, orderById));
-        pageable.setPage(page++);
-        pageable.setSize(size);
+        RequestModule.COMMENT_REQUEST.listComment(articleViewModel.getArticleId(), page, 10).enqueue(new Callback<BaseResponse<List<Comment>>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<List<Comment>>> call, Response<BaseResponse<List<Comment>>> response) {
+                BaseResponse<List<Comment>> body = response.body();
+                if (body != null && body.getData() != null) {
+                    int size = commentList.size();
+                    List<Comment> res = body.getData();
+                    if(res.size() == 0){
+                        reachEnd = true;
+                    } else {
+                        commentList.addAll(res);
+                        binding.articleCommentList.getAdapter().notifyItemRangeInserted(size, res.size());
+                    }
+                }
+                page++;
+                loading = false;
+            }
 
-        int size = commentList.size();
-        List<Comment> cs = commentRepository.query(query, pageable);
-        commentList.addAll(cs);
-        binding.articleCommentList.getAdapter().notifyItemRangeChanged(size, cs.size());
+            @Override
+            public void onFailure(Call<BaseResponse<List<Comment>>> call, Throwable t) {
+                Toast.makeText(ArticleActivity.this, "获取留言失败:"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                loading = false;
+            }
+        });
     }
 
-    private void sendComment(String text) {
-        Comment comment = new Comment();
-        comment.setArticleId(articleViewModel.getArticleId());
-        comment.setContent(text);
-        comment.setLikes(0L);
-        Author author = new Author();
-        author.setId(1);
-        author.setAvatar("https://avatars.githubusercontent.com/u/1209810?v=4");
-        author.setName("guyunwu");
-        comment.setAuthor(author);
-        comment.setPublishDate(LocalDateTime.now());
-        commentRepository.save(comment);
+    private volatile boolean sending = false;
 
-        commentList.add(0, comment);
-        binding.articleCommentList.getAdapter().notifyItemInserted(0);
+    private void sendComment(String text) {
+        if (sending) {
+            return;
+        }
+        sending = true;
+
+        AddCommentReq req = new AddCommentReq();
+        req.setArticleId(Long.valueOf(articleViewModel.getArticleId()));
+        req.setContent(text);
+        RequestModule.COMMENT_REQUEST.addComment(req).enqueue(new Callback<BaseResponse<Comment>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Comment>> call, Response<BaseResponse<Comment>> response) {
+                sending = false;
+                BaseResponse<Comment> body = response.body();
+                if (body == null || body.getData() == null) {
+                    return;
+                }
+                commentList.add(0, body.getData());
+                binding.articleCommentList.getAdapter().notifyItemInserted(0);
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Comment>> call, Throwable t) {
+                sending = false;
+                Toast.makeText(ArticleActivity.this, "发表留言失败：" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setupComment() {
@@ -160,6 +180,19 @@ public class ArticleActivity extends AppCompatActivity {
     private void setupArticle() {
         Article article = (Article) getIntent().getSerializableExtra("article");
         articleViewModel.getMArticle().setValue(article);
+
+        // 阅读+1
+        RequestModule.ARTICLE_REQUEST.getArticle(article.getId()).enqueue(new Callback<BaseResponse<Article>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Article>> call, Response<BaseResponse<Article>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Article>> call, Throwable t) {
+
+            }
+        });
     }
 
     private void initActionBar() {
@@ -185,11 +218,11 @@ public class ArticleActivity extends AppCompatActivity {
             }
             if (article.getAuthor() != null) {
                 x.image().bind(binding.articleAuthorAvatar, article.getAuthor().getAvatar());
-                binding.articleAuthorName.setText(article.getAuthor().getName());
+                binding.articleAuthorName.setText(article.getAuthor().getUsername());
             }
             binding.articleTitle.setText(article.getTitle());
             binding.articleContent.setText(KnifeParser.fromHtml(article.getContent()));
-            if(article.getPublishDate() != null){
+            if (article.getPublishDate() != null) {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 binding.articlePublishDate.setText(dateFormat.format(article.getPublishDate()));
             }
