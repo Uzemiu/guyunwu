@@ -1,29 +1,39 @@
 package com.example.guyunwu.ui.home.study;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 import com.example.guyunwu.R;
-import com.google.android.material.card.MaterialCardView;
+import com.example.guyunwu.api.resp.WordResp;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LearnActivity extends AppCompatActivity {
 
-    private final Answer key = Answer.A;
-
-    private static final int correct_color = 0xFFD3F2D2;
-
-    private static final int incorrect_color = 0xFFFBD1D2;
+    ViewPager2 viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn);
         initActionBar();
-        initAnswerView();
+        initPager();
+    }
+
+    private void initPager() {
+        viewPager = findViewById(R.id.viewpager);
+
+        List<Fragment> fragments = new ArrayList<>();
+        List<WordResp> words = LearnDataProvider.getWords();
+        for (WordResp word : words) {
+            fragments.add(LearnFragment.newInstance(word, viewPager));
+        }
+        LearnFragmentAdapter learnFragmentAdapter = new LearnFragmentAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
+        viewPager.setAdapter(learnFragmentAdapter);
     }
 
     @Override
@@ -43,44 +53,4 @@ public class LearnActivity extends AppCompatActivity {
         }
     }
 
-    private void initAnswerView() {
-        MaterialCardView cardViewA = findViewById(R.id.answer_a);
-        cardViewA.setOnClickListener(v -> {
-            selectAnswer(cardViewA, Answer.A);
-        });
-
-        MaterialCardView cardViewB = findViewById(R.id.answer_b);
-        cardViewB.setOnClickListener(v -> {
-            selectAnswer(cardViewB, Answer.B);
-        });
-
-        MaterialCardView cardViewC = findViewById(R.id.answer_c);
-        cardViewC.setOnClickListener(v -> {
-            selectAnswer(cardViewC, Answer.C);
-        });
-
-        MaterialCardView cardViewD = findViewById(R.id.answer_d);
-        cardViewD.setOnClickListener(v -> {
-            selectAnswer(cardViewD, Answer.D);
-        });
-    }
-
-    @SuppressLint("ResourceAsColor")
-    private void selectAnswer(MaterialCardView cardView, Answer answer) {
-        if (answer == key) {
-            cardView.setCardBackgroundColor(correct_color);
-            ImageView imageView = cardView.findViewWithTag("image");
-            imageView.setImageResource(R.drawable.ic_home_correct_24dp);
-            imageView.setVisibility(View.VISIBLE);
-        } else {
-            cardView.setCardBackgroundColor(incorrect_color);
-            ImageView imageView = cardView.findViewWithTag("image");
-            imageView.setImageResource(R.drawable.ic_home_incorrect_24dp);
-            imageView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    enum Answer {
-        A, B, C, D
-    }
 }

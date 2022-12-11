@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   tools:context=".ui.home.study.LearnActivity"
+                                                   android:paddingTop="10dp">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/rounded_corner_card"
+                android:layout_margin="15dp">
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/question_key"
+                        android:layout_margin="15dp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:text="比"
+                        android:textSize="30sp"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:id="@+id/question_content"
+                        android:layout_gravity="center"
+                        android:text="其两膝相比者，各隐卷底衣褶"
+                        android:textSize="20sp"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:id="@+id/question_reference"
+                        android:layout_gravity="right"
+                        android:text="——《核舟记》"
+                        android:textSize="20sp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="15dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/answer_a"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/rounded_corner_card"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="15dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A."
+                        android:textSize="20sp"/>
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:id="@+id/text_answer_a"
+                        android:layout_height="wrap_content"
+                        android:text="语文书"
+                        android:textSize="20sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="image"
+                        android:src="@drawable/ic_home_correct_24dp"
+                        android:visibility="invisible"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/answer_b"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/rounded_corner_card"
+                android:clickable="true">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="15dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="B."
+                        android:textSize="20sp"/>
+
+                <TextView
+                        android:id="@+id/text_answer_b"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="语文书"
+                        android:textSize="20sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="image"
+                        android:src="@drawable/ic_home_correct_24dp"
+                        android:visibility="invisible"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/answer_c"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/rounded_corner_card"
+                android:clickable="true">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="15dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="C."
+                        android:textSize="20sp"/>
+
+                <TextView
+                        android:id="@+id/text_answer_c"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="语文书"
+                        android:textSize="20sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="image"
+                        android:src="@drawable/ic_home_correct_24dp"
+                        android:visibility="invisible"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/answer_d"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/rounded_corner_card"
+                android:clickable="true">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="15dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="D."
+                        android:textSize="20sp"/>
+
+                <TextView
+                        android:id="@+id/text_answer_d"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="语文书"
+                        android:textSize="20sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="image"
+                        android:src="@drawable/ic_home_correct_24dp"
+                        android:visibility="invisible"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
