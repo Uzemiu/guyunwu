@@ -28,5 +28,5 @@ public interface ArticleRequest {
     Call<BaseResponse<Boolean>> getArticleLike(@Path("id") Long id);
 
     @POST("/article/like/{id}")
-    Call<BaseResponse<Object>> doLikeArticle(@Path("id") Long id);
+    Call<BaseResponse<Boolean>> doLikeArticle(@Path("id") Long id);
 }
