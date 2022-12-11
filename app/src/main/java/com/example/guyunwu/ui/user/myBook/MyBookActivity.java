@@ -4,21 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import com.example.guyunwu.R;
+import com.example.guyunwu.ui.home.calendar.CalendarActivity;
 import com.example.guyunwu.ui.user.BookDataProvider;
 import com.example.guyunwu.ui.user.book.Book;
 import com.example.guyunwu.ui.user.book.BookAdapter;
 import com.example.guyunwu.ui.user.profile.ProfileActivity;
+import com.example.guyunwu.ui.user.setting.SettingActivity;
 
 import java.util.List;
 
-public class MyBookActivity  extends AppCompatActivity {
+public class MyBookActivity extends AppCompatActivity {
 
     private Menu menu;
 
@@ -36,21 +36,19 @@ public class MyBookActivity  extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_book, menu);
         this.menu = menu;
         onPrepareOptionsMenu(menu);
-
-        MenuItem menuItem = findViewById(R.id.book_more_add);
-        /*menuItem.setOnMenuItemClickListener(v -> {
-            Intent toProfilePage = new Intent();
-            toProfilePage.setClass(MyBookActivity.this, ProfileActivity.class);
-            startActivity(toProfilePage);
-        });*/
-
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {   //返回键的id
             this.finish();
+            return false;
+        } else if(item.getItemId() == R.id.book_more_add) {
+            Intent toProfilePage = new Intent();
+            toProfilePage.setClass(MyBookActivity.this, LibraryActivity.class);
+            startActivity(toProfilePage);
             return false;
         }
         return super.onOptionsItemSelected(item);
@@ -63,7 +61,8 @@ public class MyBookActivity  extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
-    private void initRecyclerView(){
+
+    private void initRecyclerView() {
         // 获取图书数据
         List<Book> books = BookDataProvider.getBooks();
         RecyclerView recyclerView = findViewById(R.id.my_book_recycler_view);

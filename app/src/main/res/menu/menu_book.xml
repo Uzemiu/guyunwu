@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/book_more_add"
         android:title="@string/book_add"
-        android:icon="@drawable/ic_book_add"
+        android:icon="@drawable/ic_menu_add_24dp"
         app:showAsAction="ifRoom">
     </item>
 </menu>

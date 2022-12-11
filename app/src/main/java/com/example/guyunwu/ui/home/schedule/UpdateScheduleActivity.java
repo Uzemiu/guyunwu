@@ -1,16 +1,16 @@
 package com.example.guyunwu.ui.home.schedule;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.contrarywind.listener.OnItemSelectedListener;
 import com.contrarywind.view.WheelView;
 import com.example.guyunwu.R;
+import com.example.guyunwu.ui.user.myBook.MyBookActivity;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -31,7 +31,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
             100, 125, 150, 175, 200, 225, 250, 275, 300,
             325, 350, 375, 400, 425, 450, 475, 500, 550,
             600, 650, 700, 750, 800, 850, 900, 950, 1000
-        };
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,15 @@ public class UpdateScheduleActivity extends AppCompatActivity {
 
         initSelectNumWheel();
         initSelectDayWheel();
+        initBinding();
+    }
+
+    private void initBinding() {
+        findViewById(R.id.book_image).setOnClickListener(v -> {
+            Intent toMyBookPage = new Intent();
+            toMyBookPage.setClass(this,MyBookActivity.class);
+            startActivity(toMyBookPage);
+        });
     }
 
     @Override
@@ -66,7 +75,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
         selectNumView.setAlphaGradient(true);
 
         final List<String> mOptionsItems = new ArrayList<>();
-        for(Integer num : values) {
+        for (Integer num : values) {
             mOptionsItems.add(num.toString() + "个");
         }
         selectNumView.setAdapter(new ArrayWheelAdapter<>(mOptionsItems));
@@ -77,7 +86,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
             public void onItemSelected(int index) {
                 wordPerDay = values[index];
                 updateSelectDayWheel();
-                Toast.makeText(UpdateScheduleActivity.this,  mOptionsItems.get(index), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateScheduleActivity.this, mOptionsItems.get(index), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -89,7 +98,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
 
         final List<String> mOptionsItems = new ArrayList<>();
         days = getDayList();
-        for(Integer num : days) {
+        for (Integer num : days) {
             mOptionsItems.add(num.toString() + "天");
         }
         selectDayView.setAdapter(new ArrayWheelAdapter<>(mOptionsItems));
@@ -99,7 +108,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(int index) {
                 updateSelectNumWheel(index);
-                Toast.makeText(UpdateScheduleActivity.this,  mOptionsItems.get(index), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateScheduleActivity.this, mOptionsItems.get(index), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -113,9 +122,9 @@ public class UpdateScheduleActivity extends AppCompatActivity {
         WheelView selectNumView = findViewById(R.id.select_num);
 
         int day_planned = days.get(index);
-        int least_words_per_day = (int)Math.ceil((double) words / day_planned);
-        for(int i = 0; i < values.length; i++){
-            if(values[i] >= least_words_per_day) {
+        int least_words_per_day = (int) Math.ceil((double) words / day_planned);
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] >= least_words_per_day) {
                 selectNumView.setCurrentItem(i);
                 break;
             }
@@ -123,8 +132,8 @@ public class UpdateScheduleActivity extends AppCompatActivity {
     }
 
     private int getCurrentDayItem(List<Integer> days) {
-        for(int index = 0; index < days.size(); index++) {
-            if(days.get(index) == (int)Math.ceil((double) words / wordPerDay)) {
+        for (int index = 0; index < days.size(); index++) {
+            if (days.get(index) == (int) Math.ceil((double) words / wordPerDay)) {
                 return index;
             }
         }
@@ -132,8 +141,8 @@ public class UpdateScheduleActivity extends AppCompatActivity {
     }
 
     private int getCurrentNumItem() {
-        for(int index = 0; index < values.length; index++) {
-            if(Objects.equals(wordPerDay, values[index])) {
+        for (int index = 0; index < values.length; index++) {
+            if (Objects.equals(wordPerDay, values[index])) {
                 return index;
             }
         }
@@ -143,8 +152,8 @@ public class UpdateScheduleActivity extends AppCompatActivity {
     private List<Integer> getDayList() {
         LinkedHashSet<Integer> daySet = new LinkedHashSet<>();
 
-        for(int index = values.length - 1; index >= 0; index--) {
-            int day = (int)Math.ceil((double) words / values[index]);
+        for (int index = values.length - 1; index >= 0; index--) {
+            int day = (int) Math.ceil((double) words / values[index]);
             daySet.add(day);
         }
 
