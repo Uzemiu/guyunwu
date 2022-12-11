@@ -59,6 +59,7 @@ public class ArticleActivity extends AppCompatActivity {
         initBinding();
         initRecyclerView();
         setupArticle();
+        setupArticleLike();
         setupComment();
     }
 
@@ -88,7 +89,7 @@ public class ArticleActivity extends AppCompatActivity {
                 if (body != null && body.getData() != null) {
                     int size = commentList.size();
                     List<Comment> res = body.getData();
-                    if(res.size() == 0){
+                    if (res.size() == 0) {
                         reachEnd = true;
                     } else {
                         commentList.addAll(res);
@@ -101,7 +102,7 @@ public class ArticleActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BaseResponse<List<Comment>>> call, Throwable t) {
-                Toast.makeText(ArticleActivity.this, "获取留言失败:"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ArticleActivity.this, "获取留言失败:" + t.getMessage(), Toast.LENGTH_SHORT).show();
                 loading = false;
             }
         });
@@ -177,20 +178,72 @@ public class ArticleActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    private void setupArticleLike() {
+        final boolean[] likeLoading = {true};
+        Callback<BaseResponse<Boolean>> likeCallback = new Callback<BaseResponse<Boolean>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Boolean>> call, Response<BaseResponse<Boolean>> response) {
+                BaseResponse<Boolean> body = response.body();
+                if (body != null) {
+                    articleViewModel.getMLike().setValue(Boolean.TRUE.equals(body.getData()));
+                }
+                likeLoading[0] = false;
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Boolean>> call, Throwable t) {
+                Toast.makeText(ArticleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                likeLoading[0] = false;
+            }
+        };
+
+        RequestModule.ARTICLE_REQUEST.getArticleLike(articleViewModel.getArticleId()).enqueue(likeCallback);
+        binding.articleLikeBtn.setOnClickListener(v -> {
+            if (likeLoading[0]) {
+                return;
+            }
+            likeLoading[0] = true;
+            RequestModule.ARTICLE_REQUEST.doLikeArticle(articleViewModel.getArticleId()).enqueue(new Callback<BaseResponse<Boolean>>() {
+                @Override
+                public void onResponse(Call<BaseResponse<Boolean>> call, Response<BaseResponse<Boolean>> response) {
+                    BaseResponse<Boolean> body = response.body();
+                    if (body != null) {
+                        boolean res = Boolean.TRUE.equals(body.getData());
+                        articleViewModel.getMLike().setValue(res);
+
+                        Article article = articleViewModel.getMArticle().getValue();
+                        article.setLikes(article.getLikes() + (res ? 1 : -1));
+                        binding.articleLikes.setText(String.valueOf(article.getLikes()));
+                    }
+                    likeLoading[0] = false;
+                }
+
+                @Override
+                public void onFailure(Call<BaseResponse<Boolean>> call, Throwable t) {
+                    Toast.makeText(ArticleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    likeLoading[0] = false;
+                }
+            });
+        });
+    }
+
     private void setupArticle() {
         Article article = (Article) getIntent().getSerializableExtra("article");
         articleViewModel.getMArticle().setValue(article);
 
-        // 阅读+1
         RequestModule.ARTICLE_REQUEST.getArticle(article.getId()).enqueue(new Callback<BaseResponse<Article>>() {
             @Override
             public void onResponse(Call<BaseResponse<Article>> call, Response<BaseResponse<Article>> response) {
-
+                BaseResponse<Article> body = response.body();
+                if (body != null) {
+                    Article article = body.getData();
+                    articleViewModel.getMArticle().setValue(article);
+                }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<Article>> call, Throwable t) {
-
+                Toast.makeText(ArticleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -209,7 +262,6 @@ public class ArticleActivity extends AppCompatActivity {
         binding = ActivityArticleBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         articleViewModel.getMArticle().observe(this, article -> {
             if (TextUtils.isEmpty(article.getCoverImage())) {
                 binding.articleHeader.setVisibility(View.GONE);
@@ -227,10 +279,18 @@ public class ArticleActivity extends AppCompatActivity {
                 binding.articlePublishDate.setText(dateFormat.format(article.getPublishDate()));
             }
             binding.articleReads.setText(String.valueOf(article.getReads()));
+            binding.articleLikes.setText(String.valueOf(article.getLikes()));
 
             ActionBar bar = getSupportActionBar();
             if (bar != null) {
                 bar.setTitle(article.getTitle());
+            }
+        });
+        articleViewModel.getMLike().observe(this, like -> {
+            if (like) {
+                binding.articleLikeIcon.setImageResource(R.drawable.article_like_fill);
+            } else {
+                binding.articleLikeIcon.setImageResource(R.drawable.article_like);
             }
         });
     }
