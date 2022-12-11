@@ -70,6 +70,7 @@ public class MyBookActivity extends AppCompatActivity {
                 StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         BookAdapter adapter = new BookAdapter(books);
+        adapter.setAdapterType(0);
         recyclerView.setAdapter(adapter);
     }
 }

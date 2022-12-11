@@ -7,17 +7,15 @@ import android.view.View;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.guyunwu.databinding.ActivityBookBinding;
+import com.example.guyunwu.databinding.ActivityLibraryBookBinding;
 import io.github.mthli.knife.KnifeParser;
 import org.xutils.x;
 
-import java.time.format.DateTimeFormatter;
+public class LibraryBookActivity extends AppCompatActivity {
 
-public class BookActivity extends AppCompatActivity {
+    private static final String TAG = "LibraryBookActivity";
 
-    private static final String TAG = "BookActivity";
-
-    private ActivityBookBinding binding;
+    private ActivityLibraryBookBinding binding;
 
     private BookViewModel bookViewModel;
 
@@ -52,7 +50,7 @@ public class BookActivity extends AppCompatActivity {
     private void initBinding() {
         bookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
 
-        binding = ActivityBookBinding.inflate(getLayoutInflater());
+        binding = ActivityLibraryBookBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         bookViewModel.getMBook().observe(this, book -> {
@@ -74,7 +72,7 @@ public class BookActivity extends AppCompatActivity {
             }
         });
 
-        binding.changePlan.setOnClickListener(v -> {
+        binding.addBook.setOnClickListener(v -> {
             // TODO
         });
     }

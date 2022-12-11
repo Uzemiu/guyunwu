@@ -103,11 +103,11 @@
         </LinearLayout>
     </ScrollView>
     <Button
-            android:id="@+id/change_plan"
+            android:id="@+id/add_book"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="切换图书"/>
+            android:text="添加图书"/>
 </LinearLayout>
 
 

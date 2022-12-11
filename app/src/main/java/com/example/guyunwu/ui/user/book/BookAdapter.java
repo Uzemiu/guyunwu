@@ -7,19 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.guyunwu.R;
-
+import lombok.Setter;
 import org.xutils.x;
 
 import java.util.List;
 
-public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
+public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     private final List<Book> bookList;
+
+    @Setter
+    private int adapterType;
 
     public BookAdapter(List<Book> bookList) {
         this.bookList = bookList;
@@ -33,6 +34,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
         TextView bookPreviewContent;
         TextView bookPreviewReads;
         CardView bookPreviewCoverCard;
+
 
         public ViewHolder(View view) {
             super(view);
@@ -55,7 +57,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
         view.setOnClickListener(v -> {
             int position = holder.getAdapterPosition();
             Book book = bookList.get(position);
-            Intent intent = new Intent(v.getContext(), BookActivity.class);
+            Intent intent = null;
+            if (adapterType == 0) {
+                intent = new Intent(v.getContext(), BookActivity.class);
+            } else if (adapterType == 1) {
+                intent = new Intent(v.getContext(), LibraryBookActivity.class);
+            }
             intent.putExtra("book", book);
             v.getContext().startActivity(intent);
         });
@@ -75,11 +82,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>{
         holder.bookPreviewTitle.setText(book.getTitle());
 
         Author author = book.getAuthor();
-        if(author != null){
-            holder.bookPreviewAuthorName.setText('[' + author.getDynasty() + ']'+ author.getName());
+        if (author != null) {
+            holder.bookPreviewAuthorName.setText('[' + author.getDynasty() + ']' + author.getName());
         }
         String cover = book.getCoverImage();
-        if(cover != null && cover.length() > 0){
+        if (cover != null && cover.length() > 0) {
             x.image().bind(holder.bookPreviewCover, book.getCoverImage());
         } else {
             holder.bookPreviewCoverCard.setVisibility(View.GONE);

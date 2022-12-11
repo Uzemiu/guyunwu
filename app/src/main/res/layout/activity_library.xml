@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#efefef"
-    tools:context=".ui.user.myBook.MyBookActivity">
+    tools:context=".ui.user.myBook.LibraryActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_book_recycler_view"

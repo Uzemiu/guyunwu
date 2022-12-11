@@ -22,6 +22,8 @@
             android:layout_height="80dp"
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="@dimen/rounded_corner_card"
+            android:clickable="true"
+            android:id="@+id/schedule"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -35,15 +37,12 @@
                     android:id="@+id/book_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:src="@drawable/ic_signin_unfinished_24dp" />
 
                 <LinearLayout
-                    android:id="@+id/schedule"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:clickable="true"
                     android:orientation="vertical">
 
                     <LinearLayout
