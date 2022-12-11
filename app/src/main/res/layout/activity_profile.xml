@@ -55,8 +55,8 @@
                         <ImageView
                                 android:src="@drawable/ic_user_user_24dp"
                                 android:scaleType="fitCenter"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_gravity="center"
                                 android:layout_marginEnd="10dp"
                                 android:id="@+id/avatar"/>

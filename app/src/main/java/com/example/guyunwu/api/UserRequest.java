@@ -1,7 +1,9 @@
 package com.example.guyunwu.api;
 
 import com.example.guyunwu.api.req.LoginReq;
+import com.example.guyunwu.api.req.UserReq;
 import com.example.guyunwu.api.resp.LoginResp;
+import com.example.guyunwu.api.resp.UserResp;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -16,7 +18,6 @@ public interface UserRequest {
     Call<BaseResponse<Object>> register(@Body LoginReq loginReq);
 
     @PUT("user/update")
-    Call<BaseResponse<Object>> update();
-
+    Call<BaseResponse<UserResp>> update(@Body UserReq userReq);
 
 }

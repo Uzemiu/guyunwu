@@ -43,47 +43,47 @@ public class ExampleRequestTest {
 
     @Test
     public void useAppContext() throws IOException {
-        UserRequest userRequest = RequestModule.USER_REQUEST;
-
-        LoginReq loginReq = new LoginReq();
-        loginReq.setUsername("ecnu_admin");
-        loginReq.setPassword(MD5.md5("pl,okm123"));
-        BaseResponse<?> r = userRequest.login(loginReq).execute().body();
-        assertNotNull(r);
-        assertEquals(Integer.valueOf(0), r.getStatus());
-
-        BaseResponse<MeResp> meResp = userRequest.me().execute().body();
-        assertNotNull(meResp);
-        assertEquals("ecnu_admin", meResp.getData().getUsername());
+//        UserRequest userRequest = RequestModule.USER_REQUEST;
+//
+//        LoginReq loginReq = new LoginReq();
+//        loginReq.setUsername("ecnu_admin");
+//        loginReq.setPassword(MD5.md5("pl,okm123"));
+//        BaseResponse<?> r = userRequest.login(loginReq).execute().body();
+//        assertNotNull(r);
+//        assertEquals(Integer.valueOf(0), r.getStatus());
+//
+//        BaseResponse<MeResp> meResp = userRequest.me().execute().body();
+//        assertNotNull(meResp);
+//        assertEquals("ecnu_admin", meResp.getData().getUsername());
     }
 
     @Test
     public void async(){
-        UserRequest userRequest = RequestModule.USER_REQUEST;
-
-        try {
-            System.out.println(userRequest.me().execute().body());
-        } catch (IOException e) {
-//            Toast.makeText(InstrumentationRegistry.getInstrumentation().getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
-
-        userRequest.me().enqueue(new Callback<BaseResponse<MeResp>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<MeResp>> call, Response<BaseResponse<MeResp>> response) {
-                System.out.println(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse<MeResp>> call, Throwable t) {
-//                Toast.makeText(InstrumentationRegistry.getInstrumentation().getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
-        });
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        UserRequest userRequest = RequestModule.USER_REQUEST;
+//
+//        try {
+//            System.out.println(userRequest.me().execute().body());
+//        } catch (IOException e) {
+////            Toast.makeText(InstrumentationRegistry.getInstrumentation().getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//            e.printStackTrace();
+//        }
+//
+//        userRequest.me().enqueue(new Callback<BaseResponse<MeResp>>() {
+//            @Override
+//            public void onResponse(Call<BaseResponse<MeResp>> call, Response<BaseResponse<MeResp>> response) {
+//                System.out.println(response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<BaseResponse<MeResp>> call, Throwable t) {
+////                Toast.makeText(InstrumentationRegistry.getInstrumentation().getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//                t.printStackTrace();
+//            }
+//        });
+//        try {
+//            Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 }

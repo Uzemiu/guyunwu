@@ -16,10 +16,11 @@ import com.example.guyunwu.entity.SettingEntity;
 import com.example.guyunwu.entity.SettingEnum;
 import com.example.guyunwu.repository.SettingRepository;
 import com.example.guyunwu.ui.init.LoginActivity;
-import com.example.guyunwu.ui.init.RegisterActivity;
 import com.example.guyunwu.ui.user.myBook.MyBookActivity;
 import com.example.guyunwu.ui.user.profile.ProfileActivity;
+import com.example.guyunwu.util.SharedPreferencesUtil;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import org.xutils.x;
 
 public class UserFragment extends Fragment {
 
@@ -43,7 +44,19 @@ public class UserFragment extends Fragment {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         initRouter(root);
+        initUser();
         return root;
+    }
+
+    private void initUser() {
+        String avatar = SharedPreferencesUtil.getString("avatar", null);
+        if (avatar != null) {
+            x.image().bind(binding.avatar, avatar);
+        } else {
+            binding.avatar.setBackgroundResource(R.drawable.ic_user_user_24dp);
+        }
+        String userName = SharedPreferencesUtil.getString("userName", "未登录");
+        binding.username.setText(userName);
     }
 
     @Override
@@ -54,9 +67,13 @@ public class UserFragment extends Fragment {
 
     private void initRouter(View root) {
         binding.layoutUser.setOnClickListener(v -> {
-            Intent toProfilePage = new Intent();
-            toProfilePage.setClass(getActivity(), ProfileActivity.class);
-            startActivity(toProfilePage);
+            Intent toPage = new Intent();
+            if (SharedPreferencesUtil.contain("token")) {
+                toPage.setClass(getActivity(), ProfileActivity.class);
+            } else {
+                toPage.setClass(getActivity(), LoginActivity.class);
+            }
+            startActivity(toPage);
         });
         binding.textMyBook.setOnClickListener(v -> {
             Intent toMyBook = new Intent();

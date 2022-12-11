@@ -28,7 +28,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_user_user_24dp"/>
+                    android:background="@drawable/ic_user_user_24dp"/>
             <TextView
                     android:text="未登录"
                     android:layout_width="0dp"

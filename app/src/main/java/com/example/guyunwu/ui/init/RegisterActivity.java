@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
         userRequest.register(loginReq).enqueue(new Callback<BaseResponse<Object>>() {
             @Override
             public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
-                if (response.body() == null || response.body().getStatus() != 200) {
+                if (response.body() == null || response.body().getCode() != 200) {
                     onFailure(call, new Throwable("注册失败"));
                     return;
                 }

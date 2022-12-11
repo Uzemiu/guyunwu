@@ -46,9 +46,12 @@ public class SharedPreferencesUtil {
         return sharedPreferences.getInt(key, defValue);
     }
 
-    public static void delete(String key) {
+    public static void remove(String key) {
         sharedPreferences.edit().remove(key).clear().commit();
     }
 
+    public static boolean contain(String key) {
+        return sharedPreferences.contains(key);
+    }
 
 }

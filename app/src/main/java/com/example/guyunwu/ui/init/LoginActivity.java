@@ -96,14 +96,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BaseResponse<LoginResp>> call, Response<BaseResponse<LoginResp>> response) {
                 BaseResponse<LoginResp> body = response.body();
-                if (body == null || body.getStatus() != 200) {
+                if (body == null || body.getCode() != 200) {
                     onFailure(call, new Throwable("登录失败"));
-                    return;
                 } else {
+                    SharedPreferencesUtil.putString("phoneNumber", body.getData().getPhoneNumber());
                     SharedPreferencesUtil.putString("userName", body.getData().getUsername());
                     SharedPreferencesUtil.putString("avatar", body.getData().getAvatar());
                     SharedPreferencesUtil.putString("token", body.getData().getToken());
-                    SharedPreferencesUtil.putString("birthDate", body.getData().getBirthDate() == null ? "" :body.getData().getBirthDate().toString());
+                    SharedPreferencesUtil.putLong("birthDate", body.getData().getBirthDate() == null ? 0 :body.getData().getBirthDate().getTime());
                     SharedPreferencesUtil.putInt("gender", body.getData().getGender());
                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                     Intent toMainPage = new Intent();

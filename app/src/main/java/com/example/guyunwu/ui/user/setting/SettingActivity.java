@@ -39,19 +39,19 @@ public class SettingActivity extends AppCompatActivity {
             startActivity(toAboutUsPage);
         });
         findViewById(R.id.btn_logout).setOnClickListener((v) -> {
-            SharedPreferencesUtil.delete("token");
-            SharedPreferencesUtil.delete("avatar");
-            SharedPreferencesUtil.delete("userName");
-            SharedPreferencesUtil.delete("token");
-            SharedPreferencesUtil.delete("birthDate");
-            SharedPreferencesUtil.delete("gender");
+            SharedPreferencesUtil.remove("token");
+            SharedPreferencesUtil.remove("avatar");
+            SharedPreferencesUtil.remove("userName");
+            SharedPreferencesUtil.remove("token");
+            SharedPreferencesUtil.remove("birthDate");
+            SharedPreferencesUtil.remove("gender");
+            SharedPreferencesUtil.remove("phoneNumber");
             Toast.makeText(this, "退出登录成功", Toast.LENGTH_LONG).show();
             Intent toLoginPage = new Intent();
             toLoginPage.setClass(this, LoginActivity.class);
             startActivity(toLoginPage);
             finish();
             MainActivity.instance.finish();
-            // todo
         });
     }
 

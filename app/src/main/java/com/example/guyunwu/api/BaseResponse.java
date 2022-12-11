@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class BaseResponse<T> {
 
-    private Integer status;
+    private Integer code;
 
     private String message;
 

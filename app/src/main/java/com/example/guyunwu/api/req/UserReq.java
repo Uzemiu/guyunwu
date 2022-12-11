@@ -1,11 +1,15 @@
-package com.example.guyunwu.api.resp;
+package com.example.guyunwu.api.req;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
-public class LoginResp {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserReq {
 
     private String username;
 
@@ -14,9 +18,5 @@ public class LoginResp {
     private Integer gender;
 
     private Date birthDate;
-
-    private String token;
-
-    private String phoneNumber;
 
 }
