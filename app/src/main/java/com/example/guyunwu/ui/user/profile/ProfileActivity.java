@@ -77,7 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             Glide.with(this).load(R.drawable.ic_user_user_24dp).apply(RequestOptions.bitmapTransform(new CircleCrop())).into((ImageView) findViewById(R.id.avatar));
         }
-        TextView textGender = findViewById(R.id.text_gender);
+        TextView textGender = findViewById(R.id.gender);
         Integer gender = userReq.getGender();
         if (gender == 0) {
             textGender.setText("男");
@@ -89,7 +89,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView textUserName = findViewById(R.id.nickname);
         textUserName.setText(userReq.getUsername() == null ? "未登录" : userReq.getUsername());
         Date birthDate = userReq.getBirthDate();
-        TextView textBirthDate = findViewById(R.id.text_birthday);
+        TextView textBirthDate = findViewById(R.id.birthday);
         if (birthDate == null) {
             textBirthDate.setText("未填写");
         } else {
@@ -132,23 +132,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {   //返回键的id
-            this.finish();
-            return false;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void initActionBar() {
-        ActionBar bar = getSupportActionBar();
-        if (bar != null) {
-            bar.setTitle("个人资料");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
     private void showInputDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("昵称");
@@ -186,7 +169,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void uploadAvatar(File image) {
         FileUploadRequest fileUploadRequest = RequestModule.FILE_UPLOAD_REQUEST;
-
 
         RequestBody imageBody = RequestBody.create(MediaType.parse("image/*"), image);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", image.getName(), imageBody);
@@ -251,6 +233,7 @@ public class ProfileActivity extends AppCompatActivity {
                     return;
                 }
                 Toast.makeText(ProfileActivity.this, "更新成功", Toast.LENGTH_SHORT).show();
+                Log.e(TAG,body.getData().toString());
                 SharedPreferencesUtil.putString("userName", body.getData().getUsername());
                 SharedPreferencesUtil.putString("avatar", body.getData().getAvatar());
                 SharedPreferencesUtil.putLong("birthDate", body.getData().getBirthDate() == null ? 0 : body.getData().getBirthDate().getTime());
@@ -276,6 +259,7 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onTimeSelect(Date date, View v) {
                     userReq.setBirthDate(date);
+                    Log.e(TAG,userReq.toString());
                     updateRequest();
                 }
             }).isAlphaGradient(true)
@@ -308,6 +292,23 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.layout_avatar).setOnClickListener(v -> {
             showBottomDialog();
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {   //返回键的id
+            this.finish();
+            return false;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void initActionBar() {
+        ActionBar bar = getSupportActionBar();
+        if (bar != null) {
+            bar.setTitle("个人资料");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 }
 

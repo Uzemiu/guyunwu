@@ -109,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                     Intent toMainPage = new Intent();
                     toMainPage.setClass(LoginActivity.this, MainActivity.class);
                     startActivity(toMainPage);
+                    finish();
                 }
             }
 

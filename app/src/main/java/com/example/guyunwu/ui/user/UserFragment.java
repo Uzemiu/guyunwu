@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.guyunwu.R;
 import com.example.guyunwu.databinding.FragmentUserBinding;
 import com.example.guyunwu.entity.SettingEntity;
@@ -48,12 +52,18 @@ public class UserFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initUser();
+    }
+
     private void initUser() {
         String avatar = SharedPreferencesUtil.getString("avatar", null);
         if (avatar != null) {
-            x.image().bind(binding.avatar, avatar);
+            Glide.with(this).load(avatar).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(binding.avatar);
         } else {
-            binding.avatar.setBackgroundResource(R.drawable.ic_user_user_24dp);
+            Glide.with(this).load(R.drawable.ic_user_user_24dp).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(binding.avatar);
         }
         String userName = SharedPreferencesUtil.getString("userName", "未登录");
         binding.username.setText(userName);

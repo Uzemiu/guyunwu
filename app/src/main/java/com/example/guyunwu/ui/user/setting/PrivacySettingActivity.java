@@ -6,7 +6,9 @@ import android.view.MenuItem;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.guyunwu.R;
+import com.example.guyunwu.ui.init.LoginActivity;
 import com.example.guyunwu.ui.user.profile.ProfileActivity;
+import com.example.guyunwu.util.SharedPreferencesUtil;
 
 public class PrivacySettingActivity extends AppCompatActivity {
 
@@ -16,9 +18,13 @@ public class PrivacySettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_privacy_setting);
         initActionBar();
         findViewById(R.id.layout_profile).setOnClickListener(v -> {
-            Intent toProfilePage = new Intent();
-            toProfilePage.setClass(this, ProfileActivity.class);
-            startActivity(toProfilePage);
+            Intent toPage = new Intent();
+            if (SharedPreferencesUtil.contain("token")) {
+                toPage.setClass(this, ProfileActivity.class);
+            } else {
+                toPage.setClass(this, LoginActivity.class);
+            }
+            startActivity(toPage);
         });
         findViewById(R.id.layout_system_manage).setOnClickListener(v -> {
             Intent toSystemPage = new Intent();
