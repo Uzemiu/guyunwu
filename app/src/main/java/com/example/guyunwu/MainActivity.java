@@ -15,10 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.guyunwu.databinding.ActivityMainBinding;
-import com.example.guyunwu.entity.SettingEntity;
-import com.example.guyunwu.entity.SettingEnum;
 import com.example.guyunwu.exception.handler.ExceptionHandler;
-import com.example.guyunwu.repository.SettingRepository;
 import com.example.guyunwu.ui.explore.article.PublishArticleActivity;
 import com.example.guyunwu.ui.home.calendar.CalendarActivity;
 import com.example.guyunwu.ui.init.LoginActivity;
@@ -82,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             return onNavDestinationSelected(item, navController);
         });
         initSettings();
-        if (SharedPreferencesUtil.getString("token","").length() == 0) {
+        if (SharedPreferencesUtil.getString("token", "").length() == 0) {
             Intent toLoginPage = new Intent();
             toLoginPage.setClass(this, LoginActivity.class);
             startActivity(toLoginPage);
@@ -108,34 +105,56 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initSettings() {
-        SettingRepository settingRepository = new SettingRepository();
-        if (settingRepository.findById(SettingEnum.HAS_PARAPHRASE.ordinal()) == null) {
-            settingRepository.save(new SettingEntity(SettingEnum.HAS_PARAPHRASE.ordinal(), true, null, null, null, null));
+        if (!SharedPreferencesUtil.contain("hasParaphrase")) {
+            SharedPreferencesUtil.putBoolean("hasParaphrase", true);
         }
-        if (settingRepository.findById(SettingEnum.HAS_TRANSLATION.ordinal()) == null) {
-            settingRepository.save(new SettingEntity(SettingEnum.HAS_TRANSLATION.ordinal(), true, null, null, null, null));
+        if (!SharedPreferencesUtil.contain("hasTranslation")) {
+            SharedPreferencesUtil.putBoolean("hasTranslation", true);
         }
-        if (settingRepository.findById(SettingEnum.HAS_TONE.ordinal()) == null) {
-            settingRepository.save(new SettingEntity(SettingEnum.HAS_TONE.ordinal(), true, null, null, null, null));
+        if (!SharedPreferencesUtil.contain("hasTone")) {
+            SharedPreferencesUtil.putBoolean("hasTone", true);
         }
-
-        if (settingRepository.findById(SettingEnum.HAS_NOTIFICATION.ordinal()) == null) {
-            settingRepository.save(new SettingEntity(SettingEnum.HAS_NOTIFICATION.ordinal(), false, null, null, null, null));
+        if (!SharedPreferencesUtil.contain("hasNotification")) {
+            SharedPreferencesUtil.putBoolean("hasNotification", false);
         }
-        if (settingRepository.findById(SettingEnum.NOTIFICATION_TIME.ordinal()) == null) {
+        if (!SharedPreferencesUtil.contain("notificationTime")) {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, 10);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
-            settingRepository.save(new SettingEntity(SettingEnum.NOTIFICATION_TIME.ordinal(), false, null, null, null, calendar.getTime()));
+            SharedPreferencesUtil.putLong("notificationTime", calendar.getTime().getTime());
         }
-        if (settingRepository.findById(SettingEnum.DARK_MODE.ordinal()) == null) {
-            settingRepository.save(new SettingEntity(SettingEnum.DARK_MODE.ordinal(), false, null, null, null, null));
+        if (!SharedPreferencesUtil.contain("darkMode")) {
+            SharedPreferencesUtil.putBoolean("darkMode", false);
         }
-
-        SettingEntity darkMode = settingRepository.findById(SettingEnum.DARK_MODE.ordinal());
-        Boolean booleanData = darkMode.getBooleanData();
-        if (booleanData) {
+//        SettingRepository settingRepository = new SettingRepository();
+//        if (settingRepository.findById(SettingEnum.HAS_PARAPHRASE.ordinal()) == null) {
+//            settingRepository.save(new SettingEntity(SettingEnum.HAS_PARAPHRASE.ordinal(), true, null, null, null, null));
+//        }
+//        if (settingRepository.findById(SettingEnum.HAS_TRANSLATION.ordinal()) == null) {
+//            settingRepository.save(new SettingEntity(SettingEnum.HAS_TRANSLATION.ordinal(), true, null, null, null, null));
+//        }
+//        if (settingRepository.findById(SettingEnum.HAS_TONE.ordinal()) == null) {
+//            settingRepository.save(new SettingEntity(SettingEnum.HAS_TONE.ordinal(), true, null, null, null, null));
+//        }
+//
+//        if (settingRepository.findById(SettingEnum.HAS_NOTIFICATION.ordinal()) == null) {
+//            settingRepository.save(new SettingEntity(SettingEnum.HAS_NOTIFICATION.ordinal(), false, null, null, null, null));
+//        }
+//        if (settingRepository.findById(SettingEnum.NOTIFICATION_TIME.ordinal()) == null) {
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.set(Calendar.HOUR_OF_DAY, 10);
+//            calendar.set(Calendar.MINUTE, 0);
+//            calendar.set(Calendar.SECOND, 0);
+//            settingRepository.save(new SettingEntity(SettingEnum.NOTIFICATION_TIME.ordinal(), false, null, null, null, calendar.getTime()));
+//        }
+//        if (settingRepository.findById(SettingEnum.DARK_MODE.ordinal()) == null) {
+//            settingRepository.save(new SettingEntity(SettingEnum.DARK_MODE.ordinal(), false, null, null, null, null));
+//        }
+//        SettingEntity darkMode = settingRepository.findById(SettingEnum.DARK_MODE.ordinal());
+//        Boolean booleanData = darkMode.getBooleanData();
+        boolean isDarkMode = SharedPreferencesUtil.getBoolean("darkMode", false);
+        if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);

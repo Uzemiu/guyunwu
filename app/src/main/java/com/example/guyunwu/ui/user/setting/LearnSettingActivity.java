@@ -5,21 +5,15 @@ import android.view.MenuItem;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.guyunwu.R;
-import com.example.guyunwu.entity.SettingEntity;
-import com.example.guyunwu.entity.SettingEnum;
-import com.example.guyunwu.repository.SettingRepository;
+import com.example.guyunwu.util.SharedPreferencesUtil;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class LearnSettingActivity extends AppCompatActivity {
+    private boolean hasParaphrase;
 
+    private boolean hasTranslation;
 
-    private SettingEntity hasParaphrase;
-
-    private SettingEntity hasTranslation;
-
-    private SettingEntity hasTone;
-
-    private final SettingRepository settingRepository = new SettingRepository();
+    private boolean hasTone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +22,16 @@ public class LearnSettingActivity extends AppCompatActivity {
         initActionBar();
         loadSettings();
         findViewById(R.id.add_paraphrase_switch).setOnClickListener(v -> {
-            hasParaphrase.setBooleanData(!hasParaphrase.getBooleanData());
-            settingRepository.update(hasParaphrase);
+            hasParaphrase = !hasParaphrase;
+            SharedPreferencesUtil.putBoolean("hasParaphrase", hasParaphrase);
         });
         findViewById(R.id.add_translation_switch).setOnClickListener(v -> {
-            hasTranslation.setBooleanData(!hasTranslation.getBooleanData());
-            settingRepository.update(hasTranslation);
+            hasTranslation = !hasTranslation;
+            SharedPreferencesUtil.putBoolean("hasTranslation", hasTranslation);
         });
         findViewById(R.id.add_tone_switch).setOnClickListener(v -> {
-            hasTone.setBooleanData(!hasTone.getBooleanData());
-            settingRepository.update(hasTone);
+            hasTone = !hasTone;
+            SharedPreferencesUtil.putBoolean("hasTone", hasTone);
         });
     }
 
@@ -59,15 +53,16 @@ public class LearnSettingActivity extends AppCompatActivity {
     }
 
     private void loadSettings() {
-        hasParaphrase = settingRepository.findById(SettingEnum.HAS_PARAPHRASE.ordinal());
-        hasTranslation = settingRepository.findById(SettingEnum.HAS_TRANSLATION.ordinal());
-        hasTone = settingRepository.findById(SettingEnum.HAS_TONE.ordinal());
+
+        hasParaphrase = SharedPreferencesUtil.getBoolean("hasParaphrase", false);
+        hasTranslation = SharedPreferencesUtil.getBoolean("hasTranslation", false);
+        hasTone = SharedPreferencesUtil.getBoolean("hasTone", false);
 
         SwitchMaterial switchParaphrase = findViewById(R.id.add_paraphrase_switch);
-        switchParaphrase.setChecked(hasParaphrase.getBooleanData());
+        switchParaphrase.setChecked(hasParaphrase);
         SwitchMaterial switchTranslation = findViewById(R.id.add_translation_switch);
-        switchTranslation.setChecked(hasTranslation.getBooleanData());
+        switchTranslation.setChecked(hasTranslation);
         SwitchMaterial switchTone = findViewById(R.id.add_tone_switch);
-        switchTone.setChecked(hasTone.getBooleanData());
+        switchTone.setChecked(hasTone);
     }
 }

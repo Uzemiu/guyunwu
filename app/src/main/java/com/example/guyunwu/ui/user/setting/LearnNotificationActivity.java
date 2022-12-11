@@ -13,10 +13,8 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.guyunwu.MainActivity;
 import com.example.guyunwu.R;
-import com.example.guyunwu.entity.SettingEntity;
-import com.example.guyunwu.entity.SettingEnum;
-import com.example.guyunwu.repository.SettingRepository;
 import com.example.guyunwu.util.NotificationUtil;
+import com.example.guyunwu.util.SharedPreferencesUtil;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.text.DateFormat;
@@ -28,11 +26,9 @@ import java.util.Map;
 
 public class LearnNotificationActivity extends AppCompatActivity {
 
-    private SettingEntity hasNotification;
+    private boolean hasNotification;
 
-    private SettingEntity notificationTime;
-
-    private final SettingRepository settingRepository = new SettingRepository();
+    private Date notificationTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,24 +37,24 @@ public class LearnNotificationActivity extends AppCompatActivity {
         initActionBar();
         loadSettings();
         findViewById(R.id.learn_everyday_switch).setOnClickListener(v -> {
-            hasNotification.setBooleanData(!hasNotification.getBooleanData());
-            if (!hasNotification.getBooleanData()) {
+            hasNotification = !hasNotification;
+            if (!hasNotification) {
                 NotificationUtil.clearAllNotifyMsg(this);
             }
-            settingRepository.update(hasNotification);
+            SharedPreferencesUtil.putBoolean("hasNotification", hasNotification);
         });
         findViewById(R.id.layout_notification_time).setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(notificationTime.getDateData());
+            calendar.setTime(notificationTime);
             TimePickerView pvTime = new TimePickerBuilder(LearnNotificationActivity.this, new OnTimeSelectListener() {
                 @Override
                 public void onTimeSelect(Date date, View v) {
-                    notificationTime.setDateData(date);
-                    settingRepository.update(notificationTime);
+                    notificationTime = date;
+                    SharedPreferencesUtil.putLong("notificationTime", notificationTime.getTime());
                     TextView textView = findViewById(R.id.notification_time);
                     DateFormat format = new SimpleDateFormat("HH:mm");
-                    textView.setText(format.format(notificationTime.getDateData()));
-                    if (hasNotification.getBooleanData()) {
+                    textView.setText(format.format(notificationTime));
+                    if (hasNotification) {
                         notifyEveryday();
                     }
                 }
@@ -88,20 +84,20 @@ public class LearnNotificationActivity extends AppCompatActivity {
     }
 
     private void loadSettings() {
-        hasNotification = settingRepository.findById(SettingEnum.HAS_NOTIFICATION.ordinal());
-        notificationTime = settingRepository.findById(SettingEnum.NOTIFICATION_TIME.ordinal());
+        hasNotification = SharedPreferencesUtil.getBoolean("hasNotification", false);
+        notificationTime = new Date(SharedPreferencesUtil.getLong("notificationTime", 0));
 
         SwitchMaterial switchMaterial = findViewById(R.id.learn_everyday_switch);
-        switchMaterial.setChecked(hasNotification.getBooleanData());
+        switchMaterial.setChecked(hasNotification);
         TextView textView = findViewById(R.id.notification_time);
         DateFormat format = new SimpleDateFormat("HH:mm");
-        textView.setText(format.format(notificationTime.getDateData()));
+        textView.setText(format.format(notificationTime));
     }
 
     public void notifyEveryday() {
         NotificationUtil.clearAllNotifyMsg(this);
         long now = System.currentTimeMillis();
-        long time = notificationTime.getDateData().getTime();
+        long time = notificationTime.getTime();
         while (time <= now) time += AlarmManager.INTERVAL_DAY;
         Date date = new Date(time);
         DateFormat format = new SimpleDateFormat("yyyy年MM月dd日 hh时mm分");

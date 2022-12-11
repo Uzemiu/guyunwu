@@ -15,10 +15,6 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.guyunwu.R;
 import com.example.guyunwu.databinding.FragmentUserBinding;
-import com.example.guyunwu.entity.SettingEntity;
-import com.example.guyunwu.entity.SettingEnum;
-import com.example.guyunwu.repository.SettingRepository;
-import com.example.guyunwu.ui.home.wordbook.WordBook;
 import com.example.guyunwu.ui.home.wordbook.WordBookActivity;
 import com.example.guyunwu.ui.init.LoginActivity;
 import com.example.guyunwu.ui.user.myBook.MyBookActivity;
@@ -28,9 +24,8 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class UserFragment extends Fragment {
 
-    private SettingEntity darkMode;
+    private boolean darkMode;
 
-    private final SettingRepository settingRepository = new SettingRepository();
     private FragmentUserBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -39,10 +34,9 @@ public class UserFragment extends Fragment {
         binding = FragmentUserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         SwitchMaterial switchMaterial = root.findViewById(R.id.dark_mode_switch);
-        darkMode = settingRepository.findById(SettingEnum.DARK_MODE.ordinal());
-        Boolean booleanData = darkMode.getBooleanData();
-        switchMaterial.setChecked(booleanData);
-        if (booleanData) {
+        darkMode = SharedPreferencesUtil.getBoolean("darkMode", false);
+        switchMaterial.setChecked(darkMode);
+        if (darkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -96,8 +90,8 @@ public class UserFragment extends Fragment {
             startActivity(intent);
         });
         binding.darkModeSwitch.setOnClickListener(v -> {
-            darkMode.setBooleanData(!darkMode.getBooleanData());
-            settingRepository.update(darkMode);
+            darkMode = !darkMode;
+            SharedPreferencesUtil.putBoolean("darkMode", darkMode);
             int currentNightMode = root.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
             if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
