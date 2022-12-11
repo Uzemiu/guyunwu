@@ -48,7 +48,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.guyunwu.util.AlbumUtil.REQUEST_CODE_ALBUM;
 import static com.example.guyunwu.util.AlbumUtil.ifHaveAlbumPermission;
+import static com.example.guyunwu.util.CameraUtil.REQUEST_CODE_CAMERA;
 import static com.example.guyunwu.util.CameraUtil.ifHaveCameraPermission;
 import static com.example.guyunwu.util.FileUtil.uriToFileApiQ;
 
@@ -56,8 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private UserReq userReq;
     private static final String TAG = "ProfileActivity";
-    public static final int REQUEST_CODE_CAMERA = 103; //相机
-    public static final int REQUEST_CODE_ALBUM = 102; //相册
+
     private final CameraUtil.PhotoUriWrapper photoUriWrapper = new CameraUtil.PhotoUriWrapper();//记录图片地址
 
     @Override

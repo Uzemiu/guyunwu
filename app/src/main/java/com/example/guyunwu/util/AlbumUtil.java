@@ -9,6 +9,8 @@ import com.permissionx.guolindev.PermissionX;
 
 public class AlbumUtil {
 
+    public static final int REQUEST_CODE_ALBUM = 102; //相册
+
     // 判断是否有文件存储权限
     public static void ifHaveAlbumPermission(Activity activity, int code) {
 

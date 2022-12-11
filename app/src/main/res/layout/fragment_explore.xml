@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:orientation="vertical"
-    tools:context=".ui.explore.ExploreFragment">
+    tools:context=".ui.explore.ExploreFragment"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

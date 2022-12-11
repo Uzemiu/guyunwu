@@ -1,37 +1,51 @@
 package com.example.guyunwu.ui.explore.article;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.util.Log;
+import android.view.*;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.guyunwu.R;
 import com.example.guyunwu.api.ArticleRequest;
 import com.example.guyunwu.api.BaseResponse;
+import com.example.guyunwu.api.FileUploadRequest;
 import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.req.AddArticleReq;
 import com.example.guyunwu.databinding.ActivityPublishArticleBinding;
-import com.example.guyunwu.repository.ArticleRepository;
+import com.example.guyunwu.ui.user.profile.ProfileActivity;
+import com.example.guyunwu.util.CameraUtil;
 import com.example.guyunwu.util.SharedPreferencesUtil;
-
-import org.xutils.x;
-
 import io.github.mthli.knife.KnifeText;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import org.xutils.x;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.File;
+
+import static com.example.guyunwu.util.AlbumUtil.REQUEST_CODE_ALBUM;
+import static com.example.guyunwu.util.AlbumUtil.ifHaveAlbumPermission;
+import static com.example.guyunwu.util.CameraUtil.REQUEST_CODE_CAMERA;
+import static com.example.guyunwu.util.CameraUtil.ifHaveCameraPermission;
+import static com.example.guyunwu.util.FileUtil.uriToFileApiQ;
+
 public class PublishArticleActivity extends AppCompatActivity {
 
     private static final String TAG = "PublishArticleActivity";
-    
+
+    private final CameraUtil.PhotoUriWrapper photoUriWrapper = new CameraUtil.PhotoUriWrapper();//记录图片地址
+
     private ActivityPublishArticleBinding binding;
 
     private KnifeText knife;
@@ -48,7 +62,7 @@ public class PublishArticleActivity extends AppCompatActivity {
         setupKnife();
     }
 
-    private void setupKnife(){
+    private void setupKnife() {
         binding.editorBold.setOnClickListener(v -> knife.bold(!knife.contains(KnifeText.FORMAT_BOLD)));
         binding.editorItalic.setOnClickListener(v -> knife.italic(!knife.contains(KnifeText.FORMAT_ITALIC)));
         binding.editorUnderline.setOnClickListener(v -> knife.underline(!knife.contains(KnifeText.FORMAT_UNDERLINED)));
@@ -60,8 +74,49 @@ public class PublishArticleActivity extends AppCompatActivity {
         binding.editorCoverImage.setOnClickListener(v -> showCoverImageDialog());
     }
 
-    private void showCoverImageDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CODE_ALBUM:
+                    uploadCover(uriToFileApiQ(data.getData(), this));
+                    break;
+                case REQUEST_CODE_CAMERA:
+                    uploadCover(uriToFileApiQ(photoUriWrapper.photoUri, this));
+                    break;
+            }
+        }
+    }
+
+    private void uploadCover(File image) {
+        FileUploadRequest fileUploadRequest = RequestModule.FILE_UPLOAD_REQUEST;
+
+        RequestBody imageBody = RequestBody.create(MediaType.parse("image/*"), image);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", image.getName(), imageBody);
+
+        fileUploadRequest.uploadImage(body, SharedPreferencesUtil.getString("phoneNumber", "1145141919810")).enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.body() == null || response.body().getCode() != 200) {
+                    onFailure(call, new Throwable("上传失败"));
+                    return;
+                }
+                Toast.makeText(PublishArticleActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                coverImageUrl = response.body().getData();
+                x.image().bind(binding.editorCoverImage, coverImageUrl);
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                Toast.makeText(PublishArticleActivity.this, t.getMessage() == null ? "上传失败" : t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
+
+    private void showCoverImageDialog() {
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Cover Image");
         builder.setMessage("Please enter the image url");
         View view = getLayoutInflater().inflate(R.layout.dialog_link, null);
@@ -79,7 +134,31 @@ public class PublishArticleActivity extends AppCompatActivity {
             x.image().bind(binding.editorCoverImage, url);
         });
         builder.setNegativeButton(R.string.dialog_button_cancel, (dialog, which) -> dialog.dismiss());
-        builder.show();
+        builder.show();*/
+        final Dialog dialog = new Dialog(this, R.style.DialogTheme);
+        View view = View.inflate(this, R.layout.dialog_bottom_menu, null);
+        dialog.setContentView(view);
+
+        Window window = dialog.getWindow();
+        // 设置弹出位置
+        window.setGravity(Gravity.BOTTOM);
+        // 设置弹出动画
+        window.setWindowAnimations(R.style.main_menu_animStyle);
+        // 设置对话框大小
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
+        dialog.findViewById(R.id.tv_take_photo).setOnClickListener(v -> {
+            ifHaveCameraPermission(PublishArticleActivity.this, REQUEST_CODE_CAMERA, photoUriWrapper);
+            dialog.dismiss();
+        });
+
+        dialog.findViewById(R.id.tv_take_pic).setOnClickListener(v -> {
+            ifHaveAlbumPermission(PublishArticleActivity.this, REQUEST_CODE_ALBUM);
+            dialog.dismiss();
+        });
+
+        dialog.findViewById(R.id.tv_cancel).setOnClickListener(v -> dialog.dismiss());
     }
 
     private void showLinkDialog() {
@@ -90,7 +169,7 @@ public class PublishArticleActivity extends AppCompatActivity {
         builder.setCancelable(false);
 
         View view = getLayoutInflater().inflate(R.layout.dialog_link, null, false);
-        final EditText editText = (EditText) view.findViewById(R.id.edit);
+        final EditText editText = view.findViewById(R.id.edit);
         builder.setView(view);
         builder.setTitle(R.string.dialog_title);
 
@@ -123,6 +202,7 @@ public class PublishArticleActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -149,8 +229,8 @@ public class PublishArticleActivity extends AppCompatActivity {
 
     private volatile boolean loading = false;
 
-    private void completeEdit(){
-        if(loading){
+    private void completeEdit() {
+        if (loading) {
             Toast.makeText(this, "发送中，请稍后", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -165,12 +245,12 @@ public class PublishArticleActivity extends AppCompatActivity {
         String text = knife.getText().toString();
         req.setSummary(text.substring(0, Math.min(text.length(), 100)));
 
-        if(TextUtils.isEmpty(req.getTitle())){
+        if (TextUtils.isEmpty(req.getTitle())) {
             Toast.makeText(this, "标题不能为空", Toast.LENGTH_SHORT).show();
             loading = false;
             return;
         }
-        if(TextUtils.isEmpty(req.getContent()) || TextUtils.isEmpty(req.getSummary())){
+        if (TextUtils.isEmpty(req.getContent()) || TextUtils.isEmpty(req.getSummary())) {
             Toast.makeText(this, "内容不能为空", Toast.LENGTH_SHORT).show();
             loading = false;
             return;

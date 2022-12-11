@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -19,12 +18,13 @@ import com.example.guyunwu.databinding.FragmentUserBinding;
 import com.example.guyunwu.entity.SettingEntity;
 import com.example.guyunwu.entity.SettingEnum;
 import com.example.guyunwu.repository.SettingRepository;
+import com.example.guyunwu.ui.home.wordbook.WordBook;
+import com.example.guyunwu.ui.home.wordbook.WordBookActivity;
 import com.example.guyunwu.ui.init.LoginActivity;
 import com.example.guyunwu.ui.user.myBook.MyBookActivity;
 import com.example.guyunwu.ui.user.profile.ProfileActivity;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 import com.google.android.material.switchmaterial.SwitchMaterial;
-import org.xutils.x;
 
 public class UserFragment extends Fragment {
 
@@ -85,7 +85,7 @@ public class UserFragment extends Fragment {
             }
             startActivity(toPage);
         });
-        binding.textMyBook.setOnClickListener(v -> {
+        binding.layoutMyBook.setOnClickListener(v -> {
             Intent toMyBook = new Intent();
             toMyBook.setClass(getActivity(), MyBookActivity.class);
             startActivity(toMyBook);
@@ -104,6 +104,11 @@ public class UserFragment extends Fragment {
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
+        });
+        binding.layoutMyStar.setOnClickListener(v -> {
+            Intent toWordBook = new Intent();
+            toWordBook.setClass(getActivity(), WordBookActivity.class);
+            startActivity(toWordBook);
         });
     }
 }
