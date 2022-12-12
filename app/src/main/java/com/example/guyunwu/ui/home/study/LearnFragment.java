@@ -100,7 +100,7 @@ public class LearnFragment extends Fragment {
         binding.textAnswerB.setText(word.getAnswerB());
         binding.textAnswerC.setText(word.getAnswerC());
         binding.textAnswerD.setText(word.getAnswerD());
-        binding.questionTranslation.setText(word.getTranslation());
+        binding.questionTranslation.setText(word.getTranslate());
         binding.currentPage.setText(currentPage + "");
         binding.allPage.setText(allPage + "");
         key = Answer.values()[word.getCorrectAnswer()];

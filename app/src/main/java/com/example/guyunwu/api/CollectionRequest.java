@@ -28,4 +28,7 @@ public interface CollectionRequest {
 
     @POST("/collection/word/{wordId}")
     Call<BaseResponse<List<WordResp>>> starWord(@Path("wordId") String wordId);
+
+    @GET("/collection/hasBook/{bookId}")
+    Call<BaseResponse<Boolean>> hasBook(@Path("bookId") Long bookId);
 }

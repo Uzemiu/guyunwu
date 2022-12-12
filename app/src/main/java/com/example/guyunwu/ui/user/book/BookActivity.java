@@ -74,7 +74,9 @@ public class BookActivity extends AppCompatActivity {
                 binding.bookAuthorName.setText('[' + book.getAuthor().getDynasty() + ']' + book.getAuthor().getName());
             }
             binding.bookTitle.setText(book.getName());
-            binding.bookContent.setText(KnifeParser.fromHtml(book.getContent()));
+//            binding.bookContent.setText(KnifeParser.fromHtml(book.getContent()));
+            // todo with nullptr
+            binding.bookContent.setText(KnifeParser.fromHtml(book.getIntroduce()));
             binding.bookPress.setText(book.getPress());
             bookId = book.getId();
             ActionBar bar = getSupportActionBar();
@@ -93,7 +95,8 @@ public class BookActivity extends AppCompatActivity {
                     if (body == null || body.getCode() != 200) {
                         onFailure(call, new Throwable("请求失败"));
                     } else {
-                        // todo
+                        Toast.makeText(BookActivity.this, "切换成功", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 }
 

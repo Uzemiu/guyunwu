@@ -30,6 +30,8 @@ public class MyBookActivity extends AppCompatActivity {
 
     private final List<Book> books = new ArrayList<>();
 
+    private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,11 @@ public class MyBookActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initRecyclerView();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -94,7 +101,7 @@ public class MyBookActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.my_book_recycler_view);
+        recyclerView = findViewById(R.id.my_book_recycler_view);
         StaggeredGridLayoutManager layoutManager = new
                 StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);

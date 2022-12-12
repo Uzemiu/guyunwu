@@ -23,7 +23,6 @@ import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.req.AddCommentReq;
 import com.example.guyunwu.databinding.ActivityArticleBinding;
 import com.example.guyunwu.databinding.DialogCommentBinding;
-import com.example.guyunwu.repository.CommentRepository;
 import com.example.guyunwu.ui.explore.comment.Comment;
 import com.example.guyunwu.ui.explore.comment.CommentAdapter;
 
@@ -46,8 +45,6 @@ public class ArticleActivity extends AppCompatActivity {
     private ActivityArticleBinding binding;
 
     private ArticleViewModel articleViewModel;
-
-    private final CommentRepository commentRepository = new CommentRepository();
 
     private final List<Comment> commentList = new ArrayList<>();
 
