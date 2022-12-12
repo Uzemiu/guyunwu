@@ -15,7 +15,6 @@ import com.example.guyunwu.api.ScheduleRequest;
 import com.example.guyunwu.api.req.ScheduleReq;
 import com.example.guyunwu.api.resp.WordResp;
 import com.example.guyunwu.databinding.ActivityBookBinding;
-import com.example.guyunwu.repository.WordRepository;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 import io.github.mthli.knife.KnifeParser;
 import org.xutils.x;
@@ -99,12 +98,10 @@ public class BookActivity extends AppCompatActivity {
                         onFailure(call, new Throwable("请求失败"));
                     } else {
                         Toast.makeText(BookActivity.this, "切换成功", Toast.LENGTH_SHORT).show();
-                        WordRepository wordRepository = new WordRepository();
                         WordResp wordResp = body.getData();
-                        SharedPreferencesUtil.putLong("scheduleId",wordResp.getId());
-                        SharedPreferencesUtil.putLong("bookId",wordResp.getBookId());
-                        SharedPreferencesUtil.putInt("wordsPerDay",wordResp.getWordsPerDay());
-                        wordRepository.save(wordResp.getWords());
+                        SharedPreferencesUtil.putLong("scheduleId", wordResp.getId());
+                        SharedPreferencesUtil.putLong("bookId", wordResp.getBookId());
+                        SharedPreferencesUtil.putInt("wordsPerDay", wordResp.getWordsPerDay());
                         finish();
                     }
                 }

@@ -17,7 +17,6 @@ import com.example.guyunwu.api.UserRequest;
 import com.example.guyunwu.api.req.LoginReq;
 import com.example.guyunwu.api.resp.LoginResp;
 import com.example.guyunwu.api.resp.WordResp;
-import com.example.guyunwu.repository.WordRepository;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 import org.jetbrains.annotations.NotNull;
 import org.xutils.common.util.MD5;
@@ -117,7 +116,6 @@ public class LoginActivity extends AppCompatActivity {
                                 SharedPreferencesUtil.putLong("birthDate", body.getData().getBirthDate() == null ? 0 : body.getData().getBirthDate().getTime());
                                 SharedPreferencesUtil.putInt("gender", body.getData().getGender());
 
-                                WordRepository wordRepository = new WordRepository();
                                 WordResp wordResp = body1.getData();
                                 if (wordResp == null) {
                                     // do nothing
@@ -125,7 +123,6 @@ public class LoginActivity extends AppCompatActivity {
                                     SharedPreferencesUtil.putLong("scheduleId", wordResp.getId());
                                     SharedPreferencesUtil.putLong("bookId", wordResp.getBookId());
                                     SharedPreferencesUtil.putInt("wordsPerDay", wordResp.getWordsPerDay());
-                                    wordRepository.save(wordResp.getWords());
                                 }
 
                                 Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();

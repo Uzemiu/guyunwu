@@ -14,16 +14,12 @@ import com.example.guyunwu.api.CollectionRequest;
 import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.ScheduleRequest;
 import com.example.guyunwu.api.req.ScheduleReq;
-import com.example.guyunwu.api.resp.WordResp;
 import com.example.guyunwu.databinding.ActivityLibraryBookBinding;
-import com.example.guyunwu.repository.WordRepository;
 import io.github.mthli.knife.KnifeParser;
 import org.xutils.x;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.List;
 
 public class LibraryBookActivity extends AppCompatActivity {
 

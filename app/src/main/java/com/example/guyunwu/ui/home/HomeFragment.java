@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import com.example.guyunwu.R;
 import com.example.guyunwu.api.BaseResponse;
+import com.example.guyunwu.api.LearnRequest;
 import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.ScheduleRequest;
 import com.example.guyunwu.api.resp.ScheduleResp;
@@ -21,6 +25,7 @@ import com.example.guyunwu.ui.home.schedule.UpdateScheduleActivity;
 import com.example.guyunwu.ui.home.wordbook.WordBookActivity;
 import com.example.guyunwu.ui.user.myBook.MyBookActivity;
 import com.example.guyunwu.util.SharedPreferencesUtil;
+import org.jetbrains.annotations.NotNull;
 import org.xutils.x;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,9 +33,20 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
+    private static final String WITHOUT_FINISH = com.example.guyunwu.ui.home.LearnWithoutFinishFragment.class.getName();
+
+    private static final String FINISH = com.example.guyunwu.ui.home.LearnFinishFragment.class.getName();
+
     private static final String TAG = "HomeFragment";
 
     private FragmentHomeBinding binding;
+
+    private Fragment mLastShowFragment;
+
+
+    private int needToLearn = -1;
+
+    private int needToReview = -1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,15 +54,62 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         initRouter();
-        initView();
         return root;
     }
+
 
     @Override
     public void onStart() {
         super.onStart();
         initView();
+        initFragment();
+        if (SharedPreferencesUtil.getBoolean("isFinished", false)) {
+            switchTo(FINISH, null);
+        } else {
+            switchTo(WITHOUT_FINISH, null);
+        }
     }
+
+
+    @Override
+    public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    private void switchTo(String tab, Bundle bundle) {
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment fragment = fragmentManager.findFragmentByTag(tab);
+        if (fragment == null) {
+            fragment = Fragment.instantiate(getActivity(), tab);
+            fragment.setArguments(bundle);
+            fragmentTransaction.add(R.id.fragment_learn_finish, fragment, tab);
+        } else {
+            fragmentTransaction.show(fragment);
+        }
+        if (mLastShowFragment != null) {
+            fragmentTransaction.hide(mLastShowFragment);
+        }
+        mLastShowFragment = fragment;
+
+        fragmentTransaction.commit();
+    }
+
+    private void initFragment() {
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if (fragmentManager.findFragmentByTag(FINISH) != null) {
+            fragmentTransaction.remove(fragmentManager.findFragmentByTag(FINISH));
+        }
+        if (fragmentManager.findFragmentByTag(WITHOUT_FINISH) != null) {
+            fragmentTransaction.remove(fragmentManager.findFragmentByTag(WITHOUT_FINISH));
+        }
+        fragmentTransaction.commitNow();
+    }
+
 
     private void initView() {
         if (!SharedPreferencesUtil.contain("scheduleId")) {
@@ -55,6 +118,13 @@ public class HomeFragment extends Fragment {
             binding.learned.setText("0");
             binding.all.setText("0");
             binding.dayRemained.setText("0");
+            if(SharedPreferencesUtil.contain("needToReview")) {
+                SharedPreferencesUtil.remove("needToReview");
+            }
+            if(SharedPreferencesUtil.contain("needToLearn")) {
+                SharedPreferencesUtil.remove("needToLearn");
+            }
+
         } else {
             ScheduleRequest scheduleRequest = RequestModule.SCHEDULE_REQUEST;
             scheduleRequest.getSchedule(SharedPreferencesUtil.getLong("scheduleId", 0)).enqueue(new Callback<BaseResponse<ScheduleResp>>() {
@@ -85,9 +155,50 @@ public class HomeFragment extends Fragment {
                     binding.dayRemained.setText("0");
                 }
             });
+
+            LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
+
+            learnRequest.toBeReviewed().enqueue(new Callback<BaseResponse<Integer>>() {
+                @Override
+                public void onResponse(Call<BaseResponse<Integer>> call, Response<BaseResponse<Integer>> response) {
+                    BaseResponse<Integer> body = response.body();
+                    if (body == null || body.getCode() != 200) {
+                        onFailure(call, new Throwable("获取失败"));
+                    } else {
+                        needToReview = body.getData();
+                        judgeIsFinished();
+                        SharedPreferencesUtil.putInt("needToReview",body.getData());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BaseResponse<Integer>> call, Throwable t) {
+                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "onFailure: ", t);
+                }
+            });
+
+            learnRequest.toBeLearned().enqueue(new Callback<BaseResponse<Integer>>() {
+                @Override
+                public void onResponse(Call<BaseResponse<Integer>> call, Response<BaseResponse<Integer>> response) {
+                    BaseResponse<Integer> body = response.body();
+                    if (body == null || body.getCode() != 200) {
+                        onFailure(call, new Throwable("获取失败"));
+                    } else {
+                        needToLearn = body.getData();
+                        judgeIsFinished();
+                        SharedPreferencesUtil.putInt("needToLearn",body.getData());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BaseResponse<Integer>> call, Throwable t) {
+                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "onFailure: ", t);
+                }
+            });
         }
     }
-
 
     @Override
     public void onDestroyView() {
@@ -133,6 +244,13 @@ public class HomeFragment extends Fragment {
             toWordBookPage.setClass(getActivity(), WordBookActivity.class);
             startActivity(toWordBookPage);
         });
+    }
+
+    private void judgeIsFinished() {
+        if (needToLearn >= 0 && needToReview >= 0) {
+            SharedPreferencesUtil.putInt("minutes",(needToLearn + needToReview) / 2);
+            SharedPreferencesUtil.putBoolean("isFinished", needToLearn == 0 && needToReview == 0);
+        }
     }
 
 }

@@ -136,18 +136,10 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.fragment.app.FragmentContainerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/fragment_learn_without_finish"
-                android:name="com.example.guyunwu.ui.home.LearnWithoutFinishFragment"
-        />
-
-        <androidx.fragment.app.FragmentContainerView
+        <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/fragment_learn_finish"
-                android:name="com.example.guyunwu.ui.home.LearnFinishFragment"
         />
 
         <LinearLayout

@@ -38,6 +38,8 @@ public class RequestModule {
 
     public static final ScheduleRequest SCHEDULE_REQUEST;
 
+    public static final LearnRequest LEARN_REQUEST;
+
     static {
         HTTP_CLIENT = new OkHttpClient.Builder()
                 // add cookie
@@ -98,5 +100,6 @@ public class RequestModule {
         ARTICLE_REQUEST = RETROFIT.create(ArticleRequest.class);
         COMMENT_REQUEST = RETROFIT.create(CommentRequest.class);
         SCHEDULE_REQUEST = RETROFIT.create(ScheduleRequest.class);
+        LEARN_REQUEST = RETROFIT.create(LearnRequest.class);
     }
 }

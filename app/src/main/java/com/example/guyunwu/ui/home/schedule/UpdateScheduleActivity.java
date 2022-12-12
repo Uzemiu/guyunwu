@@ -18,7 +18,6 @@ import com.example.guyunwu.api.ScheduleRequest;
 import com.example.guyunwu.api.req.UpdateScheduleReq;
 import com.example.guyunwu.api.resp.ScheduleResp;
 import com.example.guyunwu.api.resp.WordResp;
-import com.example.guyunwu.repository.WordRepository;
 import com.example.guyunwu.ui.user.myBook.MyBookActivity;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 import org.xutils.x;
@@ -84,7 +83,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
                     DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
                     String date = dateFormat.format(calendar.getTimeInMillis());
                     ((TextView) findViewById(R.id.finish_day)).setText(date);
-                    ((TextView) findViewById(R.id.minutes_per_day)).setText(String.valueOf((int) Math.ceil(SharedPreferencesUtil.getInt("wordsPerDay", 10) / 2)));
+                    ((TextView) findViewById(R.id.minutes_per_day)).setText(String.valueOf(Math.ceil(SharedPreferencesUtil.getInt("wordsPerDay", 10) / 2)));
                     initSelectNumWheel();
                     initSelectDayWheel();
                 }
@@ -114,10 +113,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
                     if (body == null || body.getCode() != 200) {
                         onFailure(call, new Throwable("获取计划失败"));
                     } else {
-                        WordRepository wordRepository = new WordRepository();
-                        wordRepository.delete(wordRepository.findAll());
                         WordResp wordResp = body.getData();
-                        wordRepository.save(wordResp.getWords());
                         SharedPreferencesUtil.putLong("scheduleId", wordResp.getId());
                         SharedPreferencesUtil.putLong("bookId", wordResp.getBookId());
                         SharedPreferencesUtil.putInt("wordsPerDay", wordResp.getWordsPerDay());

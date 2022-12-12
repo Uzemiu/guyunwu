@@ -13,8 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class WordResp {
 
-    private List<Word> words;
-
     private Long id;
 
     private Long bookId;
