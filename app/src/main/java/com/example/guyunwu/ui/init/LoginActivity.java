@@ -12,9 +12,12 @@ import com.example.guyunwu.MainActivity;
 import com.example.guyunwu.R;
 import com.example.guyunwu.api.BaseResponse;
 import com.example.guyunwu.api.RequestModule;
+import com.example.guyunwu.api.ScheduleRequest;
 import com.example.guyunwu.api.UserRequest;
 import com.example.guyunwu.api.req.LoginReq;
 import com.example.guyunwu.api.resp.LoginResp;
+import com.example.guyunwu.api.resp.WordResp;
+import com.example.guyunwu.repository.WordRepository;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 import org.jetbrains.annotations.NotNull;
 import org.xutils.common.util.MD5;
@@ -87,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void LoginRequest(String phoneNumber, String password) {
         UserRequest userRequest = RequestModule.USER_REQUEST;
+        ScheduleRequest scheduleRequest = RequestModule.SCHEDULE_REQUEST;
 
         LoginReq loginReq = new LoginReq();
         loginReq.setPhoneNumber(phoneNumber);
@@ -99,17 +103,48 @@ public class LoginActivity extends AppCompatActivity {
                 if (body == null || body.getCode() != 200) {
                     onFailure(call, new Throwable("登录失败"));
                 } else {
-                    SharedPreferencesUtil.putString("phoneNumber", body.getData().getPhoneNumber());
-                    SharedPreferencesUtil.putString("userName", body.getData().getUsername());
-                    SharedPreferencesUtil.putString("avatar", body.getData().getAvatar());
                     SharedPreferencesUtil.putString("token", body.getData().getToken());
-                    SharedPreferencesUtil.putLong("birthDate", body.getData().getBirthDate() == null ? 0 :body.getData().getBirthDate().getTime());
-                    SharedPreferencesUtil.putInt("gender", body.getData().getGender());
-                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                    Intent toMainPage = new Intent();
-                    toMainPage.setClass(LoginActivity.this, MainActivity.class);
-                    startActivity(toMainPage);
-                    finish();
+                    scheduleRequest.currentSchedule().enqueue(new Callback<BaseResponse<WordResp>>() {
+                        @Override
+                        public void onResponse(Call<BaseResponse<WordResp>> call, Response<BaseResponse<WordResp>> response) {
+                            BaseResponse<WordResp> body1 = response.body();
+                            if (body1 == null || body1.getCode() != 200) {
+                                onFailure(call, new Throwable("登录失败"));
+                            } else {
+                                SharedPreferencesUtil.putString("phoneNumber", body.getData().getPhoneNumber());
+                                SharedPreferencesUtil.putString("userName", body.getData().getUsername());
+                                SharedPreferencesUtil.putString("avatar", body.getData().getAvatar());
+                                SharedPreferencesUtil.putLong("birthDate", body.getData().getBirthDate() == null ? 0 : body.getData().getBirthDate().getTime());
+                                SharedPreferencesUtil.putInt("gender", body.getData().getGender());
+
+                                WordRepository wordRepository = new WordRepository();
+                                WordResp wordResp = body1.getData();
+                                if (wordResp == null) {
+                                    // do nothing
+                                } else {
+                                    SharedPreferencesUtil.putLong("scheduleId", wordResp.getId());
+                                    SharedPreferencesUtil.putLong("bookId", wordResp.getBookId());
+                                    SharedPreferencesUtil.putInt("wordsPerDay", wordResp.getWordsPerDay());
+                                    wordRepository.save(wordResp.getWords());
+                                }
+
+                                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                Intent toMainPage = new Intent();
+                                toMainPage.setClass(LoginActivity.this, MainActivity.class);
+                                startActivity(toMainPage);
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<BaseResponse<WordResp>> call, Throwable t) {
+                            Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "onFailure: ", t);
+                            SharedPreferencesUtil.remove("token");
+                        }
+                    });
+
+
                 }
             }
 

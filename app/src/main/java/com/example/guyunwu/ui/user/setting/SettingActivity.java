@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.guyunwu.MainActivity;
 import com.example.guyunwu.R;
+import com.example.guyunwu.repository.WordRepository;
 import com.example.guyunwu.ui.init.LoginActivity;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 
@@ -46,6 +47,11 @@ public class SettingActivity extends AppCompatActivity {
             SharedPreferencesUtil.remove("birthDate");
             SharedPreferencesUtil.remove("gender");
             SharedPreferencesUtil.remove("phoneNumber");
+            SharedPreferencesUtil.remove("scheduleId");
+            SharedPreferencesUtil.remove("bookId");
+            SharedPreferencesUtil.remove("wordsPerDay");
+            WordRepository wordRepository = new WordRepository();
+            wordRepository.delete(wordRepository.findAll());
             Toast.makeText(this, "退出登录成功", Toast.LENGTH_LONG).show();
             Intent toLoginPage = new Intent();
             toLoginPage.setClass(this, LoginActivity.class);

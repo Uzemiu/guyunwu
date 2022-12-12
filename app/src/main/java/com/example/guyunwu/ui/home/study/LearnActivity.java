@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.guyunwu.MainActivity;
 import com.example.guyunwu.R;
+import com.example.guyunwu.api.resp.Word;
 import com.example.guyunwu.api.resp.WordResp;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
@@ -55,7 +56,7 @@ public class LearnActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewpager);
 
         List<Fragment> fragments = new ArrayList<>();
-        List<WordResp> words = LearnDataProvider.getWords();
+        List<Word> words = LearnDataProvider.getWords();
         for (int i = 0; i < words.size(); i++) {
             fragments.add(LearnFragment.newInstance(words.get(i), viewPager, i + 1, words.size(), fragments));
         }

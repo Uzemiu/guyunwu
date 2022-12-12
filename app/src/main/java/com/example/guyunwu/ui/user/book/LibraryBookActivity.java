@@ -120,25 +120,20 @@ public class LibraryBookActivity extends AppCompatActivity {
 
         binding.addBook.setOnClickListener(v -> {
             ScheduleRequest scheduleRequest = RequestModule.SCHEDULE_REQUEST;
-            scheduleRequest.addSchedule(new ScheduleReq(bookId)).enqueue(new Callback<BaseResponse<List<WordResp>>>() {
+            scheduleRequest.addSchedule(new ScheduleReq(bookId)).enqueue(new Callback<BaseResponse<Object>>() {
                 @Override
-                public void onResponse(Call<BaseResponse<List<WordResp>>> call, Response<BaseResponse<List<WordResp>>> response) {
-                    BaseResponse<List<WordResp>> body = response.body();
+                public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
+                    BaseResponse<Object> body = response.body();
                     if (body == null || body.getCode() != 200) {
                         onFailure(call, new Throwable("请求失败"));
                     } else {
-                        WordRepository wordRepository = new WordRepository();
-                        for (WordResp datum : body.getData()) {
-                            wordRepository.save(datum);
-                        }
-                        Log.e(TAG,wordRepository.findAll().toString());
                         Toast.makeText(LibraryBookActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }
 
                 @Override
-                public void onFailure(Call<BaseResponse<List<WordResp>>> call, Throwable t) {
+                public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
                     Toast.makeText(LibraryBookActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onFailure: ", t);
                 }

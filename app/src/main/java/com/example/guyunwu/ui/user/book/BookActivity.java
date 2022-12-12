@@ -13,7 +13,10 @@ import com.example.guyunwu.api.BaseResponse;
 import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.ScheduleRequest;
 import com.example.guyunwu.api.req.ScheduleReq;
+import com.example.guyunwu.api.resp.WordResp;
 import com.example.guyunwu.databinding.ActivityBookBinding;
+import com.example.guyunwu.repository.WordRepository;
+import com.example.guyunwu.util.SharedPreferencesUtil;
 import io.github.mthli.knife.KnifeParser;
 import org.xutils.x;
 import retrofit2.Call;
@@ -88,20 +91,26 @@ public class BookActivity extends AppCompatActivity {
         binding.changePlan.setOnClickListener(v -> {
             ScheduleRequest scheduleRequest = RequestModule.SCHEDULE_REQUEST;
 
-            scheduleRequest.switchSchedule(new ScheduleReq(bookId)).enqueue(new Callback<BaseResponse<Object>>() {
+            scheduleRequest.switchSchedule(new ScheduleReq(bookId)).enqueue(new Callback<BaseResponse<WordResp>>() {
                 @Override
-                public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
-                    BaseResponse<Object> body = response.body();
+                public void onResponse(Call<BaseResponse<WordResp>> call, Response<BaseResponse<WordResp>> response) {
+                    BaseResponse<WordResp> body = response.body();
                     if (body == null || body.getCode() != 200) {
                         onFailure(call, new Throwable("请求失败"));
                     } else {
                         Toast.makeText(BookActivity.this, "切换成功", Toast.LENGTH_SHORT).show();
+                        WordRepository wordRepository = new WordRepository();
+                        WordResp wordResp = body.getData();
+                        SharedPreferencesUtil.putLong("scheduleId",wordResp.getId());
+                        SharedPreferencesUtil.putLong("bookId",wordResp.getBookId());
+                        SharedPreferencesUtil.putInt("wordsPerDay",wordResp.getWordsPerDay());
+                        wordRepository.save(wordResp.getWords());
                         finish();
                     }
                 }
 
                 @Override
-                public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
+                public void onFailure(Call<BaseResponse<WordResp>> call, Throwable t) {
                     Toast.makeText(BookActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onFailure: ", t);
                 }

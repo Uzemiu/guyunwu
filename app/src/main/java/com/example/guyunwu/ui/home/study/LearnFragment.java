@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 import com.alibaba.fastjson2.JSON;
 import com.example.guyunwu.R;
-import com.example.guyunwu.api.resp.WordResp;
+import com.example.guyunwu.api.resp.Word;
 import com.example.guyunwu.databinding.FragmentLearnBinding;
 import com.google.android.material.card.MaterialCardView;
 import io.github.mthli.knife.KnifeParser;
@@ -34,7 +34,7 @@ public class LearnFragment extends Fragment {
 
     private static final String WORD = "word";
 
-    private WordResp word;
+    private Word word;
 
     @Setter
     private ViewPager2 viewPager2;
@@ -51,7 +51,7 @@ public class LearnFragment extends Fragment {
     @Setter
     private List<Fragment> fragmentList;
 
-    public static LearnFragment newInstance(WordResp word, ViewPager2 viewPager, int currentPage, int allPage, List<Fragment> fragmentList) {
+    public static LearnFragment newInstance(Word word, ViewPager2 viewPager, int currentPage, int allPage, List<Fragment> fragmentList) {
         LearnFragment fragment = new LearnFragment();
         fragment.setViewPager2(viewPager);
         fragment.setCurrentPage(currentPage);
@@ -67,7 +67,7 @@ public class LearnFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            word = JSON.parseObject(getArguments().getString(WORD), WordResp.class);
+            word = JSON.parseObject(getArguments().getString(WORD), Word.class);
         }
     }
 
@@ -95,7 +95,7 @@ public class LearnFragment extends Fragment {
                 word.getContent().substring(index + 1);
 
         binding.questionContent.setText(KnifeParser.fromHtml(stringBuilder));
-        binding.questionReference.setText("——"+word.getBookName());
+        binding.questionReference.setText("——" + word.getBookName());
         binding.textAnswerA.setText(word.getAnswerA());
         binding.textAnswerB.setText(word.getAnswerB());
         binding.textAnswerC.setText(word.getAnswerC());
@@ -109,28 +109,28 @@ public class LearnFragment extends Fragment {
     private void initAnswerView() {
         MaterialCardView cardViewA = binding.answerA;
         cardViewA.setOnClickListener(v -> {
-            if(!isTapped) {
+            if (!isTapped) {
                 selectAnswer(cardViewA, Answer.A);
             }
         });
 
         MaterialCardView cardViewB = binding.answerB;
         cardViewB.setOnClickListener(v -> {
-            if(!isTapped) {
+            if (!isTapped) {
                 selectAnswer(cardViewB, Answer.B);
             }
         });
 
         MaterialCardView cardViewC = binding.answerC;
         cardViewC.setOnClickListener(v -> {
-            if(!isTapped) {
+            if (!isTapped) {
                 selectAnswer(cardViewC, Answer.C);
             }
         });
 
         MaterialCardView cardViewD = binding.answerD;
         cardViewD.setOnClickListener(v -> {
-            if(!isTapped) {
+            if (!isTapped) {
                 selectAnswer(cardViewD, Answer.D);
             }
         });
@@ -148,7 +148,7 @@ public class LearnFragment extends Fragment {
             ImageView imageView = cardView.findViewWithTag("image");
             imageView.setImageResource(R.drawable.ic_home_incorrect_24dp);
             imageView.setVisibility(View.VISIBLE);
-            fragmentList.add(LearnFragment.newInstance(word, viewPager2,currentPage,allPage,fragmentList));
+            fragmentList.add(LearnFragment.newInstance(word, viewPager2, currentPage, allPage, fragmentList));
             viewPager2.getAdapter().notifyDataSetChanged();
         }
         isTapped = true;

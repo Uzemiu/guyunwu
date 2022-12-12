@@ -49,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
 
+
+        x.Ext.init(getApplication());
+        new ExceptionHandler(getApplicationContext()).register();
+        SharedPreferences sharedPreferences = getSharedPreferences("Guyunwu", MODE_PRIVATE);
+        SharedPreferencesUtil.setSharedPreferences(sharedPreferences);
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -61,10 +67,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        x.Ext.init(getApplication());
-        new ExceptionHandler(getApplicationContext()).register();
-        SharedPreferences sharedPreferences = getSharedPreferences("Guyunwu", MODE_PRIVATE);
-        SharedPreferencesUtil.setSharedPreferences(sharedPreferences);
         // 重写导航栏监听事件用于改变ActionBar
         navView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == this.currentFragment) {
@@ -86,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
     }
-
 
     @Override
     protected void onSaveInstanceState(@NotNull Bundle outState) {
@@ -127,32 +128,6 @@ public class MainActivity extends AppCompatActivity {
         if (!SharedPreferencesUtil.contain("darkMode")) {
             SharedPreferencesUtil.putBoolean("darkMode", false);
         }
-//        SettingRepository settingRepository = new SettingRepository();
-//        if (settingRepository.findById(SettingEnum.HAS_PARAPHRASE.ordinal()) == null) {
-//            settingRepository.save(new SettingEntity(SettingEnum.HAS_PARAPHRASE.ordinal(), true, null, null, null, null));
-//        }
-//        if (settingRepository.findById(SettingEnum.HAS_TRANSLATION.ordinal()) == null) {
-//            settingRepository.save(new SettingEntity(SettingEnum.HAS_TRANSLATION.ordinal(), true, null, null, null, null));
-//        }
-//        if (settingRepository.findById(SettingEnum.HAS_TONE.ordinal()) == null) {
-//            settingRepository.save(new SettingEntity(SettingEnum.HAS_TONE.ordinal(), true, null, null, null, null));
-//        }
-//
-//        if (settingRepository.findById(SettingEnum.HAS_NOTIFICATION.ordinal()) == null) {
-//            settingRepository.save(new SettingEntity(SettingEnum.HAS_NOTIFICATION.ordinal(), false, null, null, null, null));
-//        }
-//        if (settingRepository.findById(SettingEnum.NOTIFICATION_TIME.ordinal()) == null) {
-//            Calendar calendar = Calendar.getInstance();
-//            calendar.set(Calendar.HOUR_OF_DAY, 10);
-//            calendar.set(Calendar.MINUTE, 0);
-//            calendar.set(Calendar.SECOND, 0);
-//            settingRepository.save(new SettingEntity(SettingEnum.NOTIFICATION_TIME.ordinal(), false, null, null, null, calendar.getTime()));
-//        }
-//        if (settingRepository.findById(SettingEnum.DARK_MODE.ordinal()) == null) {
-//            settingRepository.save(new SettingEntity(SettingEnum.DARK_MODE.ordinal(), false, null, null, null, null));
-//        }
-//        SettingEntity darkMode = settingRepository.findById(SettingEnum.DARK_MODE.ordinal());
-//        Boolean booleanData = darkMode.getBooleanData();
         boolean isDarkMode = SharedPreferencesUtil.getBoolean("darkMode", false);
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);

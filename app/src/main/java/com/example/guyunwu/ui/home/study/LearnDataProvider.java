@@ -1,5 +1,6 @@
 package com.example.guyunwu.ui.home.study;
 
+import com.example.guyunwu.api.resp.Word;
 import com.example.guyunwu.api.resp.WordResp;
 
 import java.util.ArrayList;
@@ -8,10 +9,10 @@ import java.util.List;
 public class LearnDataProvider {
 
 
-    public static List<WordResp> getWords() {
-        List<WordResp> words = new ArrayList<>();
-        words.add(new WordResp(
-                1,1,
+    public static List<Word> getWords() {
+        List<Word> words = new ArrayList<>();
+        words.add(new Word(
+                1L,1L,
                 "比",
                 0,
                 "其两膝相比者，各隐卷底衣褶中。",
@@ -23,8 +24,8 @@ public class LearnDataProvider {
                 "联合",
                 0,
                 0));
-        words.add(new WordResp(
-                2,1,
+        words.add(new Word(
+                2L,1L,
                 "比",
                 0,
                 "其两膝相比者，各隐卷底衣褶中。",
@@ -36,8 +37,8 @@ public class LearnDataProvider {
                 "联合",
                 1,
                 0));
-        words.add(new WordResp(
-                3,1,
+        words.add(new Word(
+                3L,1L,
                 "比",
                 0,
                 "其两膝相比者，各隐卷底衣褶中。",
@@ -49,8 +50,8 @@ public class LearnDataProvider {
                 "联合",
                 2,
                 0));
-        words.add(new WordResp(
-                4,1,
+        words.add(new Word(
+                4L,1L,
                 "比",
                 0,
                 "其两膝相比者，各隐卷底衣褶中。",
