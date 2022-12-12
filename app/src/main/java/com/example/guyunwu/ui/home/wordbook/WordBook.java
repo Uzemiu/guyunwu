@@ -11,21 +11,14 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class WordBook implements Serializable {
 
-    private String title;
+    private String keyTitle;
 
     private String content;
 
-    /**
-     * 书名
-     */
-    private String reference;
+    private String correctAnswer;
 
+    private String bookName;
 
-    private String translation;
-
-    /**
-     * 释义
-     */
-    private String key;
+    private String translate;
 
 }

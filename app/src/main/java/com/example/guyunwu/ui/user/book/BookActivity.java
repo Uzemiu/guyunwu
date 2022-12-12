@@ -2,16 +2,23 @@ package com.example.guyunwu.ui.user.book;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import com.example.guyunwu.api.BaseResponse;
+import com.example.guyunwu.api.RequestModule;
+import com.example.guyunwu.api.ScheduleRequest;
+import com.example.guyunwu.api.req.ScheduleReq;
 import com.example.guyunwu.databinding.ActivityBookBinding;
 import io.github.mthli.knife.KnifeParser;
 import org.xutils.x;
-
-import java.time.format.DateTimeFormatter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BookActivity extends AppCompatActivity {
 
@@ -20,6 +27,8 @@ public class BookActivity extends AppCompatActivity {
     private ActivityBookBinding binding;
 
     private BookViewModel bookViewModel;
+
+    private int bookId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +73,36 @@ public class BookActivity extends AppCompatActivity {
             if (book.getAuthor() != null) {
                 binding.bookAuthorName.setText('[' + book.getAuthor().getDynasty() + ']' + book.getAuthor().getName());
             }
-            binding.bookTitle.setText(book.getTitle());
+            binding.bookTitle.setText(book.getName());
             binding.bookContent.setText(KnifeParser.fromHtml(book.getContent()));
             binding.bookPress.setText(book.getPress());
-
+            bookId = book.getId();
             ActionBar bar = getSupportActionBar();
             if (bar != null) {
-                bar.setTitle(book.getTitle());
+                bar.setTitle(book.getName());
             }
         });
 
         binding.changePlan.setOnClickListener(v -> {
-            // TODO
+            ScheduleRequest scheduleRequest = RequestModule.SCHEDULE_REQUEST;
+
+            scheduleRequest.switchSchedule(new ScheduleReq(bookId)).enqueue(new Callback<BaseResponse<Object>>() {
+                @Override
+                public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
+                    BaseResponse<Object> body = response.body();
+                    if (body == null || body.getCode() != 200) {
+                        onFailure(call, new Throwable("请求失败"));
+                    } else {
+                        // todo
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
+                    Toast.makeText(BookActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "onFailure: ", t);
+                }
+            });
         });
     }
 }

@@ -57,7 +57,7 @@ public class WordBookAdapter extends RecyclerView.Adapter<WordBookAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull @NotNull WordBookAdapter.ViewHolder holder, int position) {
         WordBook wordBook = wordBookList.get(position);
-        holder.wordBookTitle.setText(wordBook.getTitle());
+        holder.wordBookTitle.setText(wordBook.getKeyTitle());
         holder.wordBookContent.setText(wordBook.getContent());
     }
 

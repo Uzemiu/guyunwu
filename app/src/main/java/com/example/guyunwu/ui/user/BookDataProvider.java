@@ -134,8 +134,7 @@ public class BookDataProvider {
                     book[4],
                     0L,
                     0L,
-                    "class",
-                    Arrays.asList("tag1", "tag2")));
+                    "class"));
         }
         return books;
     }

@@ -4,7 +4,6 @@ import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
 import java.io.Serializable;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,8 +20,8 @@ public class Book implements Serializable {
     @Column(name = "cover_image")
     private String coverImage;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "author")
     private Author author;
@@ -44,7 +43,4 @@ public class Book implements Serializable {
 
     @Column(name = "category")
     private String category;
-
-    @Column(name = "tags")
-    private List<String> tags;
 }

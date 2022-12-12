@@ -76,11 +76,11 @@ public class WordBookDetailActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         wordBookViewModel.getMWordBook().observe(this, wordBook -> {
-            binding.wordBookTitle.setText(wordBook.getTitle());
+            binding.wordBookTitle.setText(wordBook.getKeyTitle());
             binding.wordBookContent.setText(wordBook.getContent());
-            binding.wordBookKey.setText(wordBook.getKey());
-            binding.wordBookReference.setText(wordBook.getReference());
-            binding.wordBookTranslation.setText(wordBook.getTranslation());
+            binding.wordBookKey.setText(wordBook.getCorrectAnswer());
+            binding.wordBookReference.setText(wordBook.getBookName());
+            binding.wordBookTranslation.setText(wordBook.getTranslate());
         });
         binding.btnWordBookStar.setOnClickListener(v -> {
             isStar = !isStar;

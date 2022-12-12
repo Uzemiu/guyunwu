@@ -79,7 +79,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull BookAdapter.ViewHolder holder, int position) {
         Book book = bookList.get(position);
-        holder.bookPreviewTitle.setText(book.getTitle());
+        holder.bookPreviewTitle.setText(book.getName());
 
         Author author = book.getAuthor();
         if (author != null) {

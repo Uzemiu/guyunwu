@@ -3,9 +3,6 @@ package com.example.guyunwu.api;
 import com.alibaba.fastjson2.JSON;
 import com.example.guyunwu.exception.BadRequestException;
 import com.example.guyunwu.util.SharedPreferencesUtil;
-import com.franmontiel.persistentcookiejar.PersistentCookieJar;
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -38,6 +35,8 @@ public class RequestModule {
     public static final ArticleRequest ARTICLE_REQUEST;
 
     public static final CommentRequest COMMENT_REQUEST;
+
+    public static final ScheduleRequest SCHEDULE_REQUEST;
 
     static {
         HTTP_CLIENT = new OkHttpClient.Builder()
@@ -98,5 +97,6 @@ public class RequestModule {
         COLLECTION_REQUEST = RETROFIT.create(CollectionRequest.class);
         ARTICLE_REQUEST = RETROFIT.create(ArticleRequest.class);
         COMMENT_REQUEST = RETROFIT.create(CommentRequest.class);
+        SCHEDULE_REQUEST = RETROFIT.create(ScheduleRequest.class);
     }
 }

@@ -43,7 +43,6 @@ public class ExploreFragment extends Fragment {
 
     private FragmentExploreBinding binding;
 
-    private final ArticleRepository articleRepository = new ArticleRepository();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
