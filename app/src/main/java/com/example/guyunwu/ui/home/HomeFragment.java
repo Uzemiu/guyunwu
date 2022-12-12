@@ -66,10 +66,10 @@ public class HomeFragment extends Fragment {
                     } else {
                         ScheduleResp scheduleResp = body.getData();
                         binding.bookTitle.setText(scheduleResp.getBook().getName());
-                        binding.learned.setText("" + scheduleResp.getLearned());
-                        binding.all.setText("" + scheduleResp.getAll());
-                        int dayRemained = (int) Math.ceil((double)(scheduleResp.getAll() - scheduleResp.getLearned()) / SharedPreferencesUtil.getInt("wordsPerDay", 365));
-                        binding.dayRemained.setText("" + dayRemained);
+                        binding.learned.setText(String.valueOf(scheduleResp.getLearned()));
+                        binding.all.setText(String.valueOf(scheduleResp.getAll()));
+                        int dayRemained = (int) Math.ceil((double) (scheduleResp.getAll() - scheduleResp.getLearned()) / SharedPreferencesUtil.getInt("wordsPerDay", 10));
+                        binding.dayRemained.setText(String.valueOf(dayRemained));
                         x.image().bind(binding.bookImage, scheduleResp.getBook().getCoverImage());
                     }
 

@@ -2,7 +2,9 @@ package com.example.guyunwu.ui.home.schedule;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,20 +12,35 @@ import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.contrarywind.listener.OnItemSelectedListener;
 import com.contrarywind.view.WheelView;
 import com.example.guyunwu.R;
+import com.example.guyunwu.api.BaseResponse;
+import com.example.guyunwu.api.RequestModule;
+import com.example.guyunwu.api.ScheduleRequest;
+import com.example.guyunwu.api.req.UpdateScheduleReq;
+import com.example.guyunwu.api.resp.ScheduleResp;
+import com.example.guyunwu.api.resp.WordResp;
+import com.example.guyunwu.repository.WordRepository;
 import com.example.guyunwu.ui.user.myBook.MyBookActivity;
+import com.example.guyunwu.util.SharedPreferencesUtil;
+import org.xutils.x;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Objects;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class UpdateScheduleActivity extends AppCompatActivity {
 
-    public Integer wordPerDay = 500;
+    private static final String TAG = "UpdateScheduleActivity";
 
-    public Integer words = 4135;
+    private int wordPerDay = SharedPreferencesUtil.getInt("wordsPerDay", 10);
+
+    private int words = 4135;
 
     private List<Integer> days;
+
+    private int currentWordPerDay = SharedPreferencesUtil.getInt("wordsPerDay", 10);
 
     public static Integer[] values = new Integer[]{
             5, 10, 15, 20, 25, 25, 30, 35, 40, 45,
@@ -38,18 +55,110 @@ public class UpdateScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_schedule);
         initActionBar();
-
+        initSchedule();
+        initBinding();
         initSelectNumWheel();
         initSelectDayWheel();
-        initBinding();
+    }
+
+    private void initSchedule() {
+        ScheduleRequest scheduleRequest = RequestModule.SCHEDULE_REQUEST;
+        scheduleRequest.getSchedule(SharedPreferencesUtil.getLong("scheduleId", 0)).enqueue(new Callback<BaseResponse<ScheduleResp>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<ScheduleResp>> call, Response<BaseResponse<ScheduleResp>> response) {
+                BaseResponse<ScheduleResp> body = response.body();
+                if (body == null || body.getCode() != 200) {
+                    onFailure(call, new Throwable("获取计划失败"));
+                } else {
+                    ScheduleResp scheduleResp = body.getData();
+                    ((TextView) findViewById(R.id.per_day)).setText(String.valueOf(SharedPreferencesUtil.getInt("wordsPerDay", 10)));
+                    ((TextView) findViewById(R.id.book_title)).setText(scheduleResp.getBook().getName());
+                    ((TextView) findViewById(R.id.learned)).setText(String.valueOf(scheduleResp.getLearned()));
+                    ((TextView) findViewById(R.id.all)).setText(String.valueOf(scheduleResp.getAll()));
+                    words = scheduleResp.getAll() - scheduleResp.getLearned();
+                    int dayRemained = (int) Math.ceil((double) (words) / SharedPreferencesUtil.getInt("wordsPerDay", 10));
+                    ((TextView) findViewById(R.id.days)).setText(String.valueOf(dayRemained));
+                    x.image().bind(findViewById(R.id.book_image), scheduleResp.getBook().getCoverImage());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.DAY_OF_MONTH, dayRemained);
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+                    String date = dateFormat.format(calendar.getTimeInMillis());
+                    ((TextView) findViewById(R.id.finish_day)).setText(date);
+                    ((TextView) findViewById(R.id.minutes_per_day)).setText(String.valueOf((int) Math.ceil(SharedPreferencesUtil.getInt("wordsPerDay", 10) / 2)));
+                    initSelectNumWheel();
+                    initSelectDayWheel();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<ScheduleResp>> call, Throwable t) {
+                Toast.makeText(UpdateScheduleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+
     }
 
     private void initBinding() {
+        ScheduleRequest scheduleRequest = RequestModule.SCHEDULE_REQUEST;
         findViewById(R.id.book_image).setOnClickListener(v -> {
             Intent toMyBookPage = new Intent();
-            toMyBookPage.setClass(this,MyBookActivity.class);
+            toMyBookPage.setClass(this, MyBookActivity.class);
             startActivity(toMyBookPage);
         });
+        findViewById(R.id.btn_reset).setOnClickListener(v -> {
+            scheduleRequest.resetSchedule().enqueue(new Callback<BaseResponse<WordResp>>() {
+                @Override
+                public void onResponse(Call<BaseResponse<WordResp>> call, Response<BaseResponse<WordResp>> response) {
+                    BaseResponse<WordResp> body = response.body();
+                    if (body == null || body.getCode() != 200) {
+                        onFailure(call, new Throwable("获取计划失败"));
+                    } else {
+                        WordRepository wordRepository = new WordRepository();
+                        wordRepository.delete(wordRepository.findAll());
+                        WordResp wordResp = body.getData();
+                        wordRepository.save(wordResp.getWords());
+                        SharedPreferencesUtil.putLong("scheduleId", wordResp.getId());
+                        SharedPreferencesUtil.putLong("bookId", wordResp.getBookId());
+                        SharedPreferencesUtil.putInt("wordsPerDay", wordResp.getWordsPerDay());
+                        Toast.makeText(UpdateScheduleActivity.this, "重置成功", Toast.LENGTH_SHORT).show();
+                        initSchedule();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BaseResponse<WordResp>> call, Throwable t) {
+                    Toast.makeText(UpdateScheduleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "onFailure: ", t);
+                }
+            });
+        });
+
+        findViewById(R.id.save_plan).setOnClickListener(v -> {
+            scheduleRequest.updateSchedule(new UpdateScheduleReq(
+                    SharedPreferencesUtil.getLong("scheduleId", -1L),
+                    currentWordPerDay
+            )).enqueue(new Callback<BaseResponse<Object>>() {
+                @Override
+                public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
+                    BaseResponse<Object> body = response.body();
+                    if (body == null || body.getCode() != 200) {
+                        onFailure(call, new Throwable("保存计划失败"));
+                    } else {
+                        SharedPreferencesUtil.putInt("wordsPerDay", currentWordPerDay);
+                        initSchedule();
+                        Toast.makeText(UpdateScheduleActivity.this, "保存计划成功", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
+                    Toast.makeText(UpdateScheduleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "onFailure: ", t);
+                }
+            });
+        });
+
     }
 
     @Override
@@ -86,7 +195,8 @@ public class UpdateScheduleActivity extends AppCompatActivity {
             public void onItemSelected(int index) {
                 wordPerDay = values[index];
                 updateSelectDayWheel();
-                Toast.makeText(UpdateScheduleActivity.this, mOptionsItems.get(index), Toast.LENGTH_SHORT).show();
+                String s = mOptionsItems.get(index);
+                currentWordPerDay = Integer.parseInt(s.substring(0, s.length() - 1));
             }
         });
     }
@@ -108,7 +218,8 @@ public class UpdateScheduleActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(int index) {
                 updateSelectNumWheel(index);
-                Toast.makeText(UpdateScheduleActivity.this, mOptionsItems.get(index), Toast.LENGTH_SHORT).show();
+                String s = mOptionsItems.get(index);
+                currentWordPerDay = Integer.parseInt(s.substring(0, s.length() - 1));
             }
         });
     }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   tools:context=".ui.home.schedule.UpdateScheduleActivity"
-                                                   android:paddingTop="10dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.home.schedule.UpdateScheduleActivity"
+        android:paddingTop="10dp"
 >
 
     <LinearLayout
@@ -51,7 +51,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                             android:gravity="center_vertical">
 
                         <TextView
-                                android:id="@+id/book_type"
+                                android:id="@+id/book_title"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="高考词汇"
@@ -60,17 +60,22 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:textStyle="bold"
                                 android:layout_weight="1"/>
 
-                        <ImageView
-                                android:layout_width="17sp"
-                                android:layout_height="17sp"
-                                android:src="@drawable/ic_home_reset_24dp"/>
-
-                        <TextView
+                        <LinearLayout
+                                android:id="@+id/btn_reset"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="重置"
-                                android:textSize="16sp"
-                                android:layout_marginStart="2dp"/>
+                                android:layout_height="wrap_content">
+                            <ImageView
+                                    android:layout_width="17sp"
+                                    android:layout_height="17sp"
+                                    android:src="@drawable/ic_home_reset_24dp"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="重置"
+                                    android:textSize="16sp"
+                                    android:layout_marginStart="2dp"/>
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -90,7 +95,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/per_day"
-                                android:text="35"
+                                android:text="10"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
                                 android:layout_marginStart="3dp"/>
@@ -107,7 +112,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/days"
-                                android:text="119"
+                                android:text="0"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
                                 android:layout_marginStart="3dp"/>
@@ -159,7 +164,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/all"
                                 android:layout_marginStart="3dp"
-                                android:text="4135"
+                                android:text="0"
                                 android:textSize="12sp"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -179,6 +184,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                     android:textSize="16sp"/>
 
             <TextView
+                    android:id="@+id/finish_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2023年04月05日"
@@ -196,7 +202,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/minutes_per_day"
-                    android:text="15"
+                    android:text="0"
                     android:textSize="16sp"/>
 
             <TextView
