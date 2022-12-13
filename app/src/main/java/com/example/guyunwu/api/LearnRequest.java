@@ -1,13 +1,14 @@
 package com.example.guyunwu.api;
 
+import com.example.guyunwu.api.resp.TodayScheduleResp;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface LearnRequest {
 
-    @GET("/collection/toBeReviewed")
-    Call<BaseResponse<Integer>> toBeReviewed();
+    @GET("/collection/todaySchedule")
+    Call<BaseResponse<TodayScheduleResp>> todaySchedule();
 
-    @GET("/collection/toBeLearned")
-    Call<BaseResponse<Integer>> toBeLearned();
+    @GET("/collection/todayLearned")
+    Call<BaseResponse<Integer>> todayLearned();
 }

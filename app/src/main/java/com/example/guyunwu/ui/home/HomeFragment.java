@@ -18,6 +18,7 @@ import com.example.guyunwu.api.LearnRequest;
 import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.ScheduleRequest;
 import com.example.guyunwu.api.resp.ScheduleResp;
+import com.example.guyunwu.api.resp.TodayScheduleResp;
 import com.example.guyunwu.databinding.FragmentHomeBinding;
 import com.example.guyunwu.ui.explore.daily.DailySentenceActivity;
 import com.example.guyunwu.ui.explore.lecture.LectureActivity;
@@ -43,11 +44,6 @@ public class HomeFragment extends Fragment {
 
     private Fragment mLastShowFragment;
 
-
-    private int needToLearn = -1;
-
-    private int needToReview = -1;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -61,13 +57,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        initView();
         initFragment();
-        if (SharedPreferencesUtil.getBoolean("isFinished", false)) {
-            switchTo(FINISH, null);
-        } else {
-            switchTo(WITHOUT_FINISH, null);
-        }
+        initView();
     }
 
 
@@ -118,10 +109,10 @@ public class HomeFragment extends Fragment {
             binding.learned.setText("0");
             binding.all.setText("0");
             binding.dayRemained.setText("0");
-            if(SharedPreferencesUtil.contain("needToReview")) {
+            if (SharedPreferencesUtil.contain("needToReview")) {
                 SharedPreferencesUtil.remove("needToReview");
             }
-            if(SharedPreferencesUtil.contain("needToLearn")) {
+            if (SharedPreferencesUtil.contain("needToLearn")) {
                 SharedPreferencesUtil.remove("needToLearn");
             }
 
@@ -158,45 +149,33 @@ public class HomeFragment extends Fragment {
 
             LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
 
-            learnRequest.toBeReviewed().enqueue(new Callback<BaseResponse<Integer>>() {
+            learnRequest.todaySchedule().enqueue(new Callback<BaseResponse<TodayScheduleResp>>() {
                 @Override
-                public void onResponse(Call<BaseResponse<Integer>> call, Response<BaseResponse<Integer>> response) {
-                    BaseResponse<Integer> body = response.body();
-                    if (body == null || body.getCode() != 200) {
-                        onFailure(call, new Throwable("获取失败"));
+                public void onResponse(Call<BaseResponse<TodayScheduleResp>> call, Response<BaseResponse<TodayScheduleResp>> response) {
+                    BaseResponse<TodayScheduleResp> body1 = response.body();
+                    if (body1 == null || body1.getCode() != 200) {
+                        onFailure(call, new Throwable("登录失败"));
                     } else {
-                        needToReview = body.getData();
-                        judgeIsFinished();
-                        SharedPreferencesUtil.putInt("needToReview",body.getData());
+                        TodayScheduleResp todayScheduleResp = body1.getData();
+                        int learn = todayScheduleResp.getLearn();
+                        int review = todayScheduleResp.getReview();
+                        Log.e(TAG,todayScheduleResp.toString());
+                        if (learn == 0 && review == 0) {
+                            // 完成了！！！
+                            switchTo(FINISH, null);
+                        } else {
+                            switchTo(WITHOUT_FINISH, null);
+                        }
                     }
                 }
 
                 @Override
-                public void onFailure(Call<BaseResponse<Integer>> call, Throwable t) {
+                public void onFailure(Call<BaseResponse<TodayScheduleResp>> call, Throwable t) {
                     Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onFailure: ", t);
                 }
             });
 
-            learnRequest.toBeLearned().enqueue(new Callback<BaseResponse<Integer>>() {
-                @Override
-                public void onResponse(Call<BaseResponse<Integer>> call, Response<BaseResponse<Integer>> response) {
-                    BaseResponse<Integer> body = response.body();
-                    if (body == null || body.getCode() != 200) {
-                        onFailure(call, new Throwable("获取失败"));
-                    } else {
-                        needToLearn = body.getData();
-                        judgeIsFinished();
-                        SharedPreferencesUtil.putInt("needToLearn",body.getData());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<BaseResponse<Integer>> call, Throwable t) {
-                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "onFailure: ", t);
-                }
-            });
         }
     }
 
@@ -244,13 +223,6 @@ public class HomeFragment extends Fragment {
             toWordBookPage.setClass(getActivity(), WordBookActivity.class);
             startActivity(toWordBookPage);
         });
-    }
-
-    private void judgeIsFinished() {
-        if (needToLearn >= 0 && needToReview >= 0) {
-            SharedPreferencesUtil.putInt("minutes",(needToLearn + needToReview) / 2);
-            SharedPreferencesUtil.putBoolean("isFinished", needToLearn == 0 && needToReview == 0);
-        }
     }
 
 }

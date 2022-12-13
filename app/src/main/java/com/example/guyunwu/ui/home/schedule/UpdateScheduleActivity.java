@@ -54,6 +54,11 @@ public class UpdateScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_schedule);
         initActionBar();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         initSchedule();
         initBinding();
         initSelectNumWheel();
@@ -69,6 +74,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
                 if (body == null || body.getCode() != 200) {
                     onFailure(call, new Throwable("获取计划失败"));
                 } else {
+                    wordPerDay = SharedPreferencesUtil.getInt("wordsPerDay", 10);
                     ScheduleResp scheduleResp = body.getData();
                     ((TextView) findViewById(R.id.per_day)).setText(String.valueOf(SharedPreferencesUtil.getInt("wordsPerDay", 10)));
                     ((TextView) findViewById(R.id.book_title)).setText(scheduleResp.getBook().getName());
@@ -83,7 +89,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
                     DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
                     String date = dateFormat.format(calendar.getTimeInMillis());
                     ((TextView) findViewById(R.id.finish_day)).setText(date);
-                    ((TextView) findViewById(R.id.minutes_per_day)).setText(String.valueOf(Math.ceil(SharedPreferencesUtil.getInt("wordsPerDay", 10) / 2)));
+                    ((TextView) findViewById(R.id.minutes_per_day)).setText(String.valueOf((int) Math.ceil(SharedPreferencesUtil.getInt("wordsPerDay", 10) / 2)));
                     initSelectNumWheel();
                     initSelectDayWheel();
                 }
