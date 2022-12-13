@@ -87,15 +87,32 @@ public class WordBookDetailActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         wordBookViewModel.getMWordBook().observe(this, wordBook -> {
+            word = wordBook;
             binding.wordBookTitle.setText(wordBook.getKeyWord());
             binding.wordBookContent.setText(wordBook.getContent());
-            binding.wordBookKey.setText(wordBook.getCorrectAnswer());
-            binding.wordBookReference.setText(wordBook.getBook().getName());
+            Integer correctAnswer = wordBook.getCorrectAnswer();
+            String stringCorrectAnswer = "";
+            switch (correctAnswer) {
+                case 0:
+                    stringCorrectAnswer = wordBook.getAnswerA();
+                    break;
+                case 1:
+                    stringCorrectAnswer = wordBook.getAnswerB();
+                    break;
+                case 2:
+                    stringCorrectAnswer = wordBook.getAnswerC();
+                    break;
+                case 3:
+                    stringCorrectAnswer = wordBook.getAnswerD();
+                    break;
+            }
+            binding.wordBookKey.setText(stringCorrectAnswer);
+            binding.wordBookReference.setText("——" + wordBook.getBook().getName());
             binding.wordBookTranslation.setText(wordBook.getTranslate());
         });
         binding.btnWordBookStar.setOnClickListener(v -> {
             CollectionRequest collectionRequest = RequestModule.COLLECTION_REQUEST;
-            if(isStar) {
+            if (isStar) {
                 collectionRequest.cancelWord(word.getWordId()).enqueue(new Callback<BaseResponse<Object>>() {
                     @Override
                     public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {

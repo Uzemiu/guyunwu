@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class WordBookActivity extends AppCompatActivity {
         findViewById(R.id.btn_learn).setOnClickListener(v -> {
             Intent toLearnPage = new Intent();
             toLearnPage.setClass(this, LearnActivity.class);
+            // todo
             startActivity(toLearnPage);
         });
     }
@@ -66,6 +68,7 @@ public class WordBookActivity extends AppCompatActivity {
                     onFailure(call, new Throwable("请求失败"));
                 } else {
                     List<WordWithBook> wordBooks = body1.getData();
+                    ((TextView) WordBookActivity.this.findViewById(R.id.word_number)).setText(String.valueOf(wordBooks.size()));
                     RecyclerView recyclerView = findViewById(R.id.word_book_list);
                     StaggeredGridLayoutManager layoutManager = new
                             StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
