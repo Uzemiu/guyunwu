@@ -23,6 +23,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_gravity="center">
+                <ImageView
+                        android:id="@+id/btn_word_book_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/ic_user_star_fill_24dp"/>
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -49,7 +56,7 @@
                         android:layout_gravity="center"
                         android:text="他们互相靠近的两膝,都被遮蔽在手卷下边的衣褶里。"
                         android:textSize="20sp"
-                android:alpha="0"/>
+                        android:alpha="0"/>
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

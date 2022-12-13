@@ -12,6 +12,7 @@ import com.alibaba.fastjson2.JSON;
 import com.example.guyunwu.R;
 import com.example.guyunwu.api.resp.Word;
 import com.example.guyunwu.databinding.FragmentLearnBinding;
+import com.example.guyunwu.ui.user.book.Book;
 import com.google.android.material.card.MaterialCardView;
 import io.github.mthli.knife.KnifeParser;
 import lombok.Getter;
@@ -26,6 +27,8 @@ public class LearnFragment extends Fragment {
 
     private Answer key;
 
+    private static final String TAG = "LearnFragment";
+
     private static final int correct_color = 0xFFD3F2D2;
 
     private static final int incorrect_color = 0xFFFBD1D2;
@@ -34,7 +37,11 @@ public class LearnFragment extends Fragment {
 
     private static final String WORD = "word";
 
+    private static final String BOOK = "book";
+
     private Word word;
+
+    private Book book;
 
     @Setter
     private ViewPager2 viewPager2;
@@ -51,7 +58,7 @@ public class LearnFragment extends Fragment {
     @Setter
     private List<Fragment> fragmentList;
 
-    public static LearnFragment newInstance(Word word, ViewPager2 viewPager, int currentPage, int allPage, List<Fragment> fragmentList) {
+    public static LearnFragment newInstance(Book book, Word word, ViewPager2 viewPager, int currentPage, int allPage, List<Fragment> fragmentList) {
         LearnFragment fragment = new LearnFragment();
         fragment.setViewPager2(viewPager);
         fragment.setCurrentPage(currentPage);
@@ -59,6 +66,7 @@ public class LearnFragment extends Fragment {
         fragment.setFragmentList(fragmentList);
         Bundle bundle = new Bundle();
         bundle.putString(WORD, JSON.toJSONString(word));
+        bundle.putString(BOOK, JSON.toJSONString(book));
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -68,6 +76,7 @@ public class LearnFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             word = JSON.parseObject(getArguments().getString(WORD), Word.class);
+            book = JSON.parseObject(getArguments().getString(BOOK), Book.class);
         }
     }
 
@@ -92,10 +101,10 @@ public class LearnFragment extends Fragment {
                 "<b><font color='black'>" +
                 word.getKeyWord() +
                 "</font></b>" +
-                word.getContent().substring(index + 1);
+                word.getContent().substring(index + word.getKeyWord().length());
 
         binding.questionContent.setText(KnifeParser.fromHtml(stringBuilder));
-        binding.questionReference.setText("——" + word.getBookName());
+        binding.questionReference.setText("——" + book.getName());
         binding.textAnswerA.setText(word.getAnswerA());
         binding.textAnswerB.setText(word.getAnswerB());
         binding.textAnswerC.setText(word.getAnswerC());
@@ -148,7 +157,7 @@ public class LearnFragment extends Fragment {
             ImageView imageView = cardView.findViewWithTag("image");
             imageView.setImageResource(R.drawable.ic_home_incorrect_24dp);
             imageView.setVisibility(View.VISIBLE);
-            fragmentList.add(LearnFragment.newInstance(word, viewPager2, currentPage, allPage, fragmentList));
+            fragmentList.add(LearnFragment.newInstance(book, word, viewPager2, currentPage, allPage, fragmentList));
             viewPager2.getAdapter().notifyDataSetChanged();
         }
         isTapped = true;
