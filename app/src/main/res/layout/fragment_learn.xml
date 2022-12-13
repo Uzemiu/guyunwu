@@ -4,77 +4,73 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    xmlns:tools="http://schemas.android.com/tools"
-                                                   tools:context=".ui.home.study.LearnActivity"
-                                                   android:paddingTop="10dp">
-
-    <LinearLayout
+                                                   tools:context=".ui.home.study.LearnActivity">
+    <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-        <com.google.android.material.card.MaterialCardView
+            android:layout_height="wrap_content"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/rounded_corner_card"
+            android:layout_margin="15dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/linearLayout">
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="@dimen/rounded_corner_card"
-                android:layout_margin="15dp">
-            <LinearLayout
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+            <ImageView
+                    android:id="@+id/btn_word_book_star"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center">
-                <ImageView
-                        android:id="@+id/btn_word_book_star"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/ic_user_star_fill_24dp"/>
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/question_key"
-                        android:layout_margin="15dp"
-                        android:layout_gravity="center"
-                        android:textStyle="bold"
-                        android:text="比"
-                        android:textColor="@color/black"
-                        android:textSize="30sp"/>
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
-                        android:id="@+id/question_content"
-                        android:layout_gravity="center"
-                        android:text="其两膝相比者，各隐卷底衣褶。"
-                        android:textSize="20sp"/>
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
-                        android:id="@+id/question_translation"
-                        android:layout_gravity="center"
-                        android:text="他们互相靠近的两膝,都被遮蔽在手卷下边的衣褶里。"
-                        android:textSize="20sp"
-                        android:alpha="0"/>
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
-                        android:id="@+id/question_reference"
-                        android:layout_gravity="right"
-                        android:text="——《核舟记》"
-                        android:textSize="20sp"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
+                    android:layout_gravity="right"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/ic_user_star_fill_24dp"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/question_key"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:text="比"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:id="@+id/question_content"
+                    android:layout_gravity="center"
+                    android:text="其两膝相比者，各隐卷底衣褶。"
+                    android:textSize="20sp"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:id="@+id/question_translation"
+                    android:layout_gravity="center"
+                    android:text="他们互相靠近的两膝,都被遮蔽在手卷下边的衣褶里。"
+                    android:textSize="20sp"
+                    android:alpha="0"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:id="@+id/question_reference"
+                    android:layout_gravity="right"
+                    android:text="——《核舟记》"
+                    android:textSize="20sp"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="15dp"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/linearLayout"
+            tools:layout_editor_absoluteX="15dp">
 
         <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -96,14 +92,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="A."
-                        android:textSize="20sp"/>
+                        android:textSize="18sp"/>
 
                 <TextView
                         android:layout_width="0dp"
                         android:id="@+id/text_answer_a"
                         android:layout_height="wrap_content"
                         android:text="语文书"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"/>
 
@@ -135,14 +131,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="B."
-                        android:textSize="20sp"/>
+                        android:textSize="18sp"/>
 
                 <TextView
                         android:id="@+id/text_answer_b"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="语文书"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"/>
 
@@ -181,7 +177,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="语文书"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"/>
 
@@ -213,14 +209,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="D."
-                        android:textSize="20sp"/>
+                        android:textSize="18sp"/>
 
                 <TextView
                         android:id="@+id/text_answer_d"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="语文书"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"/>
 
@@ -235,7 +231,7 @@
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:layout_margin="10dp"
+                      android:layout_margin="5dp"
                       android:gravity="center">
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
