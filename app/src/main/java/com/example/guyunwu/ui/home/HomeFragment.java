@@ -67,21 +67,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void switchTo(String tab, Bundle bundle) {
-        FragmentManager fragmentManager = getChildFragmentManager();
-
+        FragmentManager fragmentManager;
+        try {
+            fragmentManager = getChildFragmentManager();
+        } catch (Exception e) {
+            // 不要问为什么要抓异常
+            return;
+        }
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        Fragment fragment = fragmentManager.findFragmentByTag(tab);
-        if (fragment == null) {
-            fragment = Fragment.instantiate(getActivity(), tab);
-            fragment.setArguments(bundle);
-            fragmentTransaction.add(R.id.fragment_learn_finish, fragment, tab);
-        } else {
-            fragmentTransaction.show(fragment);
-        }
-        if (mLastShowFragment != null) {
-            fragmentTransaction.hide(mLastShowFragment);
-        }
+        Fragment fragment = Fragment.instantiate(getActivity(), tab);
+        fragment.setArguments(bundle);
+        fragmentTransaction.add(R.id.fragment_learn_finish, fragment, tab);
         mLastShowFragment = fragment;
 
         fragmentTransaction.commitAllowingStateLoss();
@@ -142,10 +138,12 @@ public class HomeFragment extends Fragment {
                         public void onFailure(Call<BaseResponse<ScheduleResp>> call, Throwable t) {
                             Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onFailure: ", t);
-                            binding.bookTitle.setText("当前还未添加计划");
-                            binding.learned.setText("0");
-                            binding.all.setText("0");
-                            binding.dayRemained.setText("0");
+                            if (binding != null) {
+                                binding.bookTitle.setText("当前还未添加计划");
+                                binding.learned.setText("0");
+                                binding.all.setText("0");
+                                binding.dayRemained.setText("0");
+                            }
                         }
                     });
 
@@ -162,11 +160,16 @@ public class HomeFragment extends Fragment {
                         TodayScheduleResp todayScheduleResp = body1.getData();
                         int learn = todayScheduleResp.getLearn();
                         int review = todayScheduleResp.getReview();
+                        int hasLearn = todayScheduleResp.getHasLearned();
+                        Bundle bundle = new Bundle();
                         if (learn == 0 && review == 0) {
                             // 完成了！！！
-                            switchTo(FINISH, null);
+                            bundle.putInt("hasLearned",hasLearn);
+                            switchTo(FINISH, bundle);
                         } else {
-                            switchTo(WITHOUT_FINISH, null);
+                            bundle.putInt("learn",learn);
+                            bundle.putInt("review",review);
+                            switchTo(WITHOUT_FINISH, bundle);
                         }
                     }
                 }

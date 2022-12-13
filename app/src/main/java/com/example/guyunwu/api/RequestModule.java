@@ -19,8 +19,6 @@ public class RequestModule {
 
     private static final Retrofit RETROFIT_FOR_IMAGE;
 
-//    public static final String BASE_URL = "http://10.0.2.2:8080/";
-
     public static final String BASE_URL = "http://192.168.31.62:8080/";
 
     // don't change!!!

@@ -1,14 +1,11 @@
 package com.example.guyunwu.api;
 
-import com.example.guyunwu.api.req.LoginReq;
 import com.example.guyunwu.api.req.ScheduleReq;
 import com.example.guyunwu.api.req.UpdateScheduleReq;
 import com.example.guyunwu.api.resp.ScheduleResp;
-import com.example.guyunwu.api.resp.WordResp;
+import com.example.guyunwu.api.resp.SimpleScheduleResp;
 import retrofit2.Call;
 import retrofit2.http.*;
-
-import java.util.List;
 
 public interface ScheduleRequest {
 
@@ -16,14 +13,14 @@ public interface ScheduleRequest {
     Call<BaseResponse<Object>> addSchedule(@Body ScheduleReq scheduleReq);
 
     @GET("/schedule/currentSchedule")
-    Call<BaseResponse<WordResp>> currentSchedule();
+    Call<BaseResponse<SimpleScheduleResp>> currentSchedule();
 
     @PUT("/schedule/reset")
-    Call<BaseResponse<WordResp>> resetSchedule();
+    Call<BaseResponse<SimpleScheduleResp>> resetSchedule();
 
     @POST("/schedule/switch")
-    // return all about this schedule
-    Call<BaseResponse<WordResp>> switchSchedule(@Body ScheduleReq scheduleReq);
+        // return all about this schedule
+    Call<BaseResponse<SimpleScheduleResp>> switchSchedule(@Body ScheduleReq scheduleReq);
 
     @PUT("/schedule/update")
     Call<BaseResponse<Object>> updateSchedule(@Body UpdateScheduleReq updateScheduleReq);

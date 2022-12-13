@@ -1,17 +1,14 @@
 package com.example.guyunwu.api.resp;
 
-import lombok.AllArgsConstructor;
+import com.example.guyunwu.ui.user.book.Book;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Word {
+public class WordWithBook {
 
     private Long id;
 
-    private Integer bookId;
+    private Book book;
 
     private String keyWord;
 

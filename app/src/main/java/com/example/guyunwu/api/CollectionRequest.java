@@ -1,8 +1,8 @@
 package com.example.guyunwu.api;
 
-import com.example.guyunwu.api.resp.WordResp;
+import com.example.guyunwu.api.resp.SimpleScheduleResp;
+import com.example.guyunwu.api.resp.WordWithBook;
 import com.example.guyunwu.ui.explore.daily.DailySentence;
-import com.example.guyunwu.ui.home.wordbook.WordBook;
 import com.example.guyunwu.ui.user.book.Book;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -23,11 +23,14 @@ public interface CollectionRequest {
     @DELETE("/collection/word/cancel/{wordId}")
     Call<BaseResponse<Object>> cancelWord(@Path("wordId") String wordId);
 
+    @PUT("/collection/word/isCollected/{wordId}")
+    Call<BaseResponse<Boolean>> isCollected(@Path("wordId") String wordId);
+
     @GET("/collection/word/my")
-    Call<BaseResponse<List<WordResp>>> myWord();
+    Call<BaseResponse<List<WordWithBook>>> myWord();
 
     @POST("/collection/word/{wordId}")
-    Call<BaseResponse<List<WordResp>>> starWord(@Path("wordId") String wordId);
+    Call<BaseResponse<Object>> starWord(@Path("wordId") String wordId);
 
     @GET("/collection/hasBook/{bookId}")
     Call<BaseResponse<Boolean>> hasBook(@Path("bookId") Long bookId);

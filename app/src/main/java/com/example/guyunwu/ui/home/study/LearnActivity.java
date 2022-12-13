@@ -18,6 +18,7 @@ import com.example.guyunwu.api.LearnRequest;
 import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.resp.TodayScheduleResp;
 import com.example.guyunwu.api.resp.Word;
+import com.example.guyunwu.api.resp.WordResp;
 import com.example.guyunwu.ui.user.book.Book;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
@@ -64,10 +65,10 @@ public class LearnActivity extends AppCompatActivity {
     private void initData() {
         LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
 
-        learnRequest.todaySchedule().enqueue(new Callback<BaseResponse<TodayScheduleResp>>() {
+        learnRequest.todayWords().enqueue(new Callback<BaseResponse<WordResp>>() {
             @Override
-            public void onResponse(Call<BaseResponse<TodayScheduleResp>> call, Response<BaseResponse<TodayScheduleResp>> response) {
-                BaseResponse<TodayScheduleResp> body1 = response.body();
+            public void onResponse(Call<BaseResponse<WordResp>> call, Response<BaseResponse<WordResp>> response) {
+                BaseResponse<WordResp> body1 = response.body();
                 if (body1 == null || body1.getCode() != 200) {
                     onFailure(call, new Throwable("获取失败"));
                 } else {
@@ -78,7 +79,7 @@ public class LearnActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<TodayScheduleResp>> call, Throwable t) {
+            public void onFailure(Call<BaseResponse<WordResp>> call, Throwable t) {
                 Toast.makeText(LearnActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onFailure: ", t);
             }

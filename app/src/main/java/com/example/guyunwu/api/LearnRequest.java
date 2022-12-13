@@ -6,6 +6,8 @@ import com.example.guyunwu.api.resp.Word;
 
 import java.util.List;
 
+import com.example.guyunwu.api.resp.WordResp;
+import com.example.guyunwu.api.resp.WordWithBook;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -16,9 +18,9 @@ public interface LearnRequest {
     @GET("/learn/todaySchedule")
     Call<BaseResponse<TodayScheduleResp>> todaySchedule();
 
-    @GET("/learn/todayLearned")
-    Call<BaseResponse<Integer>> todayLearned();
+    @GET("/learn/todayWords")
+    Call<BaseResponse<WordResp>> todayWords();
 
     @POST("/learn/learnRecord")
-    Call<BaseResponse<List<Word>>> learnRecord(@Body DateReq dateReq);
+    Call<BaseResponse<List<WordWithBook>>> learnRecord(@Body DateReq dateReq);
 }

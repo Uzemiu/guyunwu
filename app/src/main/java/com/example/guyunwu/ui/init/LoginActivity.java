@@ -16,7 +16,7 @@ import com.example.guyunwu.api.ScheduleRequest;
 import com.example.guyunwu.api.UserRequest;
 import com.example.guyunwu.api.req.LoginReq;
 import com.example.guyunwu.api.resp.LoginResp;
-import com.example.guyunwu.api.resp.WordResp;
+import com.example.guyunwu.api.resp.SimpleScheduleResp;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 import org.jetbrains.annotations.NotNull;
 import org.xutils.common.util.MD5;
@@ -103,10 +103,10 @@ public class LoginActivity extends AppCompatActivity {
                     onFailure(call, new Throwable("登录失败"));
                 } else {
                     SharedPreferencesUtil.putString("token", body.getData().getToken());
-                    scheduleRequest.currentSchedule().enqueue(new Callback<BaseResponse<WordResp>>() {
+                    scheduleRequest.currentSchedule().enqueue(new Callback<BaseResponse<SimpleScheduleResp>>() {
                         @Override
-                        public void onResponse(Call<BaseResponse<WordResp>> call, Response<BaseResponse<WordResp>> response) {
-                            BaseResponse<WordResp> body1 = response.body();
+                        public void onResponse(Call<BaseResponse<SimpleScheduleResp>> call, Response<BaseResponse<SimpleScheduleResp>> response) {
+                            BaseResponse<SimpleScheduleResp> body1 = response.body();
                             if (body1 == null || body1.getCode() != 200) {
                                 onFailure(call, new Throwable("登录失败"));
                             } else {
@@ -116,13 +116,13 @@ public class LoginActivity extends AppCompatActivity {
                                 SharedPreferencesUtil.putLong("birthDate", body.getData().getBirthDate() == null ? 0 : body.getData().getBirthDate().getTime());
                                 SharedPreferencesUtil.putInt("gender", body.getData().getGender());
 
-                                WordResp wordResp = body1.getData();
-                                if (wordResp == null) {
+                                SimpleScheduleResp simpleScheduleResp = body1.getData();
+                                if (simpleScheduleResp == null) {
                                     // do nothing
                                 } else {
-                                    SharedPreferencesUtil.putLong("scheduleId", wordResp.getId());
-                                    SharedPreferencesUtil.putLong("bookId", wordResp.getBookId());
-                                    SharedPreferencesUtil.putInt("wordsPerDay", wordResp.getWordsPerDay());
+                                    SharedPreferencesUtil.putLong("scheduleId", simpleScheduleResp.getId());
+                                    SharedPreferencesUtil.putLong("bookId", simpleScheduleResp.getBookId());
+                                    SharedPreferencesUtil.putInt("wordsPerDay", simpleScheduleResp.getWordsPerDay());
                                 }
 
                                 Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<BaseResponse<WordResp>> call, Throwable t) {
+                        public void onFailure(Call<BaseResponse<SimpleScheduleResp>> call, Throwable t) {
                             Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onFailure: ", t);
                             SharedPreferencesUtil.remove("token");

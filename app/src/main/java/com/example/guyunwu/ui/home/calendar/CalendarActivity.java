@@ -16,6 +16,7 @@ import com.example.guyunwu.api.LearnRequest;
 import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.req.DateReq;
 import com.example.guyunwu.api.resp.Word;
+import com.example.guyunwu.api.resp.WordWithBook;
 import com.example.guyunwu.ui.home.wordbook.WordBook;
 import com.example.guyunwu.ui.home.wordbook.WordBookAdapter;
 import com.example.guyunwu.ui.home.wordbook.WordBookProvider;
@@ -74,10 +75,10 @@ public class CalendarActivity extends AppCompatActivity {
         LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
         DateReq dateReq = new DateReq(year, month, dayOfMonth);
 
-        learnRequest.learnRecord(dateReq).enqueue(new Callback<BaseResponse<List<Word>>>() {
+        learnRequest.learnRecord(dateReq).enqueue(new Callback<BaseResponse<List<WordWithBook>>>() {
             @Override
-            public void onResponse(Call<BaseResponse<List<Word>>> call, Response<BaseResponse<List<Word>>> response) {
-                BaseResponse<List<Word>> body = response.body();
+            public void onResponse(Call<BaseResponse<List<WordWithBook>>> call, Response<BaseResponse<List<WordWithBook>>> response) {
+                BaseResponse<List<WordWithBook>> body = response.body();
 //                if (body == null || body.getCode() != 200) {
 //                    onFailure(call, new Throwable("登录失败"));
 //                } else {
@@ -88,7 +89,7 @@ public class CalendarActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<List<Word>>> call, Throwable t) {
+            public void onFailure(Call<BaseResponse<List<WordWithBook>>> call, Throwable t) {
                 Toast.makeText(CalendarActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onFailure: ", t);
             }

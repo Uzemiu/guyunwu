@@ -28,34 +28,12 @@ public class LearnFinishFragment extends Fragment {
 
         binding = FragmentLearnFinishBinding.inflate(inflater, container, false);
         initBinding();
-        initView();
-
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            int hasLearned = bundle.getInt("hasLearned");
+            binding.hasLearn.setText(hasLearned + " ");
+        }
         return binding.getRoot();
-    }
-
-    private void initView() {
-        LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
-
-        learnRequest.todayLearned().enqueue(new Callback<BaseResponse<Integer>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<Integer>> call, Response<BaseResponse<Integer>> response) {
-                BaseResponse<Integer> body = response.body();
-                if (body == null || body.getCode() != 200) {
-                    onFailure(call, new Throwable("登录失败"));
-                } else {
-                    int data = body.getData();
-                    if (binding != null) {
-                        binding.hasLearn.setText(data + " ");
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse<Integer>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "onFailure: ", t);
-            }
-        });
     }
 
     private void initBinding() {

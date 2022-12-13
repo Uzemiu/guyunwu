@@ -17,7 +17,7 @@ import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.ScheduleRequest;
 import com.example.guyunwu.api.req.UpdateScheduleReq;
 import com.example.guyunwu.api.resp.ScheduleResp;
-import com.example.guyunwu.api.resp.WordResp;
+import com.example.guyunwu.api.resp.SimpleScheduleResp;
 import com.example.guyunwu.ui.user.myBook.MyBookActivity;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 import org.xutils.x;
@@ -112,24 +112,24 @@ public class UpdateScheduleActivity extends AppCompatActivity {
             startActivity(toMyBookPage);
         });
         findViewById(R.id.btn_reset).setOnClickListener(v -> {
-            scheduleRequest.resetSchedule().enqueue(new Callback<BaseResponse<WordResp>>() {
+            scheduleRequest.resetSchedule().enqueue(new Callback<BaseResponse<SimpleScheduleResp>>() {
                 @Override
-                public void onResponse(Call<BaseResponse<WordResp>> call, Response<BaseResponse<WordResp>> response) {
-                    BaseResponse<WordResp> body = response.body();
+                public void onResponse(Call<BaseResponse<SimpleScheduleResp>> call, Response<BaseResponse<SimpleScheduleResp>> response) {
+                    BaseResponse<SimpleScheduleResp> body = response.body();
                     if (body == null || body.getCode() != 200) {
                         onFailure(call, new Throwable("获取计划失败"));
                     } else {
-                        WordResp wordResp = body.getData();
-                        SharedPreferencesUtil.putLong("scheduleId", wordResp.getId());
-                        SharedPreferencesUtil.putLong("bookId", wordResp.getBookId());
-                        SharedPreferencesUtil.putInt("wordsPerDay", wordResp.getWordsPerDay());
+                        SimpleScheduleResp simpleScheduleResp = body.getData();
+                        SharedPreferencesUtil.putLong("scheduleId", simpleScheduleResp.getId());
+                        SharedPreferencesUtil.putLong("bookId", simpleScheduleResp.getBookId());
+                        SharedPreferencesUtil.putInt("wordsPerDay", simpleScheduleResp.getWordsPerDay());
                         Toast.makeText(UpdateScheduleActivity.this, "重置成功", Toast.LENGTH_SHORT).show();
                         initSchedule();
                     }
                 }
 
                 @Override
-                public void onFailure(Call<BaseResponse<WordResp>> call, Throwable t) {
+                public void onFailure(Call<BaseResponse<SimpleScheduleResp>> call, Throwable t) {
                     Toast.makeText(UpdateScheduleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onFailure: ", t);
                 }
