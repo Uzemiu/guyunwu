@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Word {
 
-    private Long id;
+    private Long wordId;
 
     private Integer bookId;
 

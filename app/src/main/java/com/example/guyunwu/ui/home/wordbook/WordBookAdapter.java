@@ -8,15 +8,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.guyunwu.R;
+import com.example.guyunwu.api.resp.WordWithBook;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class WordBookAdapter extends RecyclerView.Adapter<WordBookAdapter.ViewHolder> {
 
-    private final List<WordBook> wordBookList;
+    private final List<WordWithBook> wordBookList;
 
-    public WordBookAdapter(List<WordBook> wordBookList) {
+    public WordBookAdapter(List<WordWithBook> wordBookList) {
         this.wordBookList = wordBookList;
     }
 
@@ -42,7 +43,7 @@ public class WordBookAdapter extends RecyclerView.Adapter<WordBookAdapter.ViewHo
 
         view.setOnClickListener(v -> {
             int position = holder.getAdapterPosition();
-            WordBook wordBook = wordBookList.get(position);
+            WordWithBook wordBook = wordBookList.get(position);
             Intent intent = new Intent(v.getContext(), WordBookDetailActivity.class);
             intent.putExtra("wordBook", wordBook);
             v.getContext().startActivity(intent);
@@ -56,8 +57,8 @@ public class WordBookAdapter extends RecyclerView.Adapter<WordBookAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull WordBookAdapter.ViewHolder holder, int position) {
-        WordBook wordBook = wordBookList.get(position);
-        holder.wordBookTitle.setText(wordBook.getKeyTitle());
+        WordWithBook wordBook = wordBookList.get(position);
+        holder.wordBookTitle.setText(wordBook.getKeyWord());
         holder.wordBookContent.setText(wordBook.getContent());
     }
 

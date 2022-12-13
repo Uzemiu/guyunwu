@@ -3,10 +3,12 @@ package com.example.guyunwu.api.resp;
 import com.example.guyunwu.ui.user.book.Book;
 import lombok.Data;
 
-@Data
-public class WordWithBook {
+import java.io.Serializable;
 
-    private Long id;
+@Data
+public class WordWithBook implements Serializable {
+
+    private Long wordId;
 
     private Book book;
 
@@ -17,8 +19,6 @@ public class WordWithBook {
     private String content;
 
     private String translate;
-
-    private String bookName;
 
     private String answerA;
 

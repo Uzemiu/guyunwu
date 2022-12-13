@@ -2,14 +2,19 @@ package com.example.guyunwu.ui.home.study;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 import com.alibaba.fastjson2.JSON;
 import com.example.guyunwu.R;
+import com.example.guyunwu.api.BaseResponse;
+import com.example.guyunwu.api.CollectionRequest;
+import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.resp.Word;
 import com.example.guyunwu.databinding.FragmentLearnBinding;
 import com.example.guyunwu.ui.user.book.Book;
@@ -17,6 +22,9 @@ import com.google.android.material.card.MaterialCardView;
 import io.github.mthli.knife.KnifeParser;
 import lombok.Getter;
 import lombok.Setter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.List;
 
@@ -54,6 +62,8 @@ public class LearnFragment extends Fragment {
 
     @Setter
     private int allPage;
+
+    private boolean isStar = false;
 
     @Setter
     private List<Fragment> fragmentList;
@@ -113,6 +123,31 @@ public class LearnFragment extends Fragment {
         binding.currentPage.setText(currentPage + "");
         binding.allPage.setText(allPage + "");
         key = Answer.values()[word.getCorrectAnswer()];
+
+        CollectionRequest collectionRequest = RequestModule.COLLECTION_REQUEST;
+
+        collectionRequest.isCollected(word.getWordId()).enqueue(new Callback<BaseResponse<Boolean>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Boolean>> call, Response<BaseResponse<Boolean>> response) {
+                BaseResponse<Boolean> body1 = response.body();
+                if (body1 == null || body1.getCode() != 200) {
+                    onFailure(call, new Throwable("请求失败"));
+                } else {
+                    Boolean isStar = body1.getData();
+                    if (isStar) {
+                        binding.btnWordBookStar.setBackgroundResource(R.drawable.ic_user_star_fill_24dp);
+                    } else {
+                        binding.btnWordBookStar.setBackgroundResource(R.drawable.ic_user_star_24dp);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Boolean>> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
     }
 
     private void initAnswerView() {
@@ -142,6 +177,58 @@ public class LearnFragment extends Fragment {
             if (!isTapped) {
                 selectAnswer(cardViewD, Answer.D);
             }
+        });
+
+        binding.btnWordBookStar.setOnClickListener(v -> {
+            CollectionRequest collectionRequest = RequestModule.COLLECTION_REQUEST;
+            if(isStar) {
+                collectionRequest.cancelWord(word.getWordId()).enqueue(new Callback<BaseResponse<Object>>() {
+                    @Override
+                    public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
+                        BaseResponse<Object> body1 = response.body();
+                        if (body1 == null || body1.getCode() != 200) {
+                            onFailure(call, new Throwable("请求失败"));
+                        } else {
+                            isStar = !isStar;
+                            if (isStar) {
+                                binding.btnWordBookStar.setBackgroundResource(R.drawable.ic_user_star_fill_24dp);
+                            } else {
+                                binding.btnWordBookStar.setBackgroundResource(R.drawable.ic_user_star_24dp);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
+                        Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onFailure: ", t);
+                    }
+                });
+            } else {
+                collectionRequest.starWord(word.getWordId()).enqueue(new Callback<BaseResponse<Object>>() {
+                    @Override
+                    public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
+                        BaseResponse<Object> body1 = response.body();
+                        if (body1 == null || body1.getCode() != 200) {
+                            onFailure(call, new Throwable("请求失败"));
+                        } else {
+                            isStar = !isStar;
+                            if (isStar) {
+                                binding.btnWordBookStar.setBackgroundResource(R.drawable.ic_user_star_fill_24dp);
+                            } else {
+                                binding.btnWordBookStar.setBackgroundResource(R.drawable.ic_user_star_24dp);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
+                        Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onFailure: ", t);
+                    }
+                });
+            }
+
         });
     }
 

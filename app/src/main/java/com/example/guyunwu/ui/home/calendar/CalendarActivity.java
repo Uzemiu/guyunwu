@@ -15,11 +15,8 @@ import com.example.guyunwu.api.BaseResponse;
 import com.example.guyunwu.api.LearnRequest;
 import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.req.DateReq;
-import com.example.guyunwu.api.resp.Word;
 import com.example.guyunwu.api.resp.WordWithBook;
-import com.example.guyunwu.ui.home.wordbook.WordBook;
 import com.example.guyunwu.ui.home.wordbook.WordBookAdapter;
-import com.example.guyunwu.ui.home.wordbook.WordBookProvider;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -97,7 +94,7 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        List<WordBook> wordBooks = WordBookProvider.getWordBooks();
+        List<WordWithBook> wordBooks = null;
         RecyclerView recyclerView = findViewById(R.id.word_book_list);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);

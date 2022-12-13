@@ -21,16 +21,16 @@ public interface CollectionRequest {
     Call<BaseResponse<List<DailySentence>>> dailySentences(@Query("page") int page, @Query("size") int size);
 
     @DELETE("/collection/word/cancel/{wordId}")
-    Call<BaseResponse<Object>> cancelWord(@Path("wordId") String wordId);
+    Call<BaseResponse<Object>> cancelWord(@Path("wordId") Long wordId);
 
     @PUT("/collection/word/isCollected/{wordId}")
-    Call<BaseResponse<Boolean>> isCollected(@Path("wordId") String wordId);
+    Call<BaseResponse<Boolean>> isCollected(@Path("wordId") Long wordId);
 
     @GET("/collection/word/my")
     Call<BaseResponse<List<WordWithBook>>> myWord();
 
     @POST("/collection/word/{wordId}")
-    Call<BaseResponse<Object>> starWord(@Path("wordId") String wordId);
+    Call<BaseResponse<Object>> starWord(@Path("wordId") Long wordId);
 
     @GET("/collection/hasBook/{bookId}")
     Call<BaseResponse<Boolean>> hasBook(@Path("bookId") Long bookId);

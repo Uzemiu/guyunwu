@@ -2,13 +2,22 @@ package com.example.guyunwu.ui.home.wordbook;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.guyunwu.R;
+import com.example.guyunwu.api.BaseResponse;
+import com.example.guyunwu.api.CollectionRequest;
+import com.example.guyunwu.api.RequestModule;
+import com.example.guyunwu.api.resp.WordWithBook;
 import com.example.guyunwu.databinding.ActivityWordBookDetailBinding;
 import org.jetbrains.annotations.NotNull;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WordBookDetailActivity extends AppCompatActivity {
 
@@ -20,13 +29,15 @@ public class WordBookDetailActivity extends AppCompatActivity {
 
     private boolean isStar = true;
 
+    private WordWithBook word;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         initActionBar();
         initBinding();
 
-        WordBook wordBook = (WordBook) getIntent().getSerializableExtra("wordBook");
+        WordWithBook wordBook = (WordWithBook) getIntent().getSerializableExtra("wordBook");
         wordBookViewModel.getMWordBook().setValue(wordBook);
     }
 
@@ -76,19 +87,62 @@ public class WordBookDetailActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         wordBookViewModel.getMWordBook().observe(this, wordBook -> {
-            binding.wordBookTitle.setText(wordBook.getKeyTitle());
+            binding.wordBookTitle.setText(wordBook.getKeyWord());
             binding.wordBookContent.setText(wordBook.getContent());
             binding.wordBookKey.setText(wordBook.getCorrectAnswer());
-            binding.wordBookReference.setText(wordBook.getBookName());
+            binding.wordBookReference.setText(wordBook.getBook().getName());
             binding.wordBookTranslation.setText(wordBook.getTranslate());
         });
         binding.btnWordBookStar.setOnClickListener(v -> {
-            isStar = !isStar;
-            if (isStar) {
-                binding.btnWordBookStar.setBackgroundResource(R.drawable.ic_user_star_fill_24dp);
+            CollectionRequest collectionRequest = RequestModule.COLLECTION_REQUEST;
+            if(isStar) {
+                collectionRequest.cancelWord(word.getWordId()).enqueue(new Callback<BaseResponse<Object>>() {
+                    @Override
+                    public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
+                        BaseResponse<Object> body1 = response.body();
+                        if (body1 == null || body1.getCode() != 200) {
+                            onFailure(call, new Throwable("请求失败"));
+                        } else {
+                            isStar = !isStar;
+                            if (isStar) {
+                                binding.btnWordBookStar.setBackgroundResource(R.drawable.ic_user_star_fill_24dp);
+                            } else {
+                                binding.btnWordBookStar.setBackgroundResource(R.drawable.ic_user_star_24dp);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
+                        Toast.makeText(WordBookDetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onFailure: ", t);
+                    }
+                });
             } else {
-                binding.btnWordBookStar.setBackgroundResource(R.drawable.ic_user_star_24dp);
+                collectionRequest.starWord(word.getWordId()).enqueue(new Callback<BaseResponse<Object>>() {
+                    @Override
+                    public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
+                        BaseResponse<Object> body1 = response.body();
+                        if (body1 == null || body1.getCode() != 200) {
+                            onFailure(call, new Throwable("请求失败"));
+                        } else {
+                            isStar = !isStar;
+                            if (isStar) {
+                                binding.btnWordBookStar.setBackgroundResource(R.drawable.ic_user_star_fill_24dp);
+                            } else {
+                                binding.btnWordBookStar.setBackgroundResource(R.drawable.ic_user_star_24dp);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
+                        Toast.makeText(WordBookDetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onFailure: ", t);
+                    }
+                });
             }
+
         });
     }
 
