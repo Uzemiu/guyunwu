@@ -53,14 +53,12 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
         initFragment();
         initView();
     }
-
 
     @Override
     public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
@@ -70,6 +68,7 @@ public class HomeFragment extends Fragment {
 
     private void switchTo(String tab, Bundle bundle) {
         FragmentManager fragmentManager = getChildFragmentManager();
+
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         Fragment fragment = fragmentManager.findFragmentByTag(tab);
@@ -85,7 +84,7 @@ public class HomeFragment extends Fragment {
         }
         mLastShowFragment = fragment;
 
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
     private void initFragment() {
@@ -100,7 +99,6 @@ public class HomeFragment extends Fragment {
         }
         fragmentTransaction.commitNow();
     }
-
 
     private void initView() {
         if (!SharedPreferencesUtil.contain("scheduleId")) {
@@ -118,40 +116,45 @@ public class HomeFragment extends Fragment {
 
         } else {
             ScheduleRequest scheduleRequest = RequestModule.SCHEDULE_REQUEST;
-            scheduleRequest.getSchedule(SharedPreferencesUtil.getLong("scheduleId", 0)).enqueue(new Callback<BaseResponse<ScheduleResp>>() {
-                @Override
-                public void onResponse(Call<BaseResponse<ScheduleResp>> call, Response<BaseResponse<ScheduleResp>> response) {
-                    BaseResponse<ScheduleResp> body = response.body();
-                    if (body == null || body.getCode() != 200) {
-                        onFailure(call, new Throwable("获取计划失败"));
-                    } else {
-                        ScheduleResp scheduleResp = body.getData();
-                        binding.bookTitle.setText(scheduleResp.getBook().getName());
-                        binding.learned.setText(String.valueOf(scheduleResp.getLearned()));
-                        binding.all.setText(String.valueOf(scheduleResp.getAll()));
-                        int dayRemained = (int) Math.ceil((double) (scheduleResp.getAll() - scheduleResp.getLearned()) / SharedPreferencesUtil.getInt("wordsPerDay", 10));
-                        binding.dayRemained.setText(String.valueOf(dayRemained));
-                        x.image().bind(binding.bookImage, scheduleResp.getBook().getCoverImage());
-                    }
+            scheduleRequest.getSchedule(SharedPreferencesUtil.getLong("scheduleId", 0))
+                    .enqueue(new Callback<BaseResponse<ScheduleResp>>() {
+                        @Override
+                        public void onResponse(Call<BaseResponse<ScheduleResp>> call,
+                                               Response<BaseResponse<ScheduleResp>> response) {
+                            BaseResponse<ScheduleResp> body = response.body();
+                            if (body == null || body.getCode() != 200) {
+                                onFailure(call, new Throwable("获取计划失败"));
+                            } else {
+                                if (binding != null) {
+                                    ScheduleResp scheduleResp = body.getData();
+                                    binding.bookTitle.setText(scheduleResp.getBook().getName());
+                                    binding.learned.setText(String.valueOf(scheduleResp.getLearned()));
+                                    binding.all.setText(String.valueOf(scheduleResp.getAll()));
+                                    int dayRemained = (int) Math.ceil((double) (scheduleResp.getAll() - scheduleResp.getLearned())
+                                            / SharedPreferencesUtil.getInt("wordsPerDay", 10));
+                                    binding.dayRemained.setText(String.valueOf(dayRemained));
+                                    x.image().bind(binding.bookImage, scheduleResp.getBook().getCoverImage());
+                                }
+                            }
+                        }
 
-                }
-
-                @Override
-                public void onFailure(Call<BaseResponse<ScheduleResp>> call, Throwable t) {
-                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "onFailure: ", t);
-                    binding.bookTitle.setText("当前还未添加计划");
-                    binding.learned.setText("0");
-                    binding.all.setText("0");
-                    binding.dayRemained.setText("0");
-                }
-            });
+                        @Override
+                        public void onFailure(Call<BaseResponse<ScheduleResp>> call, Throwable t) {
+                            Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "onFailure: ", t);
+                            binding.bookTitle.setText("当前还未添加计划");
+                            binding.learned.setText("0");
+                            binding.all.setText("0");
+                            binding.dayRemained.setText("0");
+                        }
+                    });
 
             LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
 
             learnRequest.todaySchedule().enqueue(new Callback<BaseResponse<TodayScheduleResp>>() {
                 @Override
-                public void onResponse(Call<BaseResponse<TodayScheduleResp>> call, Response<BaseResponse<TodayScheduleResp>> response) {
+                public void onResponse(Call<BaseResponse<TodayScheduleResp>> call,
+                                       Response<BaseResponse<TodayScheduleResp>> response) {
                     BaseResponse<TodayScheduleResp> body1 = response.body();
                     if (body1 == null || body1.getCode() != 200) {
                         onFailure(call, new Throwable("登录失败"));
@@ -159,7 +162,6 @@ public class HomeFragment extends Fragment {
                         TodayScheduleResp todayScheduleResp = body1.getData();
                         int learn = todayScheduleResp.getLearn();
                         int review = todayScheduleResp.getReview();
-                        Log.e(TAG,todayScheduleResp.toString());
                         if (learn == 0 && review == 0) {
                             // 完成了！！！
                             switchTo(FINISH, null);

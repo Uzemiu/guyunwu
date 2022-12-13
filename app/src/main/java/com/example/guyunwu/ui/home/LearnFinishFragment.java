@@ -44,7 +44,9 @@ public class LearnFinishFragment extends Fragment {
                     onFailure(call, new Throwable("登录失败"));
                 } else {
                     int data = body.getData();
-                    binding.hasLearn.setText(data + " ");
+                    if (binding != null) {
+                        binding.hasLearn.setText(data + " ");
+                    }
                 }
             }
 

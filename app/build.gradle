@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+    implementation "androidx.asynclayoutinflater:asynclayoutinflater:1.0.0"
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
     implementation 'com.guolindev.permissionx:permissionx:1.6.0'

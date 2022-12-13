@@ -95,13 +95,16 @@ public class LibraryBookActivity extends AppCompatActivity {
                         onFailure(call, new Throwable("请求失败"));
                     } else {
                         Boolean data = body.getData();
-                        if (data) {
-                            binding.addBook.setText("已添加");
-                            binding.addBook.setClickable(false);
-                        } else {
-                            binding.addBook.setText("添加图书");
-                            binding.addBook.setClickable(true);
+                        if (binding != null) {
+                            if (data) {
+                                binding.addBook.setText("已添加");
+                                binding.addBook.setClickable(false);
+                            } else {
+                                binding.addBook.setText("添加图书");
+                                binding.addBook.setClickable(true);
+                            }
                         }
+
                     }
                 }
 
@@ -112,7 +115,6 @@ public class LibraryBookActivity extends AppCompatActivity {
                 }
             });
         });
-
 
         binding.addBook.setOnClickListener(v -> {
             ScheduleRequest scheduleRequest = RequestModule.SCHEDULE_REQUEST;

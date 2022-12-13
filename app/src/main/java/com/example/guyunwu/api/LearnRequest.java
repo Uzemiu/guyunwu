@@ -7,7 +7,9 @@ import com.example.guyunwu.api.resp.Word;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface LearnRequest {
 
@@ -17,6 +19,6 @@ public interface LearnRequest {
     @GET("/learn/todayLearned")
     Call<BaseResponse<Integer>> todayLearned();
 
-    @GET("/learn/learnRecord")
+    @POST("/learn/learnRecord")
     Call<BaseResponse<List<Word>>> learnRecord(@Body DateReq dateReq);
 }

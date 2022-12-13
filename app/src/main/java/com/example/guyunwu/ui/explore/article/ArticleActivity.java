@@ -1,14 +1,11 @@
 package com.example.guyunwu.ui.explore.article;
 
-import static com.example.guyunwu.util.UiUtil.isScrollToBottom;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +13,6 @@ import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.guyunwu.R;
 import com.example.guyunwu.api.BaseResponse;
 import com.example.guyunwu.api.RequestModule;
@@ -25,18 +21,18 @@ import com.example.guyunwu.databinding.ActivityArticleBinding;
 import com.example.guyunwu.databinding.DialogCommentBinding;
 import com.example.guyunwu.ui.explore.comment.Comment;
 import com.example.guyunwu.ui.explore.comment.CommentAdapter;
-
+import io.github.mthli.knife.KnifeParser;
 import org.xutils.x;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.mthli.knife.KnifeParser;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import static com.example.guyunwu.util.UiUtil.isScrollToBottom;
 
 public class ArticleActivity extends AppCompatActivity {
 
@@ -79,30 +75,34 @@ public class ArticleActivity extends AppCompatActivity {
         }
         loading = true;
 
-        RequestModule.COMMENT_REQUEST.listComment(articleViewModel.getArticleId(), page, 10).enqueue(new Callback<BaseResponse<List<Comment>>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<List<Comment>>> call, Response<BaseResponse<List<Comment>>> response) {
-                BaseResponse<List<Comment>> body = response.body();
-                if (body != null && body.getData() != null) {
-                    int size = commentList.size();
-                    List<Comment> res = body.getData();
-                    if (res.size() == 0) {
-                        reachEnd = true;
-                    } else {
-                        commentList.addAll(res);
-                        binding.articleCommentList.getAdapter().notifyItemRangeInserted(size, res.size());
+        RequestModule.COMMENT_REQUEST.listComment(articleViewModel.getArticleId(), page, 10)
+                .enqueue(new Callback<BaseResponse<List<Comment>>>() {
+                    @Override
+                    public void onResponse(Call<BaseResponse<List<Comment>>> call,
+                                           Response<BaseResponse<List<Comment>>> response) {
+                        BaseResponse<List<Comment>> body = response.body();
+                        if (body != null && body.getData() != null) {
+                            int size = commentList.size();
+                            List<Comment> res = body.getData();
+                            if (res.size() == 0) {
+                                reachEnd = true;
+                            } else {
+                                commentList.addAll(res);
+                                if (binding != null) {
+                                    binding.articleCommentList.getAdapter().notifyItemRangeInserted(size, res.size());
+                                }
+                            }
+                        }
+                        page++;
+                        loading = false;
                     }
-                }
-                page++;
-                loading = false;
-            }
 
-            @Override
-            public void onFailure(Call<BaseResponse<List<Comment>>> call, Throwable t) {
-                Toast.makeText(ArticleActivity.this, "获取留言失败:" + t.getMessage(), Toast.LENGTH_SHORT).show();
-                loading = false;
-            }
-        });
+                    @Override
+                    public void onFailure(Call<BaseResponse<List<Comment>>> call, Throwable t) {
+                        Toast.makeText(ArticleActivity.this, "获取留言失败:" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        loading = false;
+                    }
+                });
     }
 
     private volatile boolean sending = false;
@@ -125,7 +125,9 @@ public class ArticleActivity extends AppCompatActivity {
                     return;
                 }
                 commentList.add(0, body.getData());
-                binding.articleCommentList.getAdapter().notifyItemInserted(0);
+                if (binding != null) {
+                    binding.articleCommentList.getAdapter().notifyItemInserted(0);
+                }
             }
 
             @Override
@@ -163,8 +165,7 @@ public class ArticleActivity extends AppCompatActivity {
                     if (isScrollToBottom(v, 500)) {
                         fetchComment();
                     }
-                }
-        );
+                });
     }
 
     private void initRecyclerView() {
@@ -200,27 +201,28 @@ public class ArticleActivity extends AppCompatActivity {
                 return;
             }
             likeLoading[0] = true;
-            RequestModule.ARTICLE_REQUEST.doLikeArticle(articleViewModel.getArticleId()).enqueue(new Callback<BaseResponse<Boolean>>() {
-                @Override
-                public void onResponse(Call<BaseResponse<Boolean>> call, Response<BaseResponse<Boolean>> response) {
-                    BaseResponse<Boolean> body = response.body();
-                    if (body != null) {
-                        boolean res = Boolean.TRUE.equals(body.getData());
-                        articleViewModel.getMLike().setValue(res);
+            RequestModule.ARTICLE_REQUEST.doLikeArticle(articleViewModel.getArticleId())
+                    .enqueue(new Callback<BaseResponse<Boolean>>() {
+                        @Override
+                        public void onResponse(Call<BaseResponse<Boolean>> call, Response<BaseResponse<Boolean>> response) {
+                            BaseResponse<Boolean> body = response.body();
+                            if (body != null) {
+                                boolean res = Boolean.TRUE.equals(body.getData());
+                                articleViewModel.getMLike().setValue(res);
 
-                        Article article = articleViewModel.getMArticle().getValue();
-                        article.setLikes(article.getLikes() + (res ? 1 : -1));
-                        binding.articleLikes.setText(String.valueOf(article.getLikes()));
-                    }
-                    likeLoading[0] = false;
-                }
+                                Article article = articleViewModel.getMArticle().getValue();
+                                article.setLikes(article.getLikes() + (res ? 1 : -1));
+                                binding.articleLikes.setText(String.valueOf(article.getLikes()));
+                            }
+                            likeLoading[0] = false;
+                        }
 
-                @Override
-                public void onFailure(Call<BaseResponse<Boolean>> call, Throwable t) {
-                    Toast.makeText(ArticleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                    likeLoading[0] = false;
-                }
-            });
+                        @Override
+                        public void onFailure(Call<BaseResponse<Boolean>> call, Throwable t) {
+                            Toast.makeText(ArticleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                            likeLoading[0] = false;
+                        }
+                    });
         });
     }
 

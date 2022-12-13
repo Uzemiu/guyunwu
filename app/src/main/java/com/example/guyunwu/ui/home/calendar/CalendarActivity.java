@@ -6,23 +6,19 @@ import android.view.MenuItem;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import com.example.guyunwu.R;
 import com.example.guyunwu.api.BaseResponse;
 import com.example.guyunwu.api.LearnRequest;
 import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.req.DateReq;
-import com.example.guyunwu.api.resp.ScheduleResp;
 import com.example.guyunwu.api.resp.Word;
 import com.example.guyunwu.ui.home.wordbook.WordBook;
 import com.example.guyunwu.ui.home.wordbook.WordBookAdapter;
 import com.example.guyunwu.ui.home.wordbook.WordBookProvider;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +27,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class CalendarActivity extends AppCompatActivity {
+
+    private static final String TAG = "CalendarActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +74,7 @@ public class CalendarActivity extends AppCompatActivity {
         LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
         DateReq dateReq = new DateReq(year, month, dayOfMonth);
 
-        learnRequest.learnRecord(dateReq).enqueue(new Callback<BaseResponse<ScheduleResp>>() {
+        learnRequest.learnRecord(dateReq).enqueue(new Callback<BaseResponse<List<Word>>>() {
             @Override
             public void onResponse(Call<BaseResponse<List<Word>>> call, Response<BaseResponse<List<Word>>> response) {
                 BaseResponse<List<Word>> body = response.body();
@@ -90,8 +88,8 @@ public class CalendarActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<Integer>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<BaseResponse<List<Word>>> call, Throwable t) {
+                Toast.makeText(CalendarActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onFailure: ", t);
             }
         });

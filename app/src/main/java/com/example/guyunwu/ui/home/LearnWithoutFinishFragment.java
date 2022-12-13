@@ -61,9 +61,12 @@ public class LearnWithoutFinishFragment extends Fragment {
                     TodayScheduleResp todayScheduleResp = body1.getData();
                     int learn = todayScheduleResp.getLearn();
                     int review = todayScheduleResp.getReview();
-                    binding.needToReview.setText(review + " ");
-                    binding.needToLearn.setText(learn + " ");
-                    binding.minutes.setText(String.valueOf((learn + review) / 2));
+                    if (binding != null) {
+                        binding.needToReview.setText(review + " ");
+                        binding.needToLearn.setText(learn + " ");
+                        binding.minutes.setText(String.valueOf((learn + review) / 2));
+                    }
+
                 }
             }
 
