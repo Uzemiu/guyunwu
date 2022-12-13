@@ -1,22 +1,14 @@
 package com.example.guyunwu.api.resp;
 
-import lombok.AllArgsConstructor;
+import com.example.guyunwu.ui.user.book.Book;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.xutils.db.annotation.Column;
-import org.xutils.db.annotation.Table;
 
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class WordResp {
 
-    private Long id;
+    private Book book;
 
-    private Long bookId;
-
-    private Integer wordsPerDay;
-
+    private List<Word> words;
 }
