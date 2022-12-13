@@ -39,6 +39,7 @@ public class Article implements Serializable {
     private Date publishDate;
 
     @Column(name = "reads")
+
     private Long reads;
 
     @Column(name = "likes")
