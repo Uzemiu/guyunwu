@@ -1,18 +1,31 @@
 package com.example.guyunwu.ui.home.calendar;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.guyunwu.R;
+import com.example.guyunwu.api.BaseResponse;
+import com.example.guyunwu.api.LearnRequest;
+import com.example.guyunwu.api.RequestModule;
+import com.example.guyunwu.api.req.DateReq;
+import com.example.guyunwu.api.resp.ScheduleResp;
+import com.example.guyunwu.api.resp.Word;
 import com.example.guyunwu.ui.home.wordbook.WordBook;
 import com.example.guyunwu.ui.home.wordbook.WordBookAdapter;
 import com.example.guyunwu.ui.home.wordbook.WordBookProvider;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.Calendar;
 import java.util.List;
@@ -46,6 +59,7 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 text.setText(month + 1 + "月" + dayOfMonth + "日");
+                initRecyclerView1(year, month + 1, dayOfMonth);
             }
         });
     }
@@ -58,12 +72,35 @@ public class CalendarActivity extends AppCompatActivity {
         }
     }
 
+    private void initRecyclerView1(int year, int month, int dayOfMonth) {
+        LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
+        DateReq dateReq = new DateReq(year, month, dayOfMonth);
+
+        learnRequest.learnRecord(dateReq).enqueue(new Callback<BaseResponse<ScheduleResp>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<List<Word>>> call, Response<BaseResponse<List<Word>>> response) {
+                BaseResponse<List<Word>> body = response.body();
+//                if (body == null || body.getCode() != 200) {
+//                    onFailure(call, new Throwable("登录失败"));
+//                } else {
+//                    int data = body.getData();
+//                    binding.hasLearn.setText(data + " ");
+//                }
+                System.out.println(body.toString());
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Integer>> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
+
     private void initRecyclerView() {
-        // 获取实词数据
         List<WordBook> wordBooks = WordBookProvider.getWordBooks();
         RecyclerView recyclerView = findViewById(R.id.word_book_list);
-        StaggeredGridLayoutManager layoutManager = new
-                StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         WordBookAdapter adapter = new WordBookAdapter(wordBooks);
         recyclerView.setAdapter(adapter);

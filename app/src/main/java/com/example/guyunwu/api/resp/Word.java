@@ -1,5 +1,7 @@
 package com.example.guyunwu.api.resp;
 
+import com.example.guyunwu.ui.user.book.Book;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +17,8 @@ public class Word {
     @Column(name = "id", isId = true)
     private Long id;
 
-    @Column(name = "book_id")
-    private Long bookId;
+    @Column(name = "book")
+    private Book book;
 
     @Column(name = "key_word")
     private String keyWord;
