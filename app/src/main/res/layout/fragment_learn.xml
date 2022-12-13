@@ -51,7 +51,7 @@
                     android:id="@+id/question_translation"
                     android:layout_gravity="center"
                     android:text="他们互相靠近的两膝,都被遮蔽在手卷下边的衣褶里。"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:alpha="0"/>
             <TextView
                     android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                     android:id="@+id/question_reference"
                     android:layout_gravity="right"
                     android:text="——《核舟记》"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -231,7 +231,7 @@
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:layout_margin="5dp"
+                      android:layout_marginTop="5dp"
                       android:gravity="center">
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
