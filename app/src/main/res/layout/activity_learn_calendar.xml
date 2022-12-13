@@ -1,108 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            tools:context=".ui.home.calendar.CalendarActivity">
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+    tools:context=".ui.home.calendar.CalendarActivity">
 
     <LinearLayout
-            android:layout_width="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="30dp"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-
-        <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="@dimen/rounded_corner_card">
-            <CalendarView
-                    android:id="@+id/calendarView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="300dp"
-                    android:layout_gravity="center_horizontal"/>
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/theDay"
-                android:layout_marginTop="30dp"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:text="12月6日"
-                android:layout_gravity="left"/>
-
-        <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                app:cardElevation="0dp"
-                app:cardCornerRadius="@dimen/rounded_corner_card"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="left">
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:layout_marginStart="20dp">
-
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="20sp"
-                        android:src="@drawable/ic_signin_unfinished_24dp"/>
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="学习计划 "
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:layout_marginStart="10dp"/>
-
-                <TextView
-                        android:id="@+id/finished"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="未完成"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:layout_weight="1"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/studyRecord"
-                android:layout_marginTop="20dp"
-                android:textSize="20sp"
-                android:text="无学习记录"
-                android:layout_gravity="left"/>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/layout_system_manage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             app:cardCornerRadius="@dimen/rounded_corner_card"
             app:cardElevation="0dp">
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_gravity="center_horizontal" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/theDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="30dp"
+            android:text="12月6日"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="left"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="@dimen/rounded_corner_card"
+            app:cardElevation="0dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/word_book_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </androidx.recyclerview.widget.RecyclerView>
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20sp"
+                    android:src="@drawable/ic_signin_unfinished_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="学习计划 "
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/finished"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="未完成"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/studyRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="20dp"
+            android:text="无学习记录"
+            android:textSize="20sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/word_book_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
-</ScrollView>
+
+</androidx.core.widget.NestedScrollView>
