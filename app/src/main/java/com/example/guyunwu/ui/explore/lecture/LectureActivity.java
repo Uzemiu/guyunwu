@@ -92,6 +92,7 @@ LectureActivity extends AppCompatActivity {
                             } else {
                                 binding.lectureArticlePreviewRecyclerView.getAdapter().notifyItemRangeInserted(size, res.size());
                             }
+                            binding.lectureArticlePreviewRecyclerView.scrollToPosition(0);
                         }
                     }
                 }
