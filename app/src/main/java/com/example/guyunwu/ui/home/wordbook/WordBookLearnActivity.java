@@ -3,30 +3,18 @@ package com.example.guyunwu.ui.home.wordbook;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
-import com.example.guyunwu.MainActivity;
 import com.example.guyunwu.R;
-import com.example.guyunwu.api.BaseResponse;
-import com.example.guyunwu.api.LearnRequest;
-import com.example.guyunwu.api.RequestModule;
-import com.example.guyunwu.api.resp.Word;
-import com.example.guyunwu.api.resp.WordResp;
 import com.example.guyunwu.api.resp.WordWithBook;
 import com.example.guyunwu.ui.home.study.LearnFragment;
 import com.example.guyunwu.ui.home.study.LearnFragmentAdapter;
-import com.example.guyunwu.ui.user.book.Book;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +35,9 @@ public class WordBookLearnActivity extends AppCompatActivity {
         setContentView(R.layout.activity_learn);
         initActionBar();
         List<WordWithBook> words = (List<WordWithBook>) getIntent().getSerializableExtra("words");
+        if (words == null || words.size() == 0) {
+            return;
+        }
         initPager(words);
     }
 

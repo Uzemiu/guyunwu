@@ -15,7 +15,6 @@ import com.example.guyunwu.api.BaseResponse;
 import com.example.guyunwu.api.CollectionRequest;
 import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.resp.WordWithBook;
-import com.example.guyunwu.ui.home.study.LearnActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,10 +32,12 @@ public class WordBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_word_book);
         initActionBar();
         findViewById(R.id.btn_learn).setOnClickListener(v -> {
-            Intent toLearnPage = new Intent();
-            toLearnPage.setClass(this, WordBookLearnActivity.class);
-            toLearnPage.putExtra("words", (Serializable) wordBooks);
-            startActivity(toLearnPage);
+            if (wordBooks != null && wordBooks.size() != 0) {
+                Intent toLearnPage = new Intent();
+                toLearnPage.setClass(this, WordBookLearnActivity.class);
+                toLearnPage.putExtra("words", (Serializable) wordBooks);
+                startActivity(toLearnPage);
+            }
         });
     }
 
