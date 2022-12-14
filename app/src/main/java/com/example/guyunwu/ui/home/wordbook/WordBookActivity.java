@@ -49,7 +49,7 @@ public class WordBookActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {   //返回键的id
+        if (item.getItemId() == android.R.id.home) { // 返回键的id
             this.finish();
             return false;
         }
@@ -70,25 +70,28 @@ public class WordBookActivity extends AppCompatActivity {
 
         collectionRequest.myWord().enqueue(new Callback<BaseResponse<List<WordWithBook>>>() {
             @Override
-            public void onResponse(Call<BaseResponse<List<WordWithBook>>> call, Response<BaseResponse<List<WordWithBook>>> response) {
+            public void onResponse(Call<BaseResponse<List<WordWithBook>>> call,
+                    Response<BaseResponse<List<WordWithBook>>> response) {
                 BaseResponse<List<WordWithBook>> body1 = response.body();
                 if (body1 == null || body1.getCode() != 200) {
                     onFailure(call, new Throwable("请求失败"));
                 } else {
                     wordBooks = body1.getData();
-                    ((TextView) WordBookActivity.this.findViewById(R.id.word_number)).setText(String.valueOf(wordBooks.size()));
+                    ((TextView) WordBookActivity.this.findViewById(R.id.word_number))
+                            .setText(String.valueOf(wordBooks.size()));
                     RecyclerView recyclerView = findViewById(R.id.word_book_list);
-                    StaggeredGridLayoutManager layoutManager = new
-                            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+                    StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1,
+                            StaggeredGridLayoutManager.VERTICAL);
                     recyclerView.setLayoutManager(layoutManager);
-                    WordBookAdapter adapter = new WordBookAdapter(wordBooks,true);
+                    WordBookAdapter adapter = new WordBookAdapter(wordBooks, true);
                     recyclerView.setAdapter(adapter);
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<List<WordWithBook>>> call, Throwable t) {
-                Toast.makeText(WordBookActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(WordBookActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onFailure: ", t);
             }
         });

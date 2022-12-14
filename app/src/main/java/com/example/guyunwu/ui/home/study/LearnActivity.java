@@ -79,7 +79,8 @@ public class LearnActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BaseResponse<WordResp>> call, Throwable t) {
-                Toast.makeText(LearnActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LearnActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(), Toast.LENGTH_SHORT)
+                        .show();
                 Log.e(TAG, "onFailure: ", t);
             }
         });
@@ -93,7 +94,8 @@ public class LearnActivity extends AppCompatActivity {
         for (int i = 0; i < words.size(); i++) {
             fragments.add(LearnFragment.newInstance(book, words.get(i), viewPager, i + 1, words.size(), fragments));
         }
-        LearnFragmentAdapter learnFragmentAdapter = new LearnFragmentAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
+        LearnFragmentAdapter learnFragmentAdapter = new LearnFragmentAdapter(getSupportFragmentManager(),
+                getLifecycle(), fragments);
         viewPager.setAdapter(learnFragmentAdapter);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -134,7 +136,7 @@ public class LearnActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {   //返回键的id
+        if (item.getItemId() == android.R.id.home) { // 返回键的id
             this.finish();
             return false;
         }

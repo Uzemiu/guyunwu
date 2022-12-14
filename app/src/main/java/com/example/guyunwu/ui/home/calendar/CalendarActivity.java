@@ -45,7 +45,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {   //返回键的id
+        if (item.getItemId() == android.R.id.home) { // 返回键的id
             this.finish();
             return false;
         }
@@ -79,7 +79,8 @@ public class CalendarActivity extends AppCompatActivity {
         LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
         learnRequest.learnRecord(date).enqueue(new Callback<BaseResponse<LearnRecordResp>>() {
             @Override
-            public void onResponse(Call<BaseResponse<LearnRecordResp>> call, Response<BaseResponse<LearnRecordResp>> response) {
+            public void onResponse(Call<BaseResponse<LearnRecordResp>> call,
+                    Response<BaseResponse<LearnRecordResp>> response) {
                 BaseResponse<LearnRecordResp> body = response.body();
                 if (body == null || body.getCode() != 200) {
                     onFailure(call, new Throwable("登录失败"));
@@ -96,16 +97,18 @@ public class CalendarActivity extends AppCompatActivity {
                         ((TextView) findViewById(R.id.finished)).setText("未完成");
                     }
                     RecyclerView recyclerView = findViewById(R.id.word_book_list);
-                    StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+                    StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1,
+                            StaggeredGridLayoutManager.VERTICAL);
                     recyclerView.setLayoutManager(layoutManager);
-                    WordBookAdapter adapter = new WordBookAdapter(wordBooks,false);
+                    WordBookAdapter adapter = new WordBookAdapter(wordBooks, false);
                     recyclerView.setAdapter(adapter);
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<LearnRecordResp>> call, Throwable t) {
-                Toast.makeText(CalendarActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CalendarActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onFailure: ", t);
             }
         });

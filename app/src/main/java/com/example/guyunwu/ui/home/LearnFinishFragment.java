@@ -24,7 +24,7 @@ public class LearnFinishFragment extends Fragment {
     private FragmentLearnFinishBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+            ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentLearnFinishBinding.inflate(inflater, container, false);
         initBinding();
@@ -56,7 +56,8 @@ public class LearnFinishFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
-                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), t.getMessage() == null ? "请求失败" : t.getMessage(), Toast.LENGTH_SHORT)
+                            .show();
                     Log.e(TAG, "onFailure: ", t);
                 }
             });

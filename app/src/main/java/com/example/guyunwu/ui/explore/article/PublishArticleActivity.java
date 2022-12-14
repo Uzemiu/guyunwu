@@ -43,7 +43,7 @@ public class PublishArticleActivity extends AppCompatActivity {
 
     private static final String TAG = "PublishArticleActivity";
 
-    private final CameraUtil.PhotoUriWrapper photoUriWrapper = new CameraUtil.PhotoUriWrapper();//记录图片地址
+    private final CameraUtil.PhotoUriWrapper photoUriWrapper = new CameraUtil.PhotoUriWrapper();// 记录图片地址
 
     private ActivityPublishArticleBinding binding;
 
@@ -65,7 +65,8 @@ public class PublishArticleActivity extends AppCompatActivity {
         binding.editorBold.setOnClickListener(v -> knife.bold(!knife.contains(KnifeText.FORMAT_BOLD)));
         binding.editorItalic.setOnClickListener(v -> knife.italic(!knife.contains(KnifeText.FORMAT_ITALIC)));
         binding.editorUnderline.setOnClickListener(v -> knife.underline(!knife.contains(KnifeText.FORMAT_UNDERLINED)));
-        binding.editorStrikethrough.setOnClickListener(v -> knife.strikethrough(!knife.contains(KnifeText.FORMAT_STRIKETHROUGH)));
+        binding.editorStrikethrough
+                .setOnClickListener(v -> knife.strikethrough(!knife.contains(KnifeText.FORMAT_STRIKETHROUGH)));
         binding.editorBullet.setOnClickListener(v -> knife.bullet(!knife.contains(KnifeText.FORMAT_BULLET)));
         binding.editorQuote.setOnClickListener(v -> knife.quote(!knife.contains(KnifeText.FORMAT_QUOTE)));
         binding.editorLink.setOnClickListener(v -> showLinkDialog());
@@ -94,46 +95,53 @@ public class PublishArticleActivity extends AppCompatActivity {
         RequestBody imageBody = RequestBody.create(MediaType.parse("image/*"), image);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", image.getName(), imageBody);
 
-        fileUploadRequest.uploadImage(body, SharedPreferencesUtil.getString("phoneNumber", "1145141919810")).enqueue(new Callback<BaseResponse<String>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                if (response.body() == null || response.body().getCode() != 200) {
-                    onFailure(call, new Throwable("上传失败"));
-                    return;
-                }
-                Toast.makeText(PublishArticleActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
-                coverImageUrl = response.body().getData();
-                x.image().bind(binding.editorCoverImage, coverImageUrl);
-            }
+        fileUploadRequest.uploadImage(body, SharedPreferencesUtil.getString("phoneNumber", "1145141919810"))
+                .enqueue(new Callback<BaseResponse<String>>() {
+                    @Override
+                    public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                        if (response.body() == null || response.body().getCode() != 200) {
+                            onFailure(call, new Throwable("上传失败"));
+                            return;
+                        }
+                        Toast.makeText(PublishArticleActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                        coverImageUrl = response.body().getData();
+                        x.image().bind(binding.editorCoverImage, coverImageUrl);
+                    }
 
-            @Override
-            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
-                Toast.makeText(PublishArticleActivity.this, t.getMessage() == null ? "上传失败" : t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "onFailure: ", t);
-            }
-        });
+                    @Override
+                    public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                        Toast.makeText(PublishArticleActivity.this,
+                                t.getMessage() == null ? "上传失败" : t.getMessage() == null ? "请求失败" : t.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onFailure: ", t);
+                    }
+                });
     }
 
     private void showCoverImageDialog() {
-        /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Cover Image");
-        builder.setMessage("Please enter the image url");
-        View view = getLayoutInflater().inflate(R.layout.dialog_link, null);
-        builder.setView(view);
-        EditText editText = view.findViewById(R.id.edit);
-        editText.setText(coverImageUrl);
-        builder.setPositiveButton(R.string.dialog_button_ok, (dialog, which) -> {
-            String url = editText.getText().toString();
-            if(TextUtils.isEmpty(url)){
-                Toast.makeText(this, "Please enter the image url", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            coverImageUrl = url;
-            x.image().bind(binding.editorCoverImage, url);
-        });
-        builder.setNegativeButton(R.string.dialog_button_cancel, (dialog, which) -> dialog.dismiss());
-        builder.show();*/
+        /*
+         * AlertDialog.Builder builder = new AlertDialog.Builder(this);
+         * builder.setTitle("Cover Image");
+         * builder.setMessage("Please enter the image url");
+         * View view = getLayoutInflater().inflate(R.layout.dialog_link, null);
+         * builder.setView(view);
+         * EditText editText = view.findViewById(R.id.edit);
+         * editText.setText(coverImageUrl);
+         * builder.setPositiveButton(R.string.dialog_button_ok, (dialog, which) -> {
+         * String url = editText.getText().toString();
+         * if(TextUtils.isEmpty(url)){
+         * Toast.makeText(this, "Please enter the image url",
+         * Toast.LENGTH_SHORT).show();
+         * return;
+         * }
+         * 
+         * coverImageUrl = url;
+         * x.image().bind(binding.editorCoverImage, url);
+         * });
+         * builder.setNegativeButton(R.string.dialog_button_cancel, (dialog, which) ->
+         * dialog.dismiss());
+         * builder.show();
+         */
         final Dialog dialog = new Dialog(this, R.style.DialogTheme);
         View view = View.inflate(this, R.layout.dialog_bottom_menu, null);
         dialog.setContentView(view);
@@ -265,7 +273,8 @@ public class PublishArticleActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
-                Toast.makeText(PublishArticleActivity.this, "发送失败" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(PublishArticleActivity.this, "发送失败" + t.getMessage() == null ? "请求失败" : t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 loading = false;
             }
         });
