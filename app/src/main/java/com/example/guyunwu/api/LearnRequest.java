@@ -1,9 +1,8 @@
 package com.example.guyunwu.api;
 
-import com.example.guyunwu.api.req.DateReq;
 import com.example.guyunwu.api.resp.TodayScheduleResp;
-import com.example.guyunwu.api.resp.Word;
 
+import java.util.Date;
 import java.util.List;
 
 import com.example.guyunwu.api.resp.WordResp;
@@ -22,5 +21,5 @@ public interface LearnRequest {
     Call<BaseResponse<WordResp>> todayWords();
 
     @POST("/learn/learnRecord")
-    Call<BaseResponse<List<WordWithBook>>> learnRecord(@Body DateReq dateReq);
+    Call<BaseResponse<List<WordWithBook>>> learnRecord(@Body Date date);
 }

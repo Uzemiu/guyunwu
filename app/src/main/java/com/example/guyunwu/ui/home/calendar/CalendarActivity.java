@@ -14,7 +14,6 @@ import com.example.guyunwu.R;
 import com.example.guyunwu.api.BaseResponse;
 import com.example.guyunwu.api.LearnRequest;
 import com.example.guyunwu.api.RequestModule;
-import com.example.guyunwu.api.req.DateReq;
 import com.example.guyunwu.api.resp.WordWithBook;
 import com.example.guyunwu.ui.home.wordbook.WordBookAdapter;
 import retrofit2.Call;
@@ -22,6 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class CalendarActivity extends AppCompatActivity {
@@ -34,7 +34,7 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_learn_calendar);
         initBinding();
         initActionBar();
-        initRecyclerView();
+        initRecyclerView(new Date());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 text.setText(month + 1 + "月" + dayOfMonth + "日");
-                initRecyclerView1(year, month + 1, dayOfMonth);
+                initRecyclerView(new Date(year - 1900, month , dayOfMonth));
             }
         });
     }
@@ -68,21 +68,18 @@ public class CalendarActivity extends AppCompatActivity {
         }
     }
 
-    private void initRecyclerView1(int year, int month, int dayOfMonth) {
+    private void initRecyclerView(Date date) {
         LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
-        DateReq dateReq = new DateReq(year, month, dayOfMonth);
-
-        learnRequest.learnRecord(dateReq).enqueue(new Callback<BaseResponse<List<WordWithBook>>>() {
+        learnRequest.learnRecord(date).enqueue(new Callback<BaseResponse<List<WordWithBook>>>() {
             @Override
             public void onResponse(Call<BaseResponse<List<WordWithBook>>> call, Response<BaseResponse<List<WordWithBook>>> response) {
                 BaseResponse<List<WordWithBook>> body = response.body();
-//                if (body == null || body.getCode() != 200) {
-//                    onFailure(call, new Throwable("登录失败"));
-//                } else {
-//                    int data = body.getData();
-//                    binding.hasLearn.setText(data + " ");
-//                }
-                System.out.println(body.toString());
+                List<WordWithBook> wordBooks = body.getData();
+                RecyclerView recyclerView = findViewById(R.id.word_book_list);
+                StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+                recyclerView.setLayoutManager(layoutManager);
+                WordBookAdapter adapter = new WordBookAdapter(wordBooks);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
@@ -91,14 +88,5 @@ public class CalendarActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure: ", t);
             }
         });
-    }
-
-    private void initRecyclerView() {
-        List<WordWithBook> wordBooks = null;
-        RecyclerView recyclerView = findViewById(R.id.word_book_list);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        WordBookAdapter adapter = new WordBookAdapter(wordBooks);
-        recyclerView.setAdapter(adapter);
     }
 }
