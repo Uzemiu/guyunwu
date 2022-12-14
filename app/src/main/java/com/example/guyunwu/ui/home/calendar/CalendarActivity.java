@@ -3,9 +3,11 @@ package com.example.guyunwu.ui.home.calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +36,6 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_learn_calendar);
         initBinding();
         initActionBar();
-        initRecyclerView(new Date());
     }
 
     @Override
@@ -51,6 +52,7 @@ public class CalendarActivity extends AppCompatActivity {
         TextView text = findViewById(R.id.theDay);
         Calendar calendar = Calendar.getInstance();
         text.setText(calendar.get(Calendar.MONTH) + 1 + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日");
+
         calendarview.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
