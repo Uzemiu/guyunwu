@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @SuppressLint({ "NonConstantResourceId", "ResourceType" })
+    @SuppressLint({"NonConstantResourceId", "ResourceType"})
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);

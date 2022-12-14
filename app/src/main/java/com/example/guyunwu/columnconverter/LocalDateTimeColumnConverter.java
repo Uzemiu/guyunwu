@@ -1,12 +1,10 @@
 package com.example.guyunwu.columnconverter;
 
 import android.database.Cursor;
-
 import org.xutils.db.converter.ColumnConverter;
 import org.xutils.db.sqlite.ColumnDbType;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 public class LocalDateTimeColumnConverter implements ColumnConverter<LocalDateTime> {

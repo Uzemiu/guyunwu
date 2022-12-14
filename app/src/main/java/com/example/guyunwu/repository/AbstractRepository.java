@@ -1,10 +1,8 @@
 package com.example.guyunwu.repository;
 
 import android.database.sqlite.SQLiteDatabase;
-
 import com.example.guyunwu.exception.DBException;
 import com.example.guyunwu.util.Assert;
-
 import org.xutils.DbManager;
 import org.xutils.db.Selector;
 import org.xutils.ex.DbException;
@@ -15,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<ENTITY, ID>{
+public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<ENTITY, ID> {
 
     private final DbManager manager;
 
@@ -32,7 +30,7 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
     }
 
     @Override
-    public ENTITY save(ENTITY entity){
+    public ENTITY save(ENTITY entity) {
         Assert.notNull(entity, entityName + " must not be null");
 
         SQLiteDatabase database = manager.getDatabase();
@@ -74,7 +72,7 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
     }
 
     @Override
-    public void update(ENTITY entity){
+    public void update(ENTITY entity) {
         Assert.notNull(entity, entityName + " must not be null");
 
         SQLiteDatabase database = manager.getDatabase();
@@ -107,16 +105,16 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
             database.setTransactionSuccessful();
         } catch (DbException e) {
             throw new DBException(e.getMessage());
-        }finally {
+        } finally {
             database.endTransaction();
         }
     }
 
     @Override
-    public List<ENTITY> findAll(){
+    public List<ENTITY> findAll() {
         try {
             List<ENTITY> list = manager.findAll(actualClass);
-            if(list == null){
+            if (list == null) {
                 list = new ArrayList<>();
             }
             return postQuery(list);
@@ -132,7 +130,7 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
             Selector<ENTITY> selector = manager.selector(actualClass);
             selector.where(selector.getTable().getId().getName(), "in", ids);
             List<ENTITY> entityList = selector.findAll();
-            if(entityList == null){
+            if (entityList == null) {
                 entityList = new ArrayList<>();
             }
             return postQuery(entityList);
@@ -142,7 +140,7 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
     }
 
     @Override
-    public ENTITY findById(ID id){
+    public ENTITY findById(ID id) {
         Assert.notNull(id, "Id must be null");
         try {
             return postQuery(manager.findById(actualClass, id));
@@ -160,7 +158,7 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
     @Override
     public List<ENTITY> query(BaseQuery<ENTITY> query, Pageable pageable) {
         Assert.notNull(query, "Query must not be null");
-        if(pageable == null){
+        if (pageable == null) {
             pageable = new Pageable();
         }
         Selector<ENTITY> selector = query.toSelector(manager, actualClass);
@@ -172,7 +170,7 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
         selector.offset(pageable.getOffset()).limit(pageable.getSize());
         try {
             List<ENTITY> entityList = selector.findAll();
-            if(entityList == null){
+            if (entityList == null) {
                 entityList = new ArrayList<>();
             }
             return postQuery(entityList);
@@ -194,7 +192,7 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
             database.setTransactionSuccessful();
         } catch (DbException e) {
             throw new DBException(e.getMessage());
-        }finally {
+        } finally {
             database.endTransaction();
         }
     }
@@ -213,16 +211,16 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
             database.setTransactionSuccessful();
         } catch (DbException e) {
             throw new DBException(e.getMessage());
-        }finally {
+        } finally {
             database.endTransaction();
         }
     }
 
     @Override
-    public ENTITY deleteById(ID id){
+    public ENTITY deleteById(ID id) {
         Assert.notNull(id, "Id must not be nul");
         ENTITY entity = findById(id);
-        if(entity != null){
+        if (entity != null) {
             SQLiteDatabase database = manager.getDatabase();
             try {
                 database.beginTransaction();
@@ -254,7 +252,7 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
             database.setTransactionSuccessful();
         } catch (DbException e) {
             throw new DBException(e.getMessage());
-        }finally {
+        } finally {
             database.endTransaction();
         }
     }
@@ -278,49 +276,52 @@ public abstract class AbstractRepository<ENTITY, ID> implements BaseRepository<E
         }
     }
 
-    private List<ENTITY> postQuery(List<ENTITY> entities){
+    private List<ENTITY> postQuery(List<ENTITY> entities) {
         for (ENTITY entity : entities) {
             postQuery(entity);
         }
         return entities;
     }
 
-    protected ENTITY postQuery(ENTITY entity){
+    protected ENTITY postQuery(ENTITY entity) {
         return entity;
     }
 
-    private List<ENTITY> postPersist(List<ENTITY> entities){
+    private List<ENTITY> postPersist(List<ENTITY> entities) {
         for (ENTITY entity : entities) {
             postPersist(entity);
         }
         return entities;
     }
-    protected ENTITY postPersist(ENTITY entity){
+
+    protected ENTITY postPersist(ENTITY entity) {
         return entity;
     }
 
-    private List<ENTITY> postUpdate(List<ENTITY> entities){
+    private List<ENTITY> postUpdate(List<ENTITY> entities) {
         for (ENTITY entity : entities) {
             postUpdate(entity);
         }
         return entities;
     }
-    protected ENTITY postUpdate(ENTITY entity){
+
+    protected ENTITY postUpdate(ENTITY entity) {
         return entity;
     }
 
-    private List<ENTITY> postDelete(List<ENTITY> entities){
+    private List<ENTITY> postDelete(List<ENTITY> entities) {
         for (ENTITY entity : entities) {
             postDelete(entity);
         }
         return entities;
     }
-    protected ENTITY postDelete(ENTITY entity){
+
+    protected ENTITY postDelete(ENTITY entity) {
         return entity;
     }
 
-    protected void createTableIfNotExists(){
-        if(manager != null){
+    protected void createTableIfNotExists() {
+        if (manager != null) {
             try {
                 manager.getTable(actualClass).createTableIfNotExists();
             } catch (DbException e) {

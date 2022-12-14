@@ -20,7 +20,6 @@ import com.example.guyunwu.api.FileUploadRequest;
 import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.req.AddArticleReq;
 import com.example.guyunwu.databinding.ActivityPublishArticleBinding;
-import com.example.guyunwu.ui.user.profile.ProfileActivity;
 import com.example.guyunwu.util.CameraUtil;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 import io.github.mthli.knife.KnifeText;

@@ -234,7 +234,7 @@ public class ProfileActivity extends AppCompatActivity {
                     return;
                 }
                 Toast.makeText(ProfileActivity.this, "更新成功", Toast.LENGTH_SHORT).show();
-                Log.e(TAG,body.getData().toString());
+                Log.e(TAG, body.getData().toString());
                 SharedPreferencesUtil.putString("userName", body.getData().getUsername());
                 SharedPreferencesUtil.putString("avatar", body.getData().getAvatar());
                 SharedPreferencesUtil.putLong("birthDate", body.getData().getBirthDate() == null ? 0 : body.getData().getBirthDate().getTime());
@@ -260,7 +260,7 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onTimeSelect(Date date, View v) {
                     userReq.setBirthDate(date);
-                    Log.e(TAG,userReq.toString());
+                    Log.e(TAG, userReq.toString());
                     updateRequest();
                 }
             }).isAlphaGradient(true)

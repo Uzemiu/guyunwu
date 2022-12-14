@@ -18,6 +18,7 @@ import com.permissionx.guolindev.PermissionX;
 public class CameraUtil {
 
     public static final int REQUEST_CODE_CAMERA = 103; //相机
+
     public static class PhotoUriWrapper {
         public Uri photoUri;
     }

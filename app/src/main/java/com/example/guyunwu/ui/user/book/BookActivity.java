@@ -76,8 +76,6 @@ public class BookActivity extends AppCompatActivity {
                 binding.bookAuthorName.setText('[' + book.getAuthor().getDynasty() + ']' + book.getAuthor().getName());
             }
             binding.bookTitle.setText(book.getName());
-//            binding.bookContent.setText(KnifeParser.fromHtml(book.getContent()));
-            // todo with nullptr
             binding.bookContent.setText(KnifeParser.fromHtml(book.getIntroduce()));
             binding.bookPress.setText(book.getPress());
             bookId = book.getId();

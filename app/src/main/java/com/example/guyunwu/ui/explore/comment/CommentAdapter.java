@@ -1,27 +1,23 @@
 package com.example.guyunwu.ui.explore.comment;
 
-import static com.example.guyunwu.util.UiUtil.VIEW_HOLDER_TYPE_FOOTER;
-import static com.example.guyunwu.util.UiUtil.VIEW_HOLDER_TYPE_NORMAL;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.guyunwu.R;
 import com.example.guyunwu.databinding.CommentBinding;
 import com.example.guyunwu.databinding.LoadingNoMoreBinding;
 import com.example.guyunwu.ui.explore.FooterViewHolder;
 import com.example.guyunwu.ui.explore.article.Author;
-import com.example.guyunwu.util.UiUtil;
-
 import org.xutils.x;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import static com.example.guyunwu.util.UiUtil.VIEW_HOLDER_TYPE_FOOTER;
+import static com.example.guyunwu.util.UiUtil.VIEW_HOLDER_TYPE_NORMAL;
 
 public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -68,13 +64,13 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof CommentHolder) {
-            CommentHolder holder  = (CommentHolder) viewHolder;
+            CommentHolder holder = (CommentHolder) viewHolder;
 
             Comment article = commentList.get(position);
             Author author = article.getAuthor();
-            if(author != null){
+            if (author != null) {
                 String avatar = author.getAvatar();
-                if(TextUtils.isEmpty(avatar)) {
+                if (TextUtils.isEmpty(avatar)) {
                     holder.binding.commentAuthorAvatar.setImageResource(R.drawable.ic_user_user_24dp);
                 } else {
                     x.image().bind(holder.binding.commentAuthorAvatar, avatar);

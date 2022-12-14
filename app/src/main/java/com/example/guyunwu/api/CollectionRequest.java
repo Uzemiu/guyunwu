@@ -1,6 +1,5 @@
 package com.example.guyunwu.api;
 
-import com.example.guyunwu.api.resp.SimpleScheduleResp;
 import com.example.guyunwu.api.resp.WordWithBook;
 import com.example.guyunwu.ui.explore.daily.DailySentence;
 import com.example.guyunwu.ui.user.book.Book;

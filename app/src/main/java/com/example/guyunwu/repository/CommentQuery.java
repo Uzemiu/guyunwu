@@ -1,14 +1,12 @@
 package com.example.guyunwu.repository;
 
 import com.example.guyunwu.ui.explore.comment.Comment;
-
+import lombok.Data;
 import org.xutils.DbManager;
 import org.xutils.db.Selector;
 
-import lombok.Data;
-
 @Data
-public class CommentQuery extends BaseQuery<Comment>{
+public class CommentQuery extends BaseQuery<Comment> {
 
     private Integer articleId;
 

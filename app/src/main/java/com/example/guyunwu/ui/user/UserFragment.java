@@ -19,9 +19,7 @@ import com.example.guyunwu.R;
 import com.example.guyunwu.api.BaseResponse;
 import com.example.guyunwu.api.LearnRequest;
 import com.example.guyunwu.api.RequestModule;
-import com.example.guyunwu.api.resp.WordWithBook;
 import com.example.guyunwu.databinding.FragmentUserBinding;
-import com.example.guyunwu.ui.home.calendar.CalendarActivity;
 import com.example.guyunwu.ui.home.wordbook.WordBookActivity;
 import com.example.guyunwu.ui.init.LoginActivity;
 import com.example.guyunwu.ui.user.myBook.MyBookActivity;
@@ -31,8 +29,6 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.List;
 
 public class UserFragment extends Fragment {
 
@@ -83,8 +79,8 @@ public class UserFragment extends Fragment {
                 if (body == null || body.getCode() != 200) {
                     onFailure(call, new Throwable("获取失败"));
                 } else {
-                    if(binding!=null) {
-                        binding.dayNum.setText(body.getData() +" ");
+                    if (binding != null) {
+                        binding.dayNum.setText(body.getData() + " ");
                     }
                 }
             }
@@ -103,8 +99,8 @@ public class UserFragment extends Fragment {
                 if (body == null || body.getCode() != 200) {
                     onFailure(call, new Throwable("获取失败"));
                 } else {
-                    if(binding!=null) {
-                        binding.articleNum.setText(body.getData() +" ");
+                    if (binding != null) {
+                        binding.articleNum.setText(body.getData() + " ");
                     }
                 }
             }

@@ -1,13 +1,11 @@
 package com.example.guyunwu.ui.explore.daily;
 
 import com.alibaba.fastjson2.annotation.JSONField;
-
-import java.time.LocalDateTime;
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Data
 @AllArgsConstructor

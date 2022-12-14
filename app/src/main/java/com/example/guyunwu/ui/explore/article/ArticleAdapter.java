@@ -1,8 +1,5 @@
 package com.example.guyunwu.ui.explore.article;
 
-import static com.example.guyunwu.util.UiUtil.VIEW_HOLDER_TYPE_FOOTER;
-import static com.example.guyunwu.util.UiUtil.VIEW_HOLDER_TYPE_NORMAL;
-
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,18 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.guyunwu.R;
 import com.example.guyunwu.databinding.LoadingNoMoreBinding;
 import com.example.guyunwu.ui.explore.FooterViewHolder;
-
 import org.xutils.x;
 
 import java.util.List;
+
+import static com.example.guyunwu.util.UiUtil.VIEW_HOLDER_TYPE_FOOTER;
+import static com.example.guyunwu.util.UiUtil.VIEW_HOLDER_TYPE_NORMAL;
 
 public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

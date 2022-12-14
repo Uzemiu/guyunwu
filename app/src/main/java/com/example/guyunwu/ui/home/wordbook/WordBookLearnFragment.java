@@ -2,19 +2,14 @@ package com.example.guyunwu.ui.home.wordbook;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 import com.alibaba.fastjson2.JSON;
 import com.example.guyunwu.R;
-import com.example.guyunwu.api.BaseResponse;
-import com.example.guyunwu.api.CollectionRequest;
-import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.resp.Word;
 import com.example.guyunwu.api.resp.WordWithBook;
 import com.example.guyunwu.databinding.FragmentLearnBinding;
@@ -24,13 +19,10 @@ import com.google.android.material.card.MaterialCardView;
 import io.github.mthli.knife.KnifeParser;
 import lombok.Getter;
 import lombok.Setter;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import java.util.List;
 
-public class WordBookLearnFragment extends Fragment{
+public class WordBookLearnFragment extends Fragment {
 
     enum Answer {
         A, B, C, D

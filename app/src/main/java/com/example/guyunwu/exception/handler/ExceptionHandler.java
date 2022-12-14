@@ -1,14 +1,13 @@
 package com.example.guyunwu.exception.handler;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
 
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     private final Context mContext;
 
-    public ExceptionHandler(Context context){
+    public ExceptionHandler(Context context) {
         this.mContext = context;
     }
 
@@ -17,7 +16,7 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
         e.printStackTrace();
     }
 
-    public void register(){
+    public void register() {
         Thread.setDefaultUncaughtExceptionHandler(this);
     }
 }

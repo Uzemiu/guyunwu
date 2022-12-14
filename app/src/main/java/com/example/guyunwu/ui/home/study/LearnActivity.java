@@ -3,7 +3,7 @@ package com.example.guyunwu.ui.home.study;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
- import android.util.Log;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
@@ -16,7 +16,6 @@ import com.example.guyunwu.R;
 import com.example.guyunwu.api.BaseResponse;
 import com.example.guyunwu.api.LearnRequest;
 import com.example.guyunwu.api.RequestModule;
-import com.example.guyunwu.api.resp.TodayScheduleResp;
 import com.example.guyunwu.api.resp.Word;
 import com.example.guyunwu.api.resp.WordResp;
 import com.example.guyunwu.ui.user.book.Book;
@@ -92,7 +91,7 @@ public class LearnActivity extends AppCompatActivity {
         List<Fragment> fragments = new ArrayList<>();
 
         for (int i = 0; i < words.size(); i++) {
-            fragments.add(LearnFragment.newInstance(book,words.get(i), viewPager, i + 1, words.size(), fragments));
+            fragments.add(LearnFragment.newInstance(book, words.get(i), viewPager, i + 1, words.size(), fragments));
         }
         LearnFragmentAdapter learnFragmentAdapter = new LearnFragmentAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
         viewPager.setAdapter(learnFragmentAdapter);

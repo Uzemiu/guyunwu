@@ -1,9 +1,7 @@
 package com.example.guyunwu.columnconverter;
 
 import android.database.Cursor;
-
 import com.alibaba.fastjson2.JSON;
-
 import org.xutils.db.converter.ColumnConverter;
 import org.xutils.db.sqlite.ColumnDbType;
 

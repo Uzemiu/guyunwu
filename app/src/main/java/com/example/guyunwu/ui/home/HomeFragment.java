@@ -164,11 +164,11 @@ public class HomeFragment extends Fragment {
                         Bundle bundle = new Bundle();
                         if (learn == 0 && review == 0) {
                             // 完成了！！！
-                            bundle.putInt("hasLearned",hasLearn);
+                            bundle.putInt("hasLearned", hasLearn);
                             switchTo(FINISH, bundle);
                         } else {
-                            bundle.putInt("learn",learn);
-                            bundle.putInt("review",review);
+                            bundle.putInt("learn", learn);
+                            bundle.putInt("review", review);
                             switchTo(WITHOUT_FINISH, bundle);
                         }
                     }
