@@ -20,23 +20,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class WordBookActivity extends AppCompatActivity {
 
+    private List<WordWithBook> wordBooks;
     private static final String TAG = "WordBookActivity";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_book);
         initActionBar();
-        initRecyclerView();
         findViewById(R.id.btn_learn).setOnClickListener(v -> {
             Intent toLearnPage = new Intent();
-            toLearnPage.setClass(this, LearnActivity.class);
-            // todo
+            toLearnPage.setClass(this, WordBookLearnActivity.class);
+            toLearnPage.putExtra("words", (Serializable) wordBooks);
             startActivity(toLearnPage);
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initRecyclerView();
     }
 
     @Override
@@ -67,7 +74,7 @@ public class WordBookActivity extends AppCompatActivity {
                 if (body1 == null || body1.getCode() != 200) {
                     onFailure(call, new Throwable("请求失败"));
                 } else {
-                    List<WordWithBook> wordBooks = body1.getData();
+                    wordBooks = body1.getData();
                     ((TextView) WordBookActivity.this.findViewById(R.id.word_number)).setText(String.valueOf(wordBooks.size()));
                     RecyclerView recyclerView = findViewById(R.id.word_book_list);
                     StaggeredGridLayoutManager layoutManager = new
