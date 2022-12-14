@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 import java.util.Date;
 import java.util.List;
@@ -31,4 +32,7 @@ public interface LearnRequest {
 
     @POST("/learn/learn")
     Call<BaseResponse<Object>> learn(@Body Long wordId);
+
+    @PUT("/learn/clockIn")
+    Call<BaseResponse<Object>> clockIn();
 }
