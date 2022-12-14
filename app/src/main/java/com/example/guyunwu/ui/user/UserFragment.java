@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -14,16 +16,27 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.guyunwu.R;
+import com.example.guyunwu.api.BaseResponse;
+import com.example.guyunwu.api.LearnRequest;
+import com.example.guyunwu.api.RequestModule;
+import com.example.guyunwu.api.resp.WordWithBook;
 import com.example.guyunwu.databinding.FragmentUserBinding;
+import com.example.guyunwu.ui.home.calendar.CalendarActivity;
 import com.example.guyunwu.ui.home.wordbook.WordBookActivity;
 import com.example.guyunwu.ui.init.LoginActivity;
 import com.example.guyunwu.ui.user.myBook.MyBookActivity;
 import com.example.guyunwu.ui.user.profile.ProfileActivity;
 import com.example.guyunwu.util.SharedPreferencesUtil;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import java.util.List;
 
 public class UserFragment extends Fragment {
 
+    private static final String TAG = "UserFragment";
     private boolean darkMode;
 
     private FragmentUserBinding binding;
@@ -42,7 +55,6 @@ public class UserFragment extends Fragment {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         initRouter(root);
-        initUser();
         return root;
     }
 
@@ -61,6 +73,48 @@ public class UserFragment extends Fragment {
         }
         String userName = SharedPreferencesUtil.getString("userName", "未登录");
         binding.username.setText(userName);
+
+        LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
+
+        learnRequest.clockDays().enqueue(new Callback<BaseResponse<Integer>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Integer>> call, Response<BaseResponse<Integer>> response) {
+                BaseResponse<Integer> body = response.body();
+                if (body == null || body.getCode() != 200) {
+                    onFailure(call, new Throwable("获取失败"));
+                } else {
+                    if(binding!=null) {
+                        binding.dayNum.setText(body.getData() +" ");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Integer>> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+
+        learnRequest.totalLearnedWords().enqueue(new Callback<BaseResponse<Integer>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Integer>> call, Response<BaseResponse<Integer>> response) {
+                BaseResponse<Integer> body = response.body();
+                if (body == null || body.getCode() != 200) {
+                    onFailure(call, new Throwable("获取失败"));
+                } else {
+                    if(binding!=null) {
+                        binding.articleNum.setText(body.getData() +" ");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Integer>> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
     }
 
     @Override

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +15,7 @@ import com.example.guyunwu.R;
 import com.example.guyunwu.api.BaseResponse;
 import com.example.guyunwu.api.LearnRequest;
 import com.example.guyunwu.api.RequestModule;
+import com.example.guyunwu.api.resp.LearnRecordResp;
 import com.example.guyunwu.api.resp.WordWithBook;
 import com.example.guyunwu.ui.home.wordbook.WordBookAdapter;
 import retrofit2.Call;
@@ -57,7 +57,7 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 text.setText(month + 1 + "月" + dayOfMonth + "日");
-                initRecyclerView(new Date(year - 1900, month , dayOfMonth));
+                initRecyclerView(new Date(year - 1900, month, dayOfMonth));
             }
         });
     }
@@ -72,20 +72,34 @@ public class CalendarActivity extends AppCompatActivity {
 
     private void initRecyclerView(Date date) {
         LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
-        learnRequest.learnRecord(date).enqueue(new Callback<BaseResponse<List<WordWithBook>>>() {
+        learnRequest.learnRecord(date).enqueue(new Callback<BaseResponse<LearnRecordResp>>() {
             @Override
-            public void onResponse(Call<BaseResponse<List<WordWithBook>>> call, Response<BaseResponse<List<WordWithBook>>> response) {
-                BaseResponse<List<WordWithBook>> body = response.body();
-                List<WordWithBook> wordBooks = body.getData();
-                RecyclerView recyclerView = findViewById(R.id.word_book_list);
-                StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-                recyclerView.setLayoutManager(layoutManager);
-                WordBookAdapter adapter = new WordBookAdapter(wordBooks);
-                recyclerView.setAdapter(adapter);
+            public void onResponse(Call<BaseResponse<LearnRecordResp>> call, Response<BaseResponse<LearnRecordResp>> response) {
+                BaseResponse<LearnRecordResp> body = response.body();
+                if (body == null || body.getCode() != 200) {
+                    onFailure(call, new Throwable("登录失败"));
+                } else {
+                    List<WordWithBook> wordBooks = body.getData().getWords();
+                    if (wordBooks.size() != 0) {
+                        findViewById(R.id.studyRecord).setVisibility(View.INVISIBLE);
+                    } else {
+                        findViewById(R.id.studyRecord).setVisibility(View.VISIBLE);
+                    }
+                    if (body.getData().getIsClocked()) {
+                        ((TextView) findViewById(R.id.finished)).setText("已完成");
+                    } else {
+                        ((TextView) findViewById(R.id.finished)).setText("未完成");
+                    }
+                    RecyclerView recyclerView = findViewById(R.id.word_book_list);
+                    StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+                    recyclerView.setLayoutManager(layoutManager);
+                    WordBookAdapter adapter = new WordBookAdapter(wordBooks);
+                    recyclerView.setAdapter(adapter);
+                }
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<List<WordWithBook>>> call, Throwable t) {
+            public void onFailure(Call<BaseResponse<LearnRecordResp>> call, Throwable t) {
                 Toast.makeText(CalendarActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onFailure: ", t);
             }

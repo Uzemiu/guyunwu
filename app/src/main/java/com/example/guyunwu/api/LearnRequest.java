@@ -1,16 +1,16 @@
 package com.example.guyunwu.api;
 
+import com.example.guyunwu.api.resp.LearnRecordResp;
 import com.example.guyunwu.api.resp.TodayScheduleResp;
-
-import java.util.Date;
-import java.util.List;
-
 import com.example.guyunwu.api.resp.WordResp;
 import com.example.guyunwu.api.resp.WordWithBook;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+
+import java.util.Date;
+import java.util.List;
 
 public interface LearnRequest {
 
@@ -21,5 +21,14 @@ public interface LearnRequest {
     Call<BaseResponse<WordResp>> todayWords();
 
     @POST("/learn/learnRecord")
-    Call<BaseResponse<List<WordWithBook>>> learnRecord(@Body Date date);
+    Call<BaseResponse<LearnRecordResp>> learnRecord(@Body Date date);
+
+    @GET("/learn/totalLearnedWords")
+    Call<BaseResponse<Integer>> totalLearnedWords();
+
+    @GET("/learn/clockDays")
+    Call<BaseResponse<Integer>> clockDays();
+
+    @POST("/learn/learn")
+    Call<BaseResponse<Object>> learn(@Body Long wordId);
 }

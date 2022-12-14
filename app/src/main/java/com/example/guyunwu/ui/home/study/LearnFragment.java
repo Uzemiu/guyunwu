@@ -14,6 +14,7 @@ import com.alibaba.fastjson2.JSON;
 import com.example.guyunwu.R;
 import com.example.guyunwu.api.BaseResponse;
 import com.example.guyunwu.api.CollectionRequest;
+import com.example.guyunwu.api.LearnRequest;
 import com.example.guyunwu.api.RequestModule;
 import com.example.guyunwu.api.resp.Word;
 import com.example.guyunwu.databinding.FragmentLearnBinding;
@@ -181,7 +182,7 @@ public class LearnFragment extends Fragment {
 
         binding.btnWordBookStar.setOnClickListener(v -> {
             CollectionRequest collectionRequest = RequestModule.COLLECTION_REQUEST;
-            if(isStar) {
+            if (isStar) {
                 collectionRequest.cancelWord(word.getWordId()).enqueue(new Callback<BaseResponse<Object>>() {
                     @Override
                     public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
@@ -239,6 +240,23 @@ public class LearnFragment extends Fragment {
             ImageView imageView = cardView.findViewWithTag("image");
             imageView.setImageResource(R.drawable.ic_home_correct_24dp);
             imageView.setVisibility(View.VISIBLE);
+            LearnRequest learnRequest = RequestModule.LEARN_REQUEST;
+
+            learnRequest.learn(word.getWordId()).enqueue(new Callback<BaseResponse<Object>>() {
+                @Override
+                public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
+                    BaseResponse<Object> body = response.body();
+                    if (body == null || body.getCode() != 200) {
+                        onFailure(call, new Throwable("请求失败"));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
+                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "onFailure: ", t);
+                }
+            });
         } else {
             cardView.setCardBackgroundColor(incorrect_color);
             ImageView imageView = cardView.findViewWithTag("image");
