@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efefef"
-    tools:context=".ui.user.myBook.LibraryActivity">
+    tools:context=".ui.user.myBook.LibraryActivity"
+              android:paddingLeft="15dp"
+              android:paddingRight="15dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_book_recycler_view"
