@@ -59,7 +59,7 @@ public class DailySentenceAdapter extends RecyclerView.Adapter<DailySentenceAdap
         calendar.setTime(daily.getTime());
         holder.dailyDay.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         holder.dailyYearMonth.setText(calendar.get(Calendar.YEAR) + "年" + (calendar.get(Calendar.MONTH) + 1) + "月");
-        holder.dailyFrom.setText("-  " + daily.getAuthor() + "  " + daily.getSource());
+        holder.dailyFrom.setText("——" + daily.getAuthor() + daily.getSource());
 
         String dailyImageUrl = TextUtils.isEmpty(daily.getImageUrl())
                 ? "https://bing.com/th?id=OHR.BambooTreesIndia_ZH-CN3943852151_1920x1080.jpg&qlt=100"
