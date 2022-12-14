@@ -20,7 +20,7 @@ public interface CollectionRequest {
     @GET("/collection/dailySentence")
     Call<BaseResponse<List<DailySentence>>> dailySentences(@Query("page") int page, @Query("size") int size);
 
-    @DELETE("/collection/word/cancel/{wordId}")
+    @PUT("/collection/word/cancel/{wordId}")
     Call<BaseResponse<Object>> cancelWord(@Path("wordId") Long wordId);
 
     @PUT("/collection/word/isCollected/{wordId}")

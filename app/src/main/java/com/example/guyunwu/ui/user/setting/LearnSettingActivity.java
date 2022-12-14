@@ -9,7 +9,6 @@ import com.example.guyunwu.util.SharedPreferencesUtil;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class LearnSettingActivity extends AppCompatActivity {
-    private boolean hasParaphrase;
 
     private boolean hasTranslation;
 
@@ -21,10 +20,6 @@ public class LearnSettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_learn_setting);
         initActionBar();
         loadSettings();
-        findViewById(R.id.add_paraphrase_switch).setOnClickListener(v -> {
-            hasParaphrase = !hasParaphrase;
-            SharedPreferencesUtil.putBoolean("hasParaphrase", hasParaphrase);
-        });
         findViewById(R.id.add_translation_switch).setOnClickListener(v -> {
             hasTranslation = !hasTranslation;
             SharedPreferencesUtil.putBoolean("hasTranslation", hasTranslation);
@@ -37,7 +32,7 @@ public class LearnSettingActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {   //返回键的id
+        if (item.getItemId() == android.R.id.home) { // 返回键的id
             this.finish();
             return false;
         }
@@ -53,13 +48,9 @@ public class LearnSettingActivity extends AppCompatActivity {
     }
 
     private void loadSettings() {
-
-        hasParaphrase = SharedPreferencesUtil.getBoolean("hasParaphrase", false);
         hasTranslation = SharedPreferencesUtil.getBoolean("hasTranslation", false);
         hasTone = SharedPreferencesUtil.getBoolean("hasTone", false);
 
-        SwitchMaterial switchParaphrase = findViewById(R.id.add_paraphrase_switch);
-        switchParaphrase.setChecked(hasParaphrase);
         SwitchMaterial switchTranslation = findViewById(R.id.add_translation_switch);
         switchTranslation.setChecked(hasTranslation);
         SwitchMaterial switchTone = findViewById(R.id.add_tone_switch);

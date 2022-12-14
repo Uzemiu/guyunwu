@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
 
-
         x.Ext.init(getApplication());
         new ExceptionHandler(getApplicationContext()).register();
         SharedPreferences sharedPreferences = getSharedPreferences("Guyunwu", MODE_PRIVATE);
@@ -104,11 +103,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private void initSettings() {
-        if (!SharedPreferencesUtil.contain("hasParaphrase")) {
-            SharedPreferencesUtil.putBoolean("hasParaphrase", true);
-        }
         if (!SharedPreferencesUtil.contain("hasTranslation")) {
             SharedPreferencesUtil.putBoolean("hasTranslation", true);
         }
@@ -144,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @SuppressLint({"NonConstantResourceId", "ResourceType"})
+    @SuppressLint({ "NonConstantResourceId", "ResourceType" })
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -176,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onPrepareOptionsMenu(menu);
     }
-
 
     @SuppressLint("NonConstantResourceId")
     @Override
