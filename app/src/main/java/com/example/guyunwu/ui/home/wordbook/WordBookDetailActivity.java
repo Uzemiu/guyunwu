@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,8 @@ public class WordBookDetailActivity extends AppCompatActivity {
 
     private WordWithBook word;
 
+    private boolean showStar;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -38,7 +41,18 @@ public class WordBookDetailActivity extends AppCompatActivity {
         initBinding();
 
         WordWithBook wordBook = (WordWithBook) getIntent().getSerializableExtra("wordBook");
+        showStar = getIntent().getExtras().getBoolean("showStar", false);
         wordBookViewModel.getMWordBook().setValue(wordBook);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (showStar) {
+            binding.btnWordBookStar.setVisibility(View.VISIBLE);
+        } else {
+            binding.btnWordBookStar.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

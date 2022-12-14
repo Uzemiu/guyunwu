@@ -17,8 +17,11 @@ public class WordBookAdapter extends RecyclerView.Adapter<WordBookAdapter.ViewHo
 
     private final List<WordWithBook> wordBookList;
 
-    public WordBookAdapter(List<WordWithBook> wordBookList) {
+    private boolean showStar;
+
+    public WordBookAdapter(List<WordWithBook> wordBookList,boolean showStar) {
         this.wordBookList = wordBookList;
+        this.showStar = showStar;
     }
 
 
@@ -46,6 +49,7 @@ public class WordBookAdapter extends RecyclerView.Adapter<WordBookAdapter.ViewHo
             WordWithBook wordBook = wordBookList.get(position);
             Intent intent = new Intent(v.getContext(), WordBookDetailActivity.class);
             intent.putExtra("wordBook", wordBook);
+            intent.putExtra("showStar",showStar);
             v.getContext().startActivity(intent);
         });
         // set margin in view

@@ -81,7 +81,7 @@ public class WordBookActivity extends AppCompatActivity {
                     StaggeredGridLayoutManager layoutManager = new
                             StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
                     recyclerView.setLayoutManager(layoutManager);
-                    WordBookAdapter adapter = new WordBookAdapter(wordBooks);
+                    WordBookAdapter adapter = new WordBookAdapter(wordBooks,true);
                     recyclerView.setAdapter(adapter);
                 }
             }

@@ -38,6 +38,11 @@ public class CalendarActivity extends AppCompatActivity {
         initActionBar();
     }
 
+    public void onStart() {
+        super.onStart();
+        initRecyclerView(new Date());
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {   //返回键的id
@@ -93,7 +98,7 @@ public class CalendarActivity extends AppCompatActivity {
                     RecyclerView recyclerView = findViewById(R.id.word_book_list);
                     StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
                     recyclerView.setLayoutManager(layoutManager);
-                    WordBookAdapter adapter = new WordBookAdapter(wordBooks);
+                    WordBookAdapter adapter = new WordBookAdapter(wordBooks,false);
                     recyclerView.setAdapter(adapter);
                 }
             }
