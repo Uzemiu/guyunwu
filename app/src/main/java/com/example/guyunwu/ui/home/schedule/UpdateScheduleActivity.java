@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
@@ -80,6 +81,8 @@ public class UpdateScheduleActivity extends AppCompatActivity {
                     ((TextView) findViewById(R.id.book_title)).setText(scheduleResp.getBook().getName());
                     ((TextView) findViewById(R.id.learned)).setText(String.valueOf(scheduleResp.getLearned()));
                     ((TextView) findViewById(R.id.all)).setText(String.valueOf(scheduleResp.getAll()));
+                    ((ProgressBar) findViewById(R.id.process_bar)).setMax(scheduleResp.getAll());
+                    ((ProgressBar) findViewById(R.id.process_bar)).setProgress(scheduleResp.getLearned());
                     words = scheduleResp.getAll() - scheduleResp.getLearned();
                     int dayRemained = (int) Math.ceil((double) (words) / SharedPreferencesUtil.getInt("wordsPerDay", 10));
                     ((TextView) findViewById(R.id.days)).setText(String.valueOf(dayRemained));

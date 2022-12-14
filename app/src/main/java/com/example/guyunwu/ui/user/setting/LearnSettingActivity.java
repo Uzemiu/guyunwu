@@ -12,8 +12,6 @@ public class LearnSettingActivity extends AppCompatActivity {
 
     private boolean hasTranslation;
 
-    private boolean hasTone;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,10 +21,6 @@ public class LearnSettingActivity extends AppCompatActivity {
         findViewById(R.id.add_translation_switch).setOnClickListener(v -> {
             hasTranslation = !hasTranslation;
             SharedPreferencesUtil.putBoolean("hasTranslation", hasTranslation);
-        });
-        findViewById(R.id.add_tone_switch).setOnClickListener(v -> {
-            hasTone = !hasTone;
-            SharedPreferencesUtil.putBoolean("hasTone", hasTone);
         });
     }
 
@@ -49,11 +43,8 @@ public class LearnSettingActivity extends AppCompatActivity {
 
     private void loadSettings() {
         hasTranslation = SharedPreferencesUtil.getBoolean("hasTranslation", false);
-        hasTone = SharedPreferencesUtil.getBoolean("hasTone", false);
 
         SwitchMaterial switchTranslation = findViewById(R.id.add_translation_switch);
         switchTranslation.setChecked(hasTranslation);
-        SwitchMaterial switchTone = findViewById(R.id.add_tone_switch);
-        switchTone.setChecked(hasTone);
     }
 }

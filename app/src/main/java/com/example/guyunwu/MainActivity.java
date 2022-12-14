@@ -107,9 +107,6 @@ public class MainActivity extends AppCompatActivity {
         if (!SharedPreferencesUtil.contain("hasTranslation")) {
             SharedPreferencesUtil.putBoolean("hasTranslation", true);
         }
-        if (!SharedPreferencesUtil.contain("hasTone")) {
-            SharedPreferencesUtil.putBoolean("hasTone", true);
-        }
         if (!SharedPreferencesUtil.contain("hasNotification")) {
             SharedPreferencesUtil.putBoolean("hasNotification", false);
         }

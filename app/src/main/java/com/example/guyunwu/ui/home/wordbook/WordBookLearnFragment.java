@@ -15,6 +15,7 @@ import com.example.guyunwu.api.resp.WordWithBook;
 import com.example.guyunwu.databinding.FragmentLearnBinding;
 import com.example.guyunwu.ui.home.study.LearnFragment;
 import com.example.guyunwu.ui.user.book.Book;
+import com.example.guyunwu.util.SharedPreferencesUtil;
 import com.google.android.material.card.MaterialCardView;
 import io.github.mthli.knife.KnifeParser;
 import lombok.Getter;
@@ -165,7 +166,9 @@ public class WordBookLearnFragment extends Fragment {
         }
         isTapped = true;
         viewPager2.setUserInputEnabled(true);
-        binding.questionTranslation.setAlpha(1);
+        if (SharedPreferencesUtil.getBoolean("hasTranslation", true)) {
+            binding.questionTranslation.setAlpha(1);
+        }
     }
 
     private static int ordinalIndexOf(String str, String substr, int n) {

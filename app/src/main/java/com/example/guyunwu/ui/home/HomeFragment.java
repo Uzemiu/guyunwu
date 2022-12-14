@@ -126,6 +126,8 @@ public class HomeFragment extends Fragment {
                                     binding.bookTitle.setText(scheduleResp.getBook().getName());
                                     binding.learned.setText(String.valueOf(scheduleResp.getLearned()));
                                     binding.all.setText(String.valueOf(scheduleResp.getAll()));
+                                    binding.processBar.setMax(scheduleResp.getAll());
+                                    binding.processBar.setProgress(scheduleResp.getLearned());
                                     int dayRemained = (int) Math.ceil((double) (scheduleResp.getAll() - scheduleResp.getLearned())
                                             / SharedPreferencesUtil.getInt("wordsPerDay", 10));
                                     binding.dayRemained.setText(String.valueOf(dayRemained));
