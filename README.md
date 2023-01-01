@@ -1,6 +1,7 @@
 # guyunwu
 安卓项目-古韵屋  
-一款学习古文的App
+一款学习古文的App  
+[App简易使用文档](DOCS.md)
 ## 环境
 Android 10+  
 Project Java 11+  
