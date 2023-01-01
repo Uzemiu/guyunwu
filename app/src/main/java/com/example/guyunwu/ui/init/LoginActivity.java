@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {   //返回键的id
+        if (item.getItemId() == android.R.id.home) { // 返回键的id
             this.finish();
             return false;
         }
@@ -69,7 +69,8 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Pattern regex = Pattern.compile("^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\\d{8}$");
+            Pattern regex = Pattern
+                    .compile("^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\\d{8}$");
             Matcher matcher = regex.matcher(phoneNumber);
             if (!matcher.matches()) {
                 Toast.makeText(this, "手机号格式不正确", Toast.LENGTH_SHORT).show();
@@ -105,7 +106,8 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferencesUtil.putString("token", body.getData().getToken());
                     scheduleRequest.currentSchedule().enqueue(new Callback<BaseResponse<SimpleScheduleResp>>() {
                         @Override
-                        public void onResponse(Call<BaseResponse<SimpleScheduleResp>> call, Response<BaseResponse<SimpleScheduleResp>> response) {
+                        public void onResponse(Call<BaseResponse<SimpleScheduleResp>> call,
+                                Response<BaseResponse<SimpleScheduleResp>> response) {
                             BaseResponse<SimpleScheduleResp> body1 = response.body();
                             if (body1 == null || body1.getCode() != 200) {
                                 onFailure(call, new Throwable("登录失败"));
@@ -113,7 +115,8 @@ public class LoginActivity extends AppCompatActivity {
                                 SharedPreferencesUtil.putString("phoneNumber", body.getData().getPhoneNumber());
                                 SharedPreferencesUtil.putString("userName", body.getData().getUsername());
                                 SharedPreferencesUtil.putString("avatar", body.getData().getAvatar());
-                                SharedPreferencesUtil.putLong("birthDate", body.getData().getBirthDate() == null ? 0 : body.getData().getBirthDate().getTime());
+                                SharedPreferencesUtil.putLong("birthDate", body.getData().getBirthDate() == null ? 0
+                                        : body.getData().getBirthDate().getTime());
                                 SharedPreferencesUtil.putInt("gender", body.getData().getGender());
 
                                 SimpleScheduleResp simpleScheduleResp = body1.getData();
@@ -135,23 +138,24 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<BaseResponse<SimpleScheduleResp>> call, Throwable t) {
-                            Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onFailure: ", t);
                             SharedPreferencesUtil.remove("token");
                         }
                     });
-
 
                 }
             }
 
             @Override
             public void onFailure(@NotNull Call<BaseResponse<LoginResp>> call, @NotNull Throwable t) {
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,
+                        t.getMessage() == null ? "请求失败" : t.getMessage() == null ? "请求失败" : t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onFailure: ", t);
             }
         });
 
     }
 }
-

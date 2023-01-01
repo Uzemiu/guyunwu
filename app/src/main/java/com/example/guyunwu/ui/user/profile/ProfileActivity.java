@@ -59,7 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
     private UserReq userReq;
     private static final String TAG = "ProfileActivity";
 
-    private final CameraUtil.PhotoUriWrapper photoUriWrapper = new CameraUtil.PhotoUriWrapper();//记录图片地址
+    private final CameraUtil.PhotoUriWrapper photoUriWrapper = new CameraUtil.PhotoUriWrapper();// 记录图片地址
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +74,11 @@ public class ProfileActivity extends AppCompatActivity {
     private void initView() {
         String avatar = userReq.getAvatar();
         if (avatar != null) {
-            Glide.with(this).load(avatar).apply(RequestOptions.bitmapTransform(new CircleCrop())).into((ImageView) findViewById(R.id.avatar));
+            Glide.with(this).load(avatar).apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                    .into((ImageView) findViewById(R.id.avatar));
         } else {
-            Glide.with(this).load(R.drawable.ic_user_user_24dp).apply(RequestOptions.bitmapTransform(new CircleCrop())).into((ImageView) findViewById(R.id.avatar));
+            Glide.with(this).load(R.drawable.ic_user_user_24dp).apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                    .into((ImageView) findViewById(R.id.avatar));
         }
         TextView textGender = findViewById(R.id.gender);
         Integer gender = userReq.getGender();
@@ -111,7 +113,6 @@ public class ProfileActivity extends AppCompatActivity {
         userReq.setBirthDate(date);
         userReq.setUsername(SharedPreferencesUtil.getString("userName", null));
     }
-
 
     @Override
     protected void onSaveInstanceState(@NotNull Bundle outState) {
@@ -157,11 +158,13 @@ public class ProfileActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_ALBUM:
-//                    Glide.with(this).load(data.getData()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into((ImageView) findViewById(R.id.avatar));
+                    // Glide.with(this).load(data.getData()).apply(RequestOptions.bitmapTransform(new
+                    // CircleCrop())).into((ImageView) findViewById(R.id.avatar));
                     uploadAvatar(uriToFileApiQ(data.getData(), this));
                     break;
                 case REQUEST_CODE_CAMERA:
-//                    Glide.with(this).load(photoUriWrapper.photoUri).apply(RequestOptions.bitmapTransform(new CircleCrop())).into((ImageView) findViewById(R.id.avatar));
+                    // Glide.with(this).load(photoUriWrapper.photoUri).apply(RequestOptions.bitmapTransform(new
+                    // CircleCrop())).into((ImageView) findViewById(R.id.avatar));
                     uploadAvatar(uriToFileApiQ(photoUriWrapper.photoUri, this));
                     break;
             }
@@ -174,25 +177,28 @@ public class ProfileActivity extends AppCompatActivity {
         RequestBody imageBody = RequestBody.create(MediaType.parse("image/*"), image);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", image.getName(), imageBody);
 
-        fileUploadRequest.uploadImage(body, SharedPreferencesUtil.getString("phoneNumber", "1145141919810")).enqueue(new Callback<BaseResponse<String>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                if (response.body() == null || response.body().getCode() != 200) {
-                    onFailure(call, new Throwable("上传失败"));
-                    return;
-                }
-                Toast.makeText(ProfileActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
-                String url = response.body().getData();
-                userReq.setAvatar(url);
-                updateRequest();
-            }
+        fileUploadRequest.uploadImage(body, SharedPreferencesUtil.getString("phoneNumber", "1145141919810"))
+                .enqueue(new Callback<BaseResponse<String>>() {
+                    @Override
+                    public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                        if (response.body() == null || response.body().getCode() != 200) {
+                            onFailure(call, new Throwable("上传失败"));
+                            return;
+                        }
+                        Toast.makeText(ProfileActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                        String url = response.body().getData();
+                        userReq.setAvatar(url);
+                        updateRequest();
+                    }
 
-            @Override
-            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
-                Toast.makeText(ProfileActivity.this, t.getMessage() == null ? "上传失败" : t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "onFailure: ", t);
-            }
-        });
+                    @Override
+                    public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                        Toast.makeText(ProfileActivity.this,
+                                t.getMessage() == null ? "上传失败" : t.getMessage() == null ? "请求失败" : t.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onFailure: ", t);
+                    }
+                });
     }
 
     private void showBottomDialog() {
@@ -237,7 +243,8 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.e(TAG, body.getData().toString());
                 SharedPreferencesUtil.putString("userName", body.getData().getUsername());
                 SharedPreferencesUtil.putString("avatar", body.getData().getAvatar());
-                SharedPreferencesUtil.putLong("birthDate", body.getData().getBirthDate() == null ? 0 : body.getData().getBirthDate().getTime());
+                SharedPreferencesUtil.putLong("birthDate",
+                        body.getData().getBirthDate() == null ? 0 : body.getData().getBirthDate().getTime());
                 SharedPreferencesUtil.putInt("gender", body.getData().getGender());
                 initUserReq();
                 initView();
@@ -245,7 +252,9 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BaseResponse<UserResp>> call, Throwable t) {
-                Toast.makeText(ProfileActivity.this, t.getMessage() == null ? "更新失败" : t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this,
+                        t.getMessage() == null ? "更新失败" : t.getMessage() == null ? "请求失败" : t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onFailure: ", t);
             }
         });
@@ -276,13 +285,14 @@ public class ProfileActivity extends AppCompatActivity {
             gender.add("保密");
             List<String> dummy = new ArrayList<>();
             dummy.add(" ");
-            OptionsPickerView<String> pvOptions = new OptionsPickerBuilder(ProfileActivity.this, new OnOptionsSelectListener() {
-                @Override
-                public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                    userReq.setGender(option2);
-                    updateRequest();
-                }
-            }).isAlphaGradient(true)
+            OptionsPickerView<String> pvOptions = new OptionsPickerBuilder(ProfileActivity.this,
+                    new OnOptionsSelectListener() {
+                        @Override
+                        public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                            userReq.setGender(option2);
+                            updateRequest();
+                        }
+                    }).isAlphaGradient(true)
                     .build();
             pvOptions.setNPicker(dummy, gender, dummy);
             pvOptions.show();
@@ -297,7 +307,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {   //返回键的id
+        if (item.getItemId() == android.R.id.home) { // 返回键的id
             this.finish();
             return false;
         }
@@ -312,4 +322,3 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 }
-

@@ -38,7 +38,7 @@ public class UserFragment extends Fragment {
     private FragmentUserBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+            ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentUserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -65,7 +65,8 @@ public class UserFragment extends Fragment {
         if (avatar != null) {
             Glide.with(this).load(avatar).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(binding.avatar);
         } else {
-            Glide.with(this).load(R.drawable.ic_user_user_24dp).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(binding.avatar);
+            Glide.with(this).load(R.drawable.ic_user_user_24dp).apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                    .into(binding.avatar);
         }
         String userName = SharedPreferencesUtil.getString("userName", "未登录");
         binding.username.setText(userName);
@@ -87,7 +88,8 @@ public class UserFragment extends Fragment {
 
             @Override
             public void onFailure(Call<BaseResponse<Integer>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), t.getMessage() == null ? "请求失败" : t.getMessage(), Toast.LENGTH_SHORT)
+                        .show();
                 Log.e(TAG, "onFailure: ", t);
             }
         });
@@ -107,7 +109,8 @@ public class UserFragment extends Fragment {
 
             @Override
             public void onFailure(Call<BaseResponse<Integer>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), t.getMessage() == null ? "请求失败" : t.getMessage(), Toast.LENGTH_SHORT)
+                        .show();
                 Log.e(TAG, "onFailure: ", t);
             }
         });

@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {   //返回键的id
+        if (item.getItemId() == android.R.id.home) { // 返回键的id
             this.finish();
             return false;
         }
@@ -60,7 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Pattern regex = Pattern.compile("^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\\d{8}$");
+            Pattern regex = Pattern
+                    .compile("^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\\d{8}$");
             Matcher matcher = regex.matcher(phoneNumber);
             if (!matcher.matches()) {
                 Toast.makeText(this, "手机号格式不正确", Toast.LENGTH_SHORT).show();
@@ -104,7 +105,8 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NotNull Call<BaseResponse<Object>> call, @NotNull Throwable t) {
-                Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onFailure: ", t);
             }
         });

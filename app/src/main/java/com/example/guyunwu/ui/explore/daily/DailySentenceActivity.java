@@ -46,7 +46,7 @@ public class DailySentenceActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {   //返回键的id
+        if (item.getItemId() == android.R.id.home) { // 返回键的id
             this.finish();
             return false;
         }
@@ -66,7 +66,8 @@ public class DailySentenceActivity extends AppCompatActivity {
     private volatile boolean loading = false;
 
     private synchronized void fetchDailySentence() {
-        if (reachEnd || loading) return;
+        if (reachEnd || loading)
+            return;
 
         loading = true;
         CollectionRequest request = RequestModule.COLLECTION_REQUEST;
@@ -74,7 +75,8 @@ public class DailySentenceActivity extends AppCompatActivity {
         int size = dailySentenceList.size();
         request.dailySentences(page, 10).enqueue(new Callback<BaseResponse<List<DailySentence>>>() {
             @Override
-            public void onResponse(Call<BaseResponse<List<DailySentence>>> call, Response<BaseResponse<List<DailySentence>>> response) {
+            public void onResponse(Call<BaseResponse<List<DailySentence>>> call,
+                    Response<BaseResponse<List<DailySentence>>> response) {
                 BaseResponse<List<DailySentence>> baseResponse = response.body();
                 if (baseResponse != null) {
                     List<DailySentence> dailySentences = baseResponse.getData();
@@ -91,7 +93,8 @@ public class DailySentenceActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BaseResponse<List<DailySentence>>> call, Throwable t) {
-                Toast.makeText(DailySentenceActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DailySentenceActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onFailure: ", t);
                 loading = false;
             }
@@ -101,8 +104,8 @@ public class DailySentenceActivity extends AppCompatActivity {
     private void initRecyclerView() {
 
         recyclerView = findViewById(R.id.daily_recycler_view);
-        StaggeredGridLayoutManager layoutManager = new
-                StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1,
+                StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new DailySentenceAdapter(dailySentenceList);
         recyclerView.setAdapter(adapter);

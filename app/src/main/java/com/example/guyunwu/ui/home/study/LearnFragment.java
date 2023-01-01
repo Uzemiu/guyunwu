@@ -70,7 +70,8 @@ public class LearnFragment extends Fragment {
     @Setter
     private List<Fragment> fragmentList;
 
-    public static LearnFragment newInstance(Book book, Word word, ViewPager2 viewPager, int currentPage, int allPage, List<Fragment> fragmentList) {
+    public static LearnFragment newInstance(Book book, Word word, ViewPager2 viewPager, int currentPage, int allPage,
+            List<Fragment> fragmentList) {
         LearnFragment fragment = new LearnFragment();
         fragment.setViewPager2(viewPager);
         fragment.setCurrentPage(currentPage);
@@ -92,10 +93,9 @@ public class LearnFragment extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         if (binding == null) {
             binding = FragmentLearnBinding.inflate(inflater, container, false);
         }
@@ -146,7 +146,8 @@ public class LearnFragment extends Fragment {
 
             @Override
             public void onFailure(Call<BaseResponse<Boolean>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), t.getMessage() == null ? "请求失败" : t.getMessage(), Toast.LENGTH_SHORT)
+                        .show();
                 Log.e(TAG, "onFailure: ", t);
             }
         });
@@ -202,7 +203,8 @@ public class LearnFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
-                        Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), t.getMessage() == null ? "请求失败" : t.getMessage(),
+                                Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onFailure: ", t);
                     }
                 });
@@ -225,7 +227,8 @@ public class LearnFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
-                        Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), t.getMessage() == null ? "请求失败" : t.getMessage(),
+                                Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onFailure: ", t);
                     }
                 });
@@ -254,7 +257,8 @@ public class LearnFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
-                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), t.getMessage() == null ? "请求失败" : t.getMessage(), Toast.LENGTH_SHORT)
+                            .show();
                     Log.e(TAG, "onFailure: ", t);
                 }
             });

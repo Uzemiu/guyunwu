@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
     private Fragment mLastShowFragment;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+            ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -116,7 +116,7 @@ public class HomeFragment extends Fragment {
                     .enqueue(new Callback<BaseResponse<ScheduleResp>>() {
                         @Override
                         public void onResponse(Call<BaseResponse<ScheduleResp>> call,
-                                               Response<BaseResponse<ScheduleResp>> response) {
+                                Response<BaseResponse<ScheduleResp>> response) {
                             BaseResponse<ScheduleResp> body = response.body();
                             if (body == null || body.getCode() != 200) {
                                 onFailure(call, new Throwable("获取计划失败"));
@@ -128,8 +128,9 @@ public class HomeFragment extends Fragment {
                                     binding.all.setText(String.valueOf(scheduleResp.getAll()));
                                     binding.processBar.setMax(scheduleResp.getAll());
                                     binding.processBar.setProgress(scheduleResp.getLearned());
-                                    int dayRemained = (int) Math.ceil((double) (scheduleResp.getAll() - scheduleResp.getLearned())
-                                            / SharedPreferencesUtil.getInt("wordsPerDay", 10));
+                                    int dayRemained = (int) Math
+                                            .ceil((double) (scheduleResp.getAll() - scheduleResp.getLearned())
+                                                    / SharedPreferencesUtil.getInt("wordsPerDay", 10));
                                     binding.dayRemained.setText(String.valueOf(dayRemained));
                                     x.image().bind(binding.bookImage, scheduleResp.getBook().getCoverImage());
                                 }
@@ -138,7 +139,8 @@ public class HomeFragment extends Fragment {
 
                         @Override
                         public void onFailure(Call<BaseResponse<ScheduleResp>> call, Throwable t) {
-                            Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), t.getMessage() == null ? "请求失败" : t.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "onFailure: ", t);
                             if (binding != null) {
                                 binding.bookTitle.setText("当前还未添加计划");
@@ -154,7 +156,7 @@ public class HomeFragment extends Fragment {
             learnRequest.todaySchedule().enqueue(new Callback<BaseResponse<TodayScheduleResp>>() {
                 @Override
                 public void onResponse(Call<BaseResponse<TodayScheduleResp>> call,
-                                       Response<BaseResponse<TodayScheduleResp>> response) {
+                        Response<BaseResponse<TodayScheduleResp>> response) {
                     BaseResponse<TodayScheduleResp> body1 = response.body();
                     if (body1 == null || body1.getCode() != 200) {
                         onFailure(call, new Throwable("登录失败"));
@@ -178,7 +180,8 @@ public class HomeFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<BaseResponse<TodayScheduleResp>> call, Throwable t) {
-                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), t.getMessage() == null ? "请求失败" : t.getMessage(), Toast.LENGTH_SHORT)
+                            .show();
                     Log.e(TAG, "onFailure: ", t);
                 }
             });

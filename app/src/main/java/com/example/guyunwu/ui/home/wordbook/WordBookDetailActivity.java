@@ -78,7 +78,7 @@ public class WordBookDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {   //返回键的id
+        if (item.getItemId() == android.R.id.home) { // 返回键的id
             this.finish();
             return false;
         }
@@ -145,7 +145,8 @@ public class WordBookDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
-                        Toast.makeText(WordBookDetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WordBookDetailActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                                Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onFailure: ", t);
                     }
                 });
@@ -168,7 +169,8 @@ public class WordBookDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
-                        Toast.makeText(WordBookDetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WordBookDetailActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                                Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onFailure: ", t);
                     }
                 });

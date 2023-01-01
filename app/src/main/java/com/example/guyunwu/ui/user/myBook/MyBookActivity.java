@@ -57,7 +57,7 @@ public class MyBookActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {   //返回键的id
+        if (item.getItemId() == android.R.id.home) { // 返回键的id
             this.finish();
             return false;
         } else if (item.getItemId() == R.id.book_more_add) {
@@ -96,14 +96,15 @@ public class MyBookActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BaseResponse<List<Book>>> call, Throwable t) {
-                Toast.makeText(MyBookActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyBookActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onFailure: ", t);
             }
         });
 
         recyclerView = findViewById(R.id.my_book_recycler_view);
-        StaggeredGridLayoutManager layoutManager = new
-                StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1,
+                StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         BookAdapter adapter = new BookAdapter(books);
         adapter.setAdapterType(0);

@@ -108,7 +108,8 @@ public class LibraryBookActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<BaseResponse<Boolean>> call, Throwable t) {
-                    Toast.makeText(LibraryBookActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LibraryBookActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onFailure: ", t);
                 }
             });
@@ -130,7 +131,8 @@ public class LibraryBookActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
-                    Toast.makeText(LibraryBookActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LibraryBookActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onFailure: ", t);
                 }
             });

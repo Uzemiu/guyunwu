@@ -42,7 +42,7 @@ public class UpdateScheduleActivity extends AppCompatActivity {
 
     private int currentWordPerDay = SharedPreferencesUtil.getInt("wordsPerDay", 10);
 
-    public static Integer[] values = new Integer[]{
+    public static Integer[] values = new Integer[] {
             5, 10, 15, 20, 25, 25, 30, 35, 40, 45,
             50, 55, 60, 65, 70, 75, 80, 85, 90, 95,
             100, 125, 150, 175, 200, 225, 250, 275, 300,
@@ -68,42 +68,48 @@ public class UpdateScheduleActivity extends AppCompatActivity {
 
     private void initSchedule() {
         ScheduleRequest scheduleRequest = RequestModule.SCHEDULE_REQUEST;
-        scheduleRequest.getSchedule(SharedPreferencesUtil.getLong("scheduleId", 0)).enqueue(new Callback<BaseResponse<ScheduleResp>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<ScheduleResp>> call, Response<BaseResponse<ScheduleResp>> response) {
-                BaseResponse<ScheduleResp> body = response.body();
-                if (body == null || body.getCode() != 200) {
-                    onFailure(call, new Throwable("获取计划失败"));
-                } else {
-                    wordPerDay = SharedPreferencesUtil.getInt("wordsPerDay", 10);
-                    ScheduleResp scheduleResp = body.getData();
-                    ((TextView) findViewById(R.id.per_day)).setText(String.valueOf(SharedPreferencesUtil.getInt("wordsPerDay", 10)));
-                    ((TextView) findViewById(R.id.book_title)).setText(scheduleResp.getBook().getName());
-                    ((TextView) findViewById(R.id.learned)).setText(String.valueOf(scheduleResp.getLearned()));
-                    ((TextView) findViewById(R.id.all)).setText(String.valueOf(scheduleResp.getAll()));
-                    ((ProgressBar) findViewById(R.id.process_bar)).setMax(scheduleResp.getAll());
-                    ((ProgressBar) findViewById(R.id.process_bar)).setProgress(scheduleResp.getLearned());
-                    words = scheduleResp.getAll() - scheduleResp.getLearned();
-                    int dayRemained = (int) Math.ceil((double) (words) / SharedPreferencesUtil.getInt("wordsPerDay", 10));
-                    ((TextView) findViewById(R.id.days)).setText(String.valueOf(dayRemained));
-                    x.image().bind(findViewById(R.id.book_image), scheduleResp.getBook().getCoverImage());
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.add(Calendar.DAY_OF_MONTH, dayRemained);
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
-                    String date = dateFormat.format(calendar.getTimeInMillis());
-                    ((TextView) findViewById(R.id.finish_day)).setText(date);
-                    ((TextView) findViewById(R.id.minutes_per_day)).setText(String.valueOf((int) Math.ceil(SharedPreferencesUtil.getInt("wordsPerDay", 10) / 2)));
-                    initSelectNumWheel();
-                    initSelectDayWheel();
-                }
-            }
+        scheduleRequest.getSchedule(SharedPreferencesUtil.getLong("scheduleId", 0))
+                .enqueue(new Callback<BaseResponse<ScheduleResp>>() {
+                    @Override
+                    public void onResponse(Call<BaseResponse<ScheduleResp>> call,
+                            Response<BaseResponse<ScheduleResp>> response) {
+                        BaseResponse<ScheduleResp> body = response.body();
+                        if (body == null || body.getCode() != 200) {
+                            onFailure(call, new Throwable("获取计划失败"));
+                        } else {
+                            wordPerDay = SharedPreferencesUtil.getInt("wordsPerDay", 10);
+                            ScheduleResp scheduleResp = body.getData();
+                            ((TextView) findViewById(R.id.per_day))
+                                    .setText(String.valueOf(SharedPreferencesUtil.getInt("wordsPerDay", 10)));
+                            ((TextView) findViewById(R.id.book_title)).setText(scheduleResp.getBook().getName());
+                            ((TextView) findViewById(R.id.learned)).setText(String.valueOf(scheduleResp.getLearned()));
+                            ((TextView) findViewById(R.id.all)).setText(String.valueOf(scheduleResp.getAll()));
+                            ((ProgressBar) findViewById(R.id.process_bar)).setMax(scheduleResp.getAll());
+                            ((ProgressBar) findViewById(R.id.process_bar)).setProgress(scheduleResp.getLearned());
+                            words = scheduleResp.getAll() - scheduleResp.getLearned();
+                            int dayRemained = (int) Math
+                                    .ceil((double) (words) / SharedPreferencesUtil.getInt("wordsPerDay", 10));
+                            ((TextView) findViewById(R.id.days)).setText(String.valueOf(dayRemained));
+                            x.image().bind(findViewById(R.id.book_image), scheduleResp.getBook().getCoverImage());
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.add(Calendar.DAY_OF_MONTH, dayRemained);
+                            DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+                            String date = dateFormat.format(calendar.getTimeInMillis());
+                            ((TextView) findViewById(R.id.finish_day)).setText(date);
+                            ((TextView) findViewById(R.id.minutes_per_day)).setText(String
+                                    .valueOf((int) Math.ceil(SharedPreferencesUtil.getInt("wordsPerDay", 10) / 2)));
+                            initSelectNumWheel();
+                            initSelectDayWheel();
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<BaseResponse<ScheduleResp>> call, Throwable t) {
-                Toast.makeText(UpdateScheduleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "onFailure: ", t);
-            }
-        });
+                    @Override
+                    public void onFailure(Call<BaseResponse<ScheduleResp>> call, Throwable t) {
+                        Toast.makeText(UpdateScheduleActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onFailure: ", t);
+                    }
+                });
 
     }
 
@@ -117,7 +123,8 @@ public class UpdateScheduleActivity extends AppCompatActivity {
         findViewById(R.id.btn_reset).setOnClickListener(v -> {
             scheduleRequest.resetSchedule().enqueue(new Callback<BaseResponse<SimpleScheduleResp>>() {
                 @Override
-                public void onResponse(Call<BaseResponse<SimpleScheduleResp>> call, Response<BaseResponse<SimpleScheduleResp>> response) {
+                public void onResponse(Call<BaseResponse<SimpleScheduleResp>> call,
+                        Response<BaseResponse<SimpleScheduleResp>> response) {
                     BaseResponse<SimpleScheduleResp> body = response.body();
                     if (body == null || body.getCode() != 200) {
                         onFailure(call, new Throwable("获取计划失败"));
@@ -133,7 +140,8 @@ public class UpdateScheduleActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<BaseResponse<SimpleScheduleResp>> call, Throwable t) {
-                    Toast.makeText(UpdateScheduleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateScheduleActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "onFailure: ", t);
                 }
             });
@@ -142,33 +150,34 @@ public class UpdateScheduleActivity extends AppCompatActivity {
         findViewById(R.id.save_plan).setOnClickListener(v -> {
             scheduleRequest.updateSchedule(new UpdateScheduleReq(
                     SharedPreferencesUtil.getLong("scheduleId", -1L),
-                    currentWordPerDay
-            )).enqueue(new Callback<BaseResponse<Object>>() {
-                @Override
-                public void onResponse(Call<BaseResponse<Object>> call, Response<BaseResponse<Object>> response) {
-                    BaseResponse<Object> body = response.body();
-                    if (body == null || body.getCode() != 200) {
-                        onFailure(call, new Throwable("保存计划失败"));
-                    } else {
-                        SharedPreferencesUtil.putInt("wordsPerDay", currentWordPerDay);
-                        initSchedule();
-                        Toast.makeText(UpdateScheduleActivity.this, "保存计划成功", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                    currentWordPerDay)).enqueue(new Callback<BaseResponse<Object>>() {
+                        @Override
+                        public void onResponse(Call<BaseResponse<Object>> call,
+                                Response<BaseResponse<Object>> response) {
+                            BaseResponse<Object> body = response.body();
+                            if (body == null || body.getCode() != 200) {
+                                onFailure(call, new Throwable("保存计划失败"));
+                            } else {
+                                SharedPreferencesUtil.putInt("wordsPerDay", currentWordPerDay);
+                                initSchedule();
+                                Toast.makeText(UpdateScheduleActivity.this, "保存计划成功", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-                @Override
-                public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
-                    Toast.makeText(UpdateScheduleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "onFailure: ", t);
-                }
-            });
+                        @Override
+                        public void onFailure(Call<BaseResponse<Object>> call, Throwable t) {
+                            Toast.makeText(UpdateScheduleActivity.this,
+                                    t.getMessage() == null ? "请求失败" : t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "onFailure: ", t);
+                        }
+                    });
         });
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {   //返回键的id
+        if (item.getItemId() == android.R.id.home) { // 返回键的id
             this.finish();
             return false;
         }

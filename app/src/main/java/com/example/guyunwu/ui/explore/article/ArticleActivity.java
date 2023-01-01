@@ -79,7 +79,7 @@ public class ArticleActivity extends AppCompatActivity {
                 .enqueue(new Callback<BaseResponse<List<Comment>>>() {
                     @Override
                     public void onResponse(Call<BaseResponse<List<Comment>>> call,
-                                           Response<BaseResponse<List<Comment>>> response) {
+                            Response<BaseResponse<List<Comment>>> response) {
                         BaseResponse<List<Comment>> body = response.body();
                         if (body != null && body.getData() != null) {
                             int size = commentList.size();
@@ -99,7 +99,9 @@ public class ArticleActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<BaseResponse<List<Comment>>> call, Throwable t) {
-                        Toast.makeText(ArticleActivity.this, "获取留言失败:" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ArticleActivity.this,
+                                "获取留言失败:" + t.getMessage() == null ? "请求失败" : t.getMessage(), Toast.LENGTH_SHORT)
+                                .show();
                         loading = false;
                     }
                 });
@@ -133,7 +135,8 @@ public class ArticleActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<BaseResponse<Comment>> call, Throwable t) {
                 sending = false;
-                Toast.makeText(ArticleActivity.this, "发表留言失败：" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ArticleActivity.this, "发表留言失败：" + t.getMessage() == null ? "请求失败" : t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -177,7 +180,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void setupArticleLike() {
-        final boolean[] likeLoading = {true};
+        final boolean[] likeLoading = { true };
         Callback<BaseResponse<Boolean>> likeCallback = new Callback<BaseResponse<Boolean>>() {
             @Override
             public void onResponse(Call<BaseResponse<Boolean>> call, Response<BaseResponse<Boolean>> response) {
@@ -190,7 +193,8 @@ public class ArticleActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BaseResponse<Boolean>> call, Throwable t) {
-                Toast.makeText(ArticleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ArticleActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 likeLoading[0] = false;
             }
         };
@@ -204,7 +208,8 @@ public class ArticleActivity extends AppCompatActivity {
             RequestModule.ARTICLE_REQUEST.doLikeArticle(articleViewModel.getArticleId())
                     .enqueue(new Callback<BaseResponse<Boolean>>() {
                         @Override
-                        public void onResponse(Call<BaseResponse<Boolean>> call, Response<BaseResponse<Boolean>> response) {
+                        public void onResponse(Call<BaseResponse<Boolean>> call,
+                                Response<BaseResponse<Boolean>> response) {
                             BaseResponse<Boolean> body = response.body();
                             if (body != null) {
                                 boolean res = Boolean.TRUE.equals(body.getData());
@@ -219,7 +224,8 @@ public class ArticleActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<BaseResponse<Boolean>> call, Throwable t) {
-                            Toast.makeText(ArticleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ArticleActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
                             likeLoading[0] = false;
                         }
                     });
@@ -242,7 +248,8 @@ public class ArticleActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BaseResponse<Article>> call, Throwable t) {
-                Toast.makeText(ArticleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ArticleActivity.this, t.getMessage() == null ? "请求失败" : t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

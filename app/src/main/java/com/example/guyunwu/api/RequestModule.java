@@ -19,7 +19,7 @@ public class RequestModule {
 
     private static final Retrofit RETROFIT_FOR_IMAGE;
 
-    public static final String BASE_URL = "http://192.168.31.62:8080/";
+    public static final String BASE_URL = "http://101.132.158.166:10278/";
 
     // don't change!!!
     public static final String IMAGE_URL = "https://ws.healtool.cn/";
